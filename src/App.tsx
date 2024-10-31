@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 import { TodoList } from './TodoList';
 
-type TaskType = {
+export type TaskType = {
   id: string;
   isDone: boolean;
   title: string;
@@ -23,13 +23,13 @@ function App() {
     { id: '5', isDone: true, title: 'Bread' },
     { id: '6', isDone: false, title: 'Chocolate' },
     { id: '7', isDone: false, title: 'Tea' },
-    { id: '8', isDone: true, title: 'Cofe' },
+    { id: '8', isDone: true, title: 'Coffe' },
   ];
 
   return (
     <div className="App">
-      <TodoList title={todoListTitle_1} input={tasks_1} />
-      <TodoList title={todoListTitle_2} input={tasks_2} />
+      <TodoList title={todoListTitle_1} tasks={tasks_1} />
+      <TodoList title={todoListTitle_2} tasks={tasks_2} />
     </div>
   );
 }
