@@ -5,10 +5,10 @@ type TodoListPropsType = {
   title: string;
   tasks: TaskType[];
   removeTask: (taskId: string) => void;
-  setFilter: (filter: FilterTaskType) => void;
+  changeFilter: (filter: FilterTaskType) => void;
 };
 
-export const TodoList: FC<TodoListPropsType> = ({ title, tasks, removeTask, setFilter }) => {
+export const TodoList: FC<TodoListPropsType> = ({ title, tasks, removeTask, changeFilter }) => {
   let taskList: JSX.Element[] = tasks.map(i => {
     const onclickRemoveTaskHandler = () => removeTask(i.id);
 
@@ -19,7 +19,6 @@ export const TodoList: FC<TodoListPropsType> = ({ title, tasks, removeTask, setF
       </li>
     );
   });
-  const onclickFilterTaskHandler = (filter: FilterTaskType) => setFilter(filter);
 
   return (
     <div className="todolist">
@@ -30,9 +29,9 @@ export const TodoList: FC<TodoListPropsType> = ({ title, tasks, removeTask, setF
       </div>
       <ul>{tasks.length ? taskList : <span>Your taskList is empty</span>}</ul>
       <div>
-        <button onClick={() => onclickFilterTaskHandler('all')}>All</button>
-        <button onClick={() => onclickFilterTaskHandler('active')}>Active</button>
-        <button onClick={() => onclickFilterTaskHandler('completed')}>Completed</button>
+        <button onClick={() => changeFilter('all')}>All</button>
+        <button onClick={() => changeFilter('active')}>Active</button>
+        <button onClick={() => changeFilter('completed')}>Completed</button>
       </div>
     </div>
   );

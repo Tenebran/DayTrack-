@@ -41,13 +41,17 @@ function App() {
 
   const filteredTasksForRender: TaskType[] = getFilteredTasksForRender(tasks, filter);
 
+  const changeFilter = (nextFilterValue: FilterTaskType) => {
+    setFilter(nextFilterValue);
+  };
+
   return (
     <div className="App">
       <TodoList
         title={todoListTitle_1}
         tasks={filteredTasksForRender}
         removeTask={removeTask}
-        setFilter={setFilter}
+        changeFilter={changeFilter}
       />
     </div>
   );
