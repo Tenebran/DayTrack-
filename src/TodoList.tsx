@@ -23,7 +23,7 @@ export const TodoList: FC<TodoListPropsType> = ({
   };
 
   const handlerAddTask = () => {
-    addTask({ id: '5', isDone: false, title: inputValue });
+    addTask({ id: crypto.randomUUID(), isDone: false, title: inputValue });
     setInputValue('');
   };
 

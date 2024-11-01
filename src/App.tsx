@@ -12,10 +12,10 @@ export type FilterTaskType = 'all' | 'active' | 'completed';
 
 function App() {
   const [tasks, setTasks] = useState<TaskType[]>([
-    { id: '1', isDone: true, title: 'HTML&CSS' },
-    { id: '2', isDone: true, title: 'JS' },
-    { id: '3', isDone: false, title: 'React' },
-    { id: '4', isDone: true, title: 'Redux' },
+    { id: crypto.randomUUID(), isDone: true, title: 'HTML&CSS' },
+    { id: crypto.randomUUID(), isDone: true, title: 'JS' },
+    { id: crypto.randomUUID(), isDone: false, title: 'React' },
+    { id: crypto.randomUUID(), isDone: true, title: 'Redux' },
   ]);
 
   const [filter, setFilter] = useState<FilterTaskType>('all');
