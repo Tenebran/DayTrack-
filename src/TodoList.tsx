@@ -6,7 +6,7 @@ type TodoListPropsType = {
   tasks: TaskType[];
   removeTask: (taskId: string) => void;
   changeFilter: (filter: FilterTaskType) => void;
-  addTask: (task: TaskType) => void;
+  addTask: (task: string) => void;
 };
 
 export const TodoList: FC<TodoListPropsType> = ({
@@ -18,12 +18,22 @@ export const TodoList: FC<TodoListPropsType> = ({
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
 
+  const userMessage =
+    inputValue.length < 15 ? (
+      <span style={{ color: 'red' }}>Enter New tasks</span>
+    ) : (
+      <span style={{ color: 'red' }}>Your title is to long</span>
+    );
+
   const handlerInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const handlerAddTask = () => {
-    addTask({ id: crypto.randomUUID(), isDone: false, title: inputValue });
+    if (inputValue === '') {
+      return;
+    }
+    addTask(inputValue.trim());
     setInputValue('');
   };
 
@@ -42,8 +52,17 @@ export const TodoList: FC<TodoListPropsType> = ({
     <div className="todolist">
       <h3>{title}</h3>
       <div>
-        <input value={inputValue} onChange={handlerInputChange} />
-        <button onClick={handlerAddTask}>+</button>
+        <input
+          value={inputValue}
+          onChange={handlerInputChange}
+          onKeyDown={event => {
+            event.key === 'Enter' && handlerAddTask();
+          }}
+        />
+        <button onClick={handlerAddTask} disabled={!inputValue.length || inputValue.length >= 15}>
+          +
+        </button>
+        <div>{userMessage}</div>
       </div>
       <ul>{tasks.length ? taskList : <span>Your taskList is empty</span>}</ul>
       <div>

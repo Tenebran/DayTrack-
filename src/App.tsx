@@ -26,16 +26,16 @@ function App() {
     setTasks(tasks.filter(t => t.id !== taskId));
   };
 
-  const addTask = (task: TaskType) => {
-    setTasks([...tasks, task]);
+  const addTask = (taskTitle: string) => {
+    setTasks([...tasks, { id: crypto.randomUUID(), isDone: false, title: taskTitle }]);
   };
 
   const getFilteredTasksForRender = (allTask: TaskType[], filterValue: FilterTaskType) => {
     switch (filterValue) {
       case 'active':
-        return allTask.filter(t => t.isDone === false);
+        return allTask.filter(t => !t.isDone);
       case 'completed':
-        return allTask.filter(t => t.isDone === true);
+        return allTask.filter(t => t.isDone);
       default:
         return allTask;
     }
