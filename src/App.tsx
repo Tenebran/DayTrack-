@@ -23,9 +23,11 @@ function App() {
   const todoListTitle_1: string = 'What to learn';
 
   const removeTask = (taskId: string) => {
-    const nextState: TaskType[] = tasks.filter(t => t.id !== taskId);
+    setTasks(tasks.filter(t => t.id !== taskId));
+  };
 
-    setTasks(nextState);
+  const addTask = (task: TaskType) => {
+    setTasks([...tasks, task]);
   };
 
   const getFilteredTasksForRender = (allTask: TaskType[], filterValue: FilterTaskType) => {
@@ -52,6 +54,7 @@ function App() {
         tasks={filteredTasksForRender}
         removeTask={removeTask}
         changeFilter={changeFilter}
+        addTask={addTask}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import { FilterTaskType, TaskType } from './App';
 
 type TodoListPropsType = {
@@ -6,9 +6,27 @@ type TodoListPropsType = {
   tasks: TaskType[];
   removeTask: (taskId: string) => void;
   changeFilter: (filter: FilterTaskType) => void;
+  addTask: (task: TaskType) => void;
 };
 
-export const TodoList: FC<TodoListPropsType> = ({ title, tasks, removeTask, changeFilter }) => {
+export const TodoList: FC<TodoListPropsType> = ({
+  title,
+  tasks,
+  removeTask,
+  changeFilter,
+  addTask,
+}) => {
+  const [inputValue, setInputValue] = useState<string>('');
+
+  const handlerInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handlerAddTask = () => {
+    addTask({ id: '5', isDone: false, title: inputValue });
+    setInputValue('');
+  };
+
   let taskList: JSX.Element[] = tasks.map(i => {
     const onclickRemoveTaskHandler = () => removeTask(i.id);
 
@@ -24,8 +42,8 @@ export const TodoList: FC<TodoListPropsType> = ({ title, tasks, removeTask, chan
     <div className="todolist">
       <h3>{title}</h3>
       <div>
-        <input />
-        <button>+</button>
+        <input value={inputValue} onChange={handlerInputChange} />
+        <button onClick={handlerAddTask}>+</button>
       </div>
       <ul>{tasks.length ? taskList : <span>Your taskList is empty</span>}</ul>
       <div>
