@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { TodoList } from './TodoList';
+import { title } from 'process';
 
 export type TaskType = {
   id: string;
@@ -41,6 +42,21 @@ function App() {
     }
   };
 
+  const changeTaskStatus = (taskId: string) => {
+    const changeTaskId: TaskType[] = tasks.map(t =>
+      t.id === taskId ? { ...t, isDone: !t.isDone } : t
+    );
+    setTasks([...changeTaskId]);
+  };
+
+  const changeTaskTitle = (taskId: string, title: string) => {
+    const changeTaskTitle: TaskType[] = tasks.map(t =>
+      t.id === taskId ? { ...t, title: title } : t
+    );
+
+    setTasks([...changeTaskTitle]);
+  };
+
   const filteredTasksForRender: TaskType[] = getFilteredTasksForRender(tasks, filter);
 
   const changeFilter = (nextFilterValue: FilterTaskType) => {
@@ -55,6 +71,8 @@ function App() {
         removeTask={removeTask}
         changeFilter={changeFilter}
         addTask={addTask}
+        changeTaskStatus={changeTaskStatus}
+        changeTaskTitle={changeTaskTitle}
       />
     </div>
   );

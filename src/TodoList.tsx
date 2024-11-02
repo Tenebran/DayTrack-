@@ -7,6 +7,8 @@ type TodoListPropsType = {
   removeTask: (taskId: string) => void;
   changeFilter: (filter: FilterTaskType) => void;
   addTask: (task: string) => void;
+  changeTaskStatus: (taskId: string) => void;
+  changeTaskTitle: (taskId: string, title: string) => void;
 };
 
 export const TodoList: FC<TodoListPropsType> = ({
@@ -15,9 +17,12 @@ export const TodoList: FC<TodoListPropsType> = ({
   removeTask,
   changeFilter,
   addTask,
+  changeTaskStatus,
+  changeTaskTitle,
 }) => {
   const [inputValue, setInputValue] = useState<string>('');
-
+  const [taskValue, setTaskValue] = useState<string>('');
+  const [isInputVisible, setInputVisible] = useState<string>('');
   const userMessage =
     inputValue.length < 15 ? (
       <span style={{ color: 'red' }}>Enter New tasks</span>
@@ -29,10 +34,25 @@ export const TodoList: FC<TodoListPropsType> = ({
     setInputValue(event.target.value);
   };
 
+  const handleDoubleClick = (taskTitle: string, id: string) => {
+    setInputVisible(id);
+    setTaskValue(taskTitle);
+  };
+
+  const handlerTaskTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setTaskValue(event.target.value);
+  };
+
+  const handleBlur = (id: string) => {
+    changeTaskTitle(id, taskValue);
+    setInputVisible('');
+  };
+
   const handlerAddTask = () => {
     if (inputValue === '') {
       return;
     }
+
     addTask(inputValue.trim());
     setInputValue('');
   };
@@ -42,7 +62,24 @@ export const TodoList: FC<TodoListPropsType> = ({
 
     return (
       <li>
-        <input id={i.id} type="checkbox" checked={i.isDone} /> <span>{i.title}</span>
+        <input
+          id={i.id}
+          type="checkbox"
+          checked={i.isDone}
+          onClick={() => changeTaskStatus(i.id)}
+        />
+        {isInputVisible !== i.id ? (
+          <span onDoubleClick={() => handleDoubleClick(i.title, i.id)}>{i.title}</span>
+        ) : (
+          <input
+            value={taskValue}
+            onChange={handlerTaskTitleChange}
+            onBlur={() => handleBlur(i.id)}
+            onKeyDown={event => {
+              event.key === 'Enter' && handlerAddTask();
+            }}
+          />
+        )}
         <button onClick={onclickRemoveTaskHandler}>x</button>
       </li>
     );
