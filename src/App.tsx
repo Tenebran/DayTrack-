@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { TodoList } from './TodoList';
-import { title } from 'process';
 
 export type TaskType = {
   id: string;
@@ -42,9 +41,9 @@ function App() {
     }
   };
 
-  const changeTaskStatus = (taskId: string) => {
+  const changeTaskStatus = (taskId: string, newIsDoneTaskStatus: boolean) => {
     const changeTaskId: TaskType[] = tasks.map(t =>
-      t.id === taskId ? { ...t, isDone: !t.isDone } : t
+      t.id === taskId ? { ...t, isDone: newIsDoneTaskStatus } : t
     );
     setTasks([...changeTaskId]);
   };
@@ -73,6 +72,7 @@ function App() {
         addTask={addTask}
         changeTaskStatus={changeTaskStatus}
         changeTaskTitle={changeTaskTitle}
+        filter={filter}
       />
     </div>
   );

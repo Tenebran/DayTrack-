@@ -1,0 +1,22 @@
+.task {
+  font-weight: 700;
+
+  &-filterBtn {
+    border-radius: 3px;
+    border: 2px solid rgb(124, 168, 207);
+    &_active {
+      background-color: rgb(124, 168, 207);
+      color: #ffff;
+    }
+  }
+
+  &-done {
+    font-weight: 400;
+    opacity: 0.5;
+    text-decoration: line-through;
+  }
+}
+
+.input-error {
+  border: 2px solid red;
+}
