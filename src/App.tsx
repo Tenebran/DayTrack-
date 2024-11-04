@@ -2,6 +2,26 @@ import React, { useState } from 'react';
 import './App.scss';
 import { TodoList } from './TodoList';
 import { AddItemForm } from './AddItemForm';
+import {
+  AppBar,
+  Button,
+  Container,
+  Grid2,
+  IconButton,
+  Paper,
+  styled,
+  Toolbar,
+  Typography,
+} from '@mui/material';
+import { Menu } from '@mui/icons-material';
+
+const StyledGridInput = styled(Grid2)({
+  margin: '10px 0',
+});
+
+const StyledPaper = styled(Paper)({
+  padding: '15px',
+});
 
 export type TaskType = {
   id: string;
@@ -114,29 +134,45 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div>
-        <AddItemForm maxLengthUserMeaasge={15} addItem={addTodoList} />
-      </div>
-      {todoLists.map(t => {
-        const filterdTasks: TaskType[] = getFilteredTasks(tasks[t.id], t.filter);
-        return (
-          <>
-            <TodoList
-              key={t.id}
-              todoLists={t}
-              tasks={filterdTasks}
-              removeTask={removeTask}
-              changeFilter={changeTodoListFilter}
-              addTask={addTask}
-              changeTaskStatus={changeTaskStatus}
-              changeTaskTitle={changeTaskTitle}
-              removeTodolist={removeTodolist}
-              changeTodolistTitle={changeTodolistTitle}
-            />
-          </>
-        );
-      })}
+    <div>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+            <Menu />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Todolists
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+
+      <Container>
+        <StyledGridInput container>
+          <AddItemForm maxLengthUserMeaasge={15} addItem={addTodoList} />
+        </StyledGridInput>
+        <Grid2 container spacing={4}>
+          {todoLists.map(t => {
+            const filterdTasks: TaskType[] = getFilteredTasks(tasks[t.id], t.filter);
+            return (
+              <StyledPaper elevation={3} variant="outlined">
+                <TodoList
+                  key={t.id}
+                  todoLists={t}
+                  tasks={filterdTasks}
+                  removeTask={removeTask}
+                  changeFilter={changeTodoListFilter}
+                  addTask={addTask}
+                  changeTaskStatus={changeTaskStatus}
+                  changeTaskTitle={changeTaskTitle}
+                  removeTodolist={removeTodolist}
+                  changeTodolistTitle={changeTodolistTitle}
+                />
+              </StyledPaper>
+            );
+          })}
+        </Grid2>
+      </Container>
     </div>
   );
 }

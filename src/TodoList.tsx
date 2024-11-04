@@ -4,6 +4,14 @@ import './Todolist.scss';
 import { TaskList } from './TaskList';
 import { AddItemForm } from './AddItemForm';
 import { EditebleSpan } from './EditebleSpan';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import { ButtonGroup, ButtonGroupButtonContext, IconButton } from '@mui/material';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
+
+const SyledButton = styled(Button)({
+  margin: '0 2px 0 0',
+});
 
 type TodoListPropsType = {
   tasks: TaskType[];
@@ -43,11 +51,36 @@ export const TodoList: FC<TodoListPropsType> = ({
       <div className="todolist" key={todoLists.id}>
         <h3>
           <EditebleSpan title={todoLists.title} changeTitleHandler={changeTodolistTitleHandler} />
-          <button onClick={() => removeTodolist(todoLists.id)}>x</button>
+          <IconButton size={'small'} color="primary" onClick={() => removeTodolist(todoLists.id)}>
+            <CancelPresentationIcon />
+          </IconButton>
         </h3>
         <div className="input-wrapper">
           <AddItemForm todoListsID={todoLists.id} addItem={addNewTask} maxLengthUserMeaasge={15} />
         </div>
+        <ButtonGroup fullWidth>
+          <SyledButton
+            size="small"
+            variant={todoLists.filter === 'all' ? 'contained' : 'outlined'}
+            onClick={handlerCreator('all')}
+          >
+            All
+          </SyledButton>
+          <SyledButton
+            size="small"
+            variant={todoLists.filter === 'active' ? 'contained' : 'outlined'}
+            onClick={handlerCreator('active')}
+          >
+            Active
+          </SyledButton>
+          <SyledButton
+            size="small"
+            variant={todoLists.filter === 'completed' ? 'contained' : 'outlined'}
+            onClick={handlerCreator('completed')}
+          >
+            Completed
+          </SyledButton>
+        </ButtonGroup>
         <ul>
           {tasks.length ? (
             tasks.map(t => (
@@ -63,28 +96,6 @@ export const TodoList: FC<TodoListPropsType> = ({
             <span>Your taskList is empty</span>
           )}
         </ul>
-        <div>
-          <button
-            onClick={handlerCreator('all')}
-            className={todoLists.filter === 'all' ? 'task-filterBtn_active' : 'task-filterBtn'}
-          >
-            All
-          </button>
-          <button
-            onClick={handlerCreator('active')}
-            className={todoLists.filter === 'active' ? 'task-filterBtn_active' : 'task-filterBtn'}
-          >
-            Active
-          </button>
-          <button
-            onClick={handlerCreator('completed')}
-            className={
-              todoLists.filter === 'completed' ? 'task-filterBtn_active' : 'task-filterBtn'
-            }
-          >
-            Completed
-          </button>
-        </div>
       </div>
     </>
   );

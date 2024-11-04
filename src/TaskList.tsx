@@ -1,6 +1,8 @@
-import React, {  FC } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import { TaskType } from './App';
 import { EditebleSpan } from './EditebleSpan';
+import { Checkbox, IconButton } from '@mui/material';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
 type TaskListProps = {
   task: TaskType;
@@ -17,7 +19,7 @@ export const TaskList: FC<TaskListProps> = ({
   changeTaskTitle,
   removeTask,
 }) => {
-  const changeStatusHandler = (e: React.MouseEvent<HTMLInputElement>) => {
+  const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
     changeTaskStatus(task.id, e.currentTarget.checked, todoListsID);
   };
 
@@ -27,15 +29,16 @@ export const TaskList: FC<TaskListProps> = ({
 
   return (
     <>
-      <li>
-        <input id={task.id} type="checkbox" checked={task.isDone} onClick={changeStatusHandler} />
+      <li key={task.id}>
+        <Checkbox id={task.id} checked={task.isDone} onChange={changeStatusHandler} />
         <EditebleSpan
           title={task.title}
           spanClasses={task.isDone ? 'task-done' : 'task'}
           changeTitleHandler={changeTaskTitleHandler}
         />
-
-        <button onClick={() => removeTask(task.id, todoListsID)}>x</button>
+        <IconButton size={'small'} color="primary" onClick={() => removeTask(task.id, todoListsID)}>
+          <CancelPresentationIcon />
+        </IconButton>
       </li>
     </>
   );

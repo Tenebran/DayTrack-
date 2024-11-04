@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material';
 import React, { ChangeEvent, FC, useState } from 'react';
 
 type EditebleSpanType = {
@@ -17,6 +18,12 @@ export const EditebleSpan: FC<EditebleSpanType> = ({
   const [localTitle, setLocalTitle] = useState<string>(title);
 
   const changeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const trimTaskTitle = event.target.value.trim();
+
+    if (trimTaskTitle || event.target.value.length === 0) {
+      trimTaskTitle.length <= 15 && setLocalTitle(event.target.value);
+    } else {
+    }
     setLocalTitle(event.target.value);
   };
 
@@ -36,12 +43,14 @@ export const EditebleSpan: FC<EditebleSpanType> = ({
           {title}
         </span>
       ) : (
-        <input
+        <TextField
+          variant="standard"
+          size="small"
           value={localTitle}
           onChange={changeInputHandler}
           autoFocus
           onBlur={offEditMode}
-        ></input>
+        />
       )}
     </>
   );

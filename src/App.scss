@@ -1,18 +1,4 @@
-.App {
-  padding: 30px;
-  display: flex;
-  background-color: rgb(124, 168, 207);
-  height: 100vh;
-}
-
-.App > div {
-  margin-right: 50px;
-}
-
 .todolist {
-  border: 2px solid gray;
-  background-color: rgb(6, 255, 172);
   border-radius: 5px;
-  padding: 15px;
   height: max-content;
 }

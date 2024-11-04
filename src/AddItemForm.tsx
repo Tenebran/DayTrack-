@@ -1,4 +1,6 @@
 import React, { ChangeEvent, FC, useState } from 'react';
+import SendIcon from '@mui/icons-material/Send';
+import { Button, ButtonGroup, IconButton, styled, TextField } from '@mui/material';
 
 type AddItemFormType = {
   todoListsID?: string;
@@ -18,13 +20,11 @@ export const AddItemForm: FC<AddItemFormType> = ({
   const [title, setTitle] = useState<string>('');
   const [inputError, setInputError] = useState<boolean>(false);
 
-  const userMessage = inputError ? (
-    <span style={{ color: 'red' }}>Your tottle is too empty</span>
-  ) : title.length < maxLengthUserMeaasge ? (
-    ''
-  ) : (
-    <span style={{ color: 'red' }}>Your title is to long</span>
-  );
+  const userMessage = inputError
+    ? 'Your tottle is too empty'
+    : title.length < maxLengthUserMeaasge
+    ? null
+    : 'Your title is to long';
 
   const handlerInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     inputError && setInputError(false);
@@ -44,25 +44,32 @@ export const AddItemForm: FC<AddItemFormType> = ({
   };
 
   return (
-    <>
-      <input
-        placeholder="Please, enter title"
+    <ButtonGroup>
+      <TextField
+        variant="outlined"
+        size="small"
+        label="Please, enter title"
         className={inputError ? 'input-error' : undefined}
         autoFocus
         value={title}
-        // onBlur={() => (handleBlur && taskID ? handleBlur(taskID, todoListsID) : null)}
         onChange={handlerInputChange}
         onKeyDown={event => {
           event.key === 'Enter' && handlerAddItem();
         }}
+        error={inputError}
+        helperText={userMessage}
       />
-      <button
+
+      <Button
+        size={'small'}
+        variant="contained"
+        color="primary"
         onClick={() => handlerAddItem()}
         disabled={!title.length || title.length >= maxLengthUserMeaasge}
+        endIcon={<SendIcon />}
       >
-        +
-      </button>
-      <div>{userMessage}</div>
-    </>
+        ADD
+      </Button>
+    </ButtonGroup>
   );
 };
