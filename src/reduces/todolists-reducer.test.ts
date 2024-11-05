@@ -1,8 +1,9 @@
 import { TodoListType } from '../App';
 import {
-  AddTodoListAT,
-  ChangeTodoListFilterAT,
-  ChangeTodoListTitleAT,
+  AddTodoListtAC,
+  ChangeTodoListFilterAC,
+  ChangeTodoListTitleAC,
+  RemoveTodoListAC,
   todolistsReducer,
 } from './todolists-reducer';
 import { v1 } from 'uuid';
@@ -16,7 +17,7 @@ test('correct todolist should be removed', () => {
     { id: todolistId2, title: 'What to buy', filter: 'all' },
   ];
 
-  const endState = todolistsReducer(startState, { id: todolistId1, type: 'REMOVE-TODOLIST' });
+  const endState = todolistsReducer(startState, RemoveTodoListAC(todolistId1));
 
   expect(endState.length).toBe(1);
   expect(endState[0].id).toBe(todolistId2);
@@ -33,8 +34,7 @@ test('correct todolist should be added', () => {
     { id: todolistId2, title: 'What to buy', filter: 'all' },
   ];
 
-  const action: AddTodoListAT = { type: 'ADD-TODOLIST', title: newTodolistTitle };
-  const endState = todolistsReducer(startState, action);
+  const endState = todolistsReducer(startState, AddTodoListtAC(newTodolistTitle));
 
   expect(endState.length).toBe(3);
   expect(endState[2].title).toBe(newTodolistTitle);
@@ -51,15 +51,14 @@ test('correct todolist should be change title', () => {
     { id: todolistId2, title: 'What to buy', filter: 'all' },
   ];
 
-  const action: ChangeTodoListTitleAT = {
-    type: 'CHANGE-TODOLIST-TITLE',
-    title: newTodolistTitle,
-    id: todolistId1,
-  };
-  const endState = todolistsReducer(startState, action);
+  const endState = todolistsReducer(
+    startState,
+    ChangeTodoListTitleAC(newTodolistTitle, todolistId1)
+  );
 
   expect(endState.length).toBe(2);
   expect(endState[0].title).toBe(newTodolistTitle);
+  expect(endState[1].title).not.toBe(newTodolistTitle);
 });
 
 test('correct todolist should be change filter', () => {
@@ -71,21 +70,11 @@ test('correct todolist should be change filter', () => {
     { id: todolistId2, title: 'What to buy', filter: 'all' },
   ];
 
-  const action: ChangeTodoListFilterAT = {
-    type: 'CHANGE-TODOLIST-FILTER',
-    filter: 'active',
-    id: todolistId1,
-  };
-
-  const action2: ChangeTodoListFilterAT = {
-    type: 'CHANGE-TODOLIST-FILTER',
-    filter: 'completed',
-    id: todolistId2,
-  };
-  const endState = todolistsReducer(startState, action);
-  const endState2 = todolistsReducer(startState, action2);
+  const endState = todolistsReducer(startState, ChangeTodoListFilterAC('active', todolistId1));
+  const endState2 = todolistsReducer(startState, ChangeTodoListFilterAC('completed', todolistId2));
 
   expect(endState.length).toBe(2);
   expect(endState[0].filter).toBe('active');
+  expect(endState[0].filter).not.toBe('all');
   expect(endState2[1].filter).toBe('completed');
 });
