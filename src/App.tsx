@@ -14,6 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
+import { v1 } from 'uuid';
 
 const StyledGridInput = styled(Grid2)({
   margin: '10px 0',
@@ -42,8 +43,8 @@ export type TasksStateType = {
 };
 
 function App() {
-  const todoListId_1 = crypto.randomUUID();
-  const todoListId_2 = crypto.randomUUID();
+  const todoListId_1 = v1();
+  const todoListId_2 = v1();
 
   const [todoLists, setTodolists] = useState<TodoListType[]>([
     { id: todoListId_1, title: 'What to learn', filter: 'all' },
@@ -52,16 +53,16 @@ function App() {
 
   const [tasks, setTasks] = useState<TasksStateType>({
     [todoListId_1]: [
-      { id: crypto.randomUUID(), isDone: true, title: 'HTML&CSS' },
-      { id: crypto.randomUUID(), isDone: true, title: 'JS' },
-      { id: crypto.randomUUID(), isDone: false, title: 'React' },
-      { id: crypto.randomUUID(), isDone: true, title: 'Redux' },
+      { id: v1(), isDone: true, title: 'HTML&CSS' },
+      { id: v1(), isDone: true, title: 'JS' },
+      { id: v1(), isDone: false, title: 'React' },
+      { id: v1(), isDone: true, title: 'Redux' },
     ],
 
     [todoListId_2]: [
-      { id: crypto.randomUUID(), isDone: true, title: 'Milk' },
-      { id: crypto.randomUUID(), isDone: true, title: 'Bread' },
-      { id: crypto.randomUUID(), isDone: false, title: 'Meat' },
+      { id: v1(), isDone: true, title: 'Milk' },
+      { id: v1(), isDone: true, title: 'Bread' },
+      { id: v1(), isDone: false, title: 'Meat' },
     ],
   });
 
