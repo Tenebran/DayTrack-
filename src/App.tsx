@@ -73,10 +73,7 @@ function App() {
   const addTask = (taskTitle: string, idTodolist: string) => {
     setTasks({
       ...tasks,
-      [idTodolist]: [
-        { id: crypto.randomUUID(), isDone: false, title: taskTitle },
-        ...tasks[idTodolist],
-      ],
+      [idTodolist]: [{ id: v1(), isDone: false, title: taskTitle }, ...tasks[idTodolist]],
     });
   };
 
@@ -114,7 +111,7 @@ function App() {
 
   const addTodoList = (title: string) => {
     const newTodoList: TodoListType = {
-      id: crypto.randomUUID(),
+      id: v1(),
       title,
       filter: 'all',
     };

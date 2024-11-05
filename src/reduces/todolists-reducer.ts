@@ -1,3 +1,4 @@
+import { v1 } from 'uuid';
 import { TodoListType } from '../App';
 
 export type RemoveTodolistAC = {
@@ -5,14 +6,27 @@ export type RemoveTodolistAC = {
   id: string;
 };
 
+export type AddTodoListAC = {
+  type: 'ADD-TODOLIST';
+  title: string;
+};
+
 export const todolistsReducer = (
-  todolists: TodoListType[],
-  action: RemoveTodolistAC
+  todoLists: TodoListType[],
+  action: RemoveTodolistAC | AddTodoListAC
 ): TodoListType[] => {
   switch (action.type) {
     case 'REMOVE-TODOLIST':
-      return todolists.filter(t => t.id !== action.id);
+      return todoLists.filter(t => t.id !== action.id);
+    case 'ADD-TODOLIST':
+      const newTodoList: TodoListType = {
+        id: v1(),
+        title: action.title,
+        filter: 'all',
+      };
+
+      return [...todoLists, newTodoList];
     default:
-      return todolists;
+      return todoLists;
   }
 };
