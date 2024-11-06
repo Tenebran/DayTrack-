@@ -1,6 +1,7 @@
 import { v1 } from 'uuid';
 import { TasksStateType } from '../App';
 import {
+  AddTaskTitleAC,
   ChangeTaskStatusAC,
   ChangeTaskTitleAC,
   RemoveTasksAC,
@@ -88,4 +89,30 @@ test('correct task should be change title', () => {
 
   expect(endState[todolistId2].find(t => t.id === taskId)?.title).toBe('Book');
   expect(endState[todolistId2].find(t => t.id === taskId2)?.title).toBe('Milk');
+});
+
+test('correct task should be add title', () => {
+  let todolistId1 = v1();
+  let todolistId2 = v1();
+
+  const startState: TasksStateType = {
+    [todolistId1]: [
+      { id: v1(), isDone: true, title: 'HTML&CSS' },
+      { id: v1(), isDone: false, title: 'JS' },
+      { id: v1(), isDone: false, title: 'React' },
+      { id: v1(), isDone: true, title: 'Redux' },
+    ],
+
+    [todolistId2]: [
+      { id: v1(), isDone: true, title: 'Milk' },
+      { id: v1(), isDone: true, title: 'Bread' },
+      { id: v1(), isDone: false, title: 'Meat' },
+    ],
+  };
+
+  const endState = tasksReducer(startState, AddTaskTitleAC('Book', todolistId2));
+
+  expect(endState[todolistId2]?.[2].title).toBe('Bread');
+  expect(endState[todolistId2]?.[1].title).toBe('Milk');
+  expect(endState[todolistId2]?.[0].title).toBe('Book');
 });

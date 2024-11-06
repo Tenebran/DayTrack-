@@ -31,7 +31,13 @@ export type ChangeTaskStatusAT = {
   idTodolist: string;
 };
 
-export type ActionType = RemoveTaskAT | ChangeTaskStatusAT | ChangeTaskTitleAT;
+export type AddTaskTitleAT = {
+  type: 'ADD_TASK_TITLE';
+  title: string;
+  idTodolist: string;
+};
+
+export type ActionType = RemoveTaskAT | ChangeTaskStatusAT | ChangeTaskTitleAT | AddTaskTitleAT;
 
 export const tasksReducer = (state: TasksStateType, action: ActionType): TasksStateType => {
   switch (action.type) {
@@ -56,6 +62,14 @@ export const tasksReducer = (state: TasksStateType, action: ActionType): TasksSt
           ),
         ],
       };
+    case 'ADD_TASK_TITLE':
+      return {
+        ...state,
+        [action.idTodolist]: [
+          { id: v1(), isDone: false, title: action.title },
+          ...state[action.idTodolist],
+        ],
+      };
     default:
       return state;
   }
@@ -78,3 +92,9 @@ export const ChangeTaskTitleAC = (
   id: string,
   idTodolist: string
 ): ChangeTaskTitleAT => ({ type: 'CHANGE_TASK_TITLE', title, id, idTodolist });
+
+export const AddTaskTitleAC = (title: string, idTodolist: string): AddTaskTitleAT => ({
+  type: 'ADD_TASK_TITLE',
+  title,
+  idTodolist,
+});
