@@ -1,5 +1,5 @@
 import { v1 } from 'uuid';
-import { TodoListType } from '../App';
+import { AddTodoListAT } from './todolists-reducer';
 
 export type TaskType = {
   id: string;
@@ -37,7 +37,12 @@ export type AddTaskTitleAT = {
   idTodolist: string;
 };
 
-export type ActionType = RemoveTaskAT | ChangeTaskStatusAT | ChangeTaskTitleAT | AddTaskTitleAT;
+export type ActionType =
+  | RemoveTaskAT
+  | ChangeTaskStatusAT
+  | ChangeTaskTitleAT
+  | AddTaskTitleAT
+  | AddTodoListAT;
 
 export const tasksReducer = (state: TasksStateType, action: ActionType): TasksStateType => {
   switch (action.type) {
@@ -69,6 +74,11 @@ export const tasksReducer = (state: TasksStateType, action: ActionType): TasksSt
           { id: v1(), isDone: false, title: action.title },
           ...state[action.idTodolist],
         ],
+      };
+    case 'ADD-TODOLIST':
+      return {
+        ...state,
+        [action.todolistID]: [],
       };
     default:
       return state;
