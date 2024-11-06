@@ -17,9 +17,11 @@ export type RemoveTaskAT = {
   idTodolist: string;
 };
 
-export type AddTaskAT = {
-  type: 'CHANGE_TASK_STATUS';
+export type ChangeTaskTitleAT = {
+  type: 'CHANGE_TASK_TITLE';
   title: string;
+  id: string;
+  idTodolist: string;
 };
 
 export type ChangeTaskStatusAT = {
@@ -29,7 +31,7 @@ export type ChangeTaskStatusAT = {
   idTodolist: string;
 };
 
-export type ActionType = RemoveTaskAT | ChangeTaskStatusAT;
+export type ActionType = RemoveTaskAT | ChangeTaskStatusAT | ChangeTaskTitleAT;
 
 export const tasksReducer = (state: TasksStateType, action: ActionType): TasksStateType => {
   switch (action.type) {
@@ -44,6 +46,15 @@ export const tasksReducer = (state: TasksStateType, action: ActionType): TasksSt
         [action.idTodolist]: state[action.idTodolist].map(t =>
           t.id === action.id ? { ...t, isDone: action.isDone } : t
         ),
+      };
+    case 'CHANGE_TASK_TITLE':
+      return {
+        ...state,
+        [action.idTodolist]: [
+          ...state[action.idTodolist].map(t =>
+            t.id === action.id ? { ...t, title: action.title } : t
+          ),
+        ],
       };
     default:
       return state;
@@ -61,3 +72,9 @@ export const ChangeTaskStatusAC = (
   id: string,
   idTodolist: string
 ): ChangeTaskStatusAT => ({ type: 'CHANGE_TASK_STATUS', isDone, id, idTodolist });
+
+export const ChangeTaskTitleAC = (
+  title: string,
+  id: string,
+  idTodolist: string
+): ChangeTaskTitleAT => ({ type: 'CHANGE_TASK_TITLE', title, id, idTodolist });
