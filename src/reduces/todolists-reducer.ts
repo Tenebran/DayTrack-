@@ -1,5 +1,10 @@
 import { v1 } from 'uuid';
-import { TodoListType } from '../App';
+
+export type TodoListType = {
+  id: string;
+  title: string;
+  filter: FilterTaskType;
+};
 
 export type FilterTaskType = 'all' | 'active' | 'completed';
 
@@ -26,13 +31,16 @@ export type ChangeTodoListFilterAT = {
   id: string;
 };
 
-export type ActionType =
+export type ActionTypeTodolists =
   | RemoveTodolistAT
   | AddTodoListAT
   | ChangeTodoListTitleAT
   | ChangeTodoListFilterAT;
 
-export const todolistsReducer = (todoLists: TodoListType[], action: ActionType): TodoListType[] => {
+export const todolistsReducer = (
+  todoLists: TodoListType[],
+  action: ActionTypeTodolists
+): TodoListType[] => {
   switch (action.type) {
     case 'REMOVE-TODOLIST':
       return todoLists.filter(t => t.id !== action.id);

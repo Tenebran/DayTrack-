@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FC } from 'react';
-import { TaskType } from './App';
 import { EditebleSpan } from './EditebleSpan';
 import { Checkbox, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
+import { TaskType } from './reduces/tasks-reducer';
 
 type TaskListProps = {
   task: TaskType;

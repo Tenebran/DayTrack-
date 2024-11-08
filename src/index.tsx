@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
-import App from './App';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-
+import App from './App';
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',

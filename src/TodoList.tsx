@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
-import { FilterTaskType, TaskType, TodoListType } from './App';
 import './Todolist.scss';
 import { TaskList } from './TaskList';
 import { AddItemForm } from './AddItemForm';
 import { EditebleSpan } from './EditebleSpan';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-import { ButtonGroup, ButtonGroupButtonContext, IconButton } from '@mui/material';
+import { ButtonGroup, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
+import { FilterTaskType, TodoListType } from './reduces/todolists-reducer';
+import { TaskType } from './reduces/tasks-reducer';
 
 const SyledButton = styled(Button)({
   margin: '0 2px 0 0',

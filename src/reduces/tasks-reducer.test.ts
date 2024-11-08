@@ -1,31 +1,37 @@
 import { v1 } from 'uuid';
-import { TasksStateType } from '../App';
 import {
   AddTaskTitleAC,
   ChangeTaskStatusAC,
   ChangeTaskTitleAC,
   RemoveTasksAC,
   tasksReducer,
+  TasksStateType,
 } from './tasks-reducer';
 import { addTodolistAC, RemoveTodoListAC } from './todolists-reducer';
 
-let todolistId1 = v1();
-let todolistId2 = v1();
+let todolistId1: string;
+let todolistId2: string;
+let startState: TasksStateType;
 
-const startState: TasksStateType = {
-  [todolistId1]: [
-    { id: '1', isDone: false, title: 'HTML&CSS' },
-    { id: '2', isDone: false, title: 'JS' },
-    { id: '3', isDone: false, title: 'React' },
-    { id: '4', isDone: false, title: 'Redux' },
-  ],
+beforeEach(() => {
+  todolistId1 = v1();
+  todolistId2 = v1();
 
-  [todolistId2]: [
-    { id: '1', isDone: false, title: 'Milk' },
-    { id: '2', isDone: false, title: 'Bread' },
-    { id: '3', isDone: false, title: 'Meat' },
-  ],
-};
+  startState = {
+    [todolistId1]: [
+      { id: '1', isDone: false, title: 'HTML&CSS' },
+      { id: '2', isDone: false, title: 'JS' },
+      { id: '3', isDone: false, title: 'React' },
+      { id: '4', isDone: false, title: 'Redux' },
+    ],
+
+    [todolistId2]: [
+      { id: '1', isDone: false, title: 'Milk' },
+      { id: '2', isDone: false, title: 'Bread' },
+      { id: '3', isDone: false, title: 'Meat' },
+    ],
+  };
+});
 
 test('correct task should be removed', () => {
   const endState = tasksReducer(startState, RemoveTasksAC('3', todolistId2));
