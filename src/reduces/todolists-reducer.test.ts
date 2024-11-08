@@ -8,15 +8,15 @@ import {
 } from './todolists-reducer';
 import { v1 } from 'uuid';
 
+let todolistId1 = v1();
+let todolistId2 = v1();
+
+const startState: TodoListType[] = [
+  { id: todolistId1, title: 'What to learn', filter: 'all' },
+  { id: todolistId2, title: 'What to buy', filter: 'all' },
+];
+
 test('correct todolist should be removed', () => {
-  let todolistId1 = v1();
-  let todolistId2 = v1();
-
-  const startState: TodoListType[] = [
-    { id: todolistId1, title: 'What to learn', filter: 'all' },
-    { id: todolistId2, title: 'What to buy', filter: 'all' },
-  ];
-
   const endState = todolistsReducer(startState, RemoveTodoListAC(todolistId1));
 
   expect(endState.length).toBe(1);
@@ -24,15 +24,7 @@ test('correct todolist should be removed', () => {
 });
 
 test('correct todolist should be added', () => {
-  let todolistId1 = v1();
-  let todolistId2 = v1();
-
   let newTodolistTitle = 'New Todolist';
-
-  const startState: TodoListType[] = [
-    { id: todolistId1, title: 'What to learn', filter: 'all' },
-    { id: todolistId2, title: 'What to buy', filter: 'all' },
-  ];
 
   const endState = todolistsReducer(startState, addTodolistAC(newTodolistTitle));
 
@@ -41,15 +33,7 @@ test('correct todolist should be added', () => {
 });
 
 test('correct todolist should be change title', () => {
-  let todolistId1 = v1();
-  let todolistId2 = v1();
-
   let newTodolistTitle = 'New Todolist';
-
-  const startState: TodoListType[] = [
-    { id: todolistId1, title: 'What to learn', filter: 'all' },
-    { id: todolistId2, title: 'What to buy', filter: 'all' },
-  ];
 
   const endState = todolistsReducer(
     startState,
@@ -62,14 +46,6 @@ test('correct todolist should be change title', () => {
 });
 
 test('correct todolist should be change filter', () => {
-  let todolistId1 = v1();
-  let todolistId2 = v1();
-
-  const startState: TodoListType[] = [
-    { id: todolistId1, title: 'What to learn', filter: 'all' },
-    { id: todolistId2, title: 'What to buy', filter: 'all' },
-  ];
-
   const endState = todolistsReducer(startState, ChangeTodoListFilterAC('active', todolistId1));
   const endState2 = todolistsReducer(startState, ChangeTodoListFilterAC('completed', todolistId2));
 
