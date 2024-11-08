@@ -44,7 +44,7 @@ const StyledPaper = styled(Paper)({
   padding: '15px',
 });
 
-function App() {
+function AppWithRedux() {
   const todoListId_1 = v1();
   const todoListId_2 = v1();
 
@@ -161,4 +161,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppWithRedux;

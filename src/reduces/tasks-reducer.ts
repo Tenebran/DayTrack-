@@ -37,7 +37,7 @@ export type AddTaskTitleAT = {
   idTodolist: string;
 };
 
-export type ActionTasksType =
+export type ActionTypeTasksType =
   | RemoveTaskAT
   | ChangeTaskStatusAT
   | ChangeTaskTitleAT
@@ -45,7 +45,12 @@ export type ActionTasksType =
   | AddTodoListAT
   | RemoveTodolistAT;
 
-export const tasksReducer = (state: TasksStateType, action: ActionTasksType): TasksStateType => {
+const initialState: TasksStateType = {};
+
+export const tasksReducer = (
+  state: TasksStateType = initialState,
+  action: ActionTypeTasksType
+): TasksStateType => {
   switch (action.type) {
     case 'REMOVE_TASK':
       return {
