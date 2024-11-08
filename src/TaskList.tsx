@@ -2,29 +2,28 @@ import React, { ChangeEvent, FC } from 'react';
 import { EditebleSpan } from './EditebleSpan';
 import { Checkbox, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
-import { TaskType } from './reduces/tasks-reducer';
+import {
+  ChangeTaskStatusAC,
+  ChangeTaskTitleAC,
+  RemoveTasksAC,
+  TaskType,
+} from './reduces/tasks-reducer';
+import { useDispatch } from 'react-redux';
 
 type TaskListProps = {
   task: TaskType;
   todoListsID: string;
-  changeTaskStatus: (taskId: string, isDone: boolean, idTodolist: string) => void;
-  changeTaskTitle: (taskId: string, title: string, idTodolist: string) => void;
-  removeTask: (taskId: string, idTodolist: string) => void;
 };
 
-export const TaskList: FC<TaskListProps> = ({
-  task,
-  todoListsID,
-  changeTaskStatus,
-  changeTaskTitle,
-  removeTask,
-}) => {
+export const TaskList: FC<TaskListProps> = ({ task, todoListsID }) => {
+  const dispatch = useDispatch();
+
   const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    changeTaskStatus(task.id, e.currentTarget.checked, todoListsID);
+    dispatch(ChangeTaskStatusAC(e.currentTarget.checked, task.id, todoListsID));
   };
 
   const changeTaskTitleHandler = (title: string) => {
-    changeTaskTitle(task.id, title, todoListsID);
+    dispatch(ChangeTaskTitleAC(title, task.id, todoListsID));
   };
 
   return (
@@ -36,7 +35,11 @@ export const TaskList: FC<TaskListProps> = ({
           spanClasses={task.isDone ? 'task-done' : 'task'}
           changeTitleHandler={changeTaskTitleHandler}
         />
-        <IconButton size={'small'} color="primary" onClick={() => removeTask(task.id, todoListsID)}>
+        <IconButton
+          size={'small'}
+          color="primary"
+          onClick={() => dispatch(RemoveTasksAC(task.id, todoListsID))}
+        >
           <CancelPresentationIcon />
         </IconButton>
       </li>

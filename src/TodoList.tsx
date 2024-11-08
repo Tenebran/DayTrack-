@@ -7,52 +7,74 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import { ButtonGroup, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
-import { FilterTaskType, TodoListType } from './reduces/todolists-reducer';
-import { TaskType } from './reduces/tasks-reducer';
+import {
+  ChangeTodoListFilterAC,
+  ChangeTodoListTitleAC,
+  FilterTaskType,
+  RemoveTodoListAC,
+  TodoListType,
+} from './reduces/todolists-reducer';
+import { AddTaskTitleAC, TasksStateType, TaskType } from './reduces/tasks-reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppRootStateType } from './redux/store';
 
 const SyledButton = styled(Button)({
   margin: '0 2px 0 0',
 });
 
 type TodoListPropsType = {
-  tasks: TaskType[];
-  removeTask: (taskId: string, idTodolist: string) => void;
-  changeFilter: (nextFilterValue: FilterTaskType, idTodoList: string) => void;
-  addTask: (task: string, idTodolist: string) => void;
-  changeTaskStatus: (taskId: string, isDone: boolean, idTodolist: string) => void;
-  changeTaskTitle: (taskId: string, title: string, idTodolist: string) => void;
   todoLists: TodoListType;
-  removeTodolist: (todolistID: string) => void;
-  changeTodolistTitle: (title: string, idTodolist: string) => void;
 };
 
-export const TodoList: FC<TodoListPropsType> = ({
-  todoLists,
-  tasks,
-  removeTask,
-  changeFilter,
-  addTask,
-  changeTaskStatus,
-  changeTaskTitle,
-  removeTodolist,
-  changeTodolistTitle,
-}) => {
+// const getFilteredTasks = (tasks: TaskType[], filter: FilterTaskType) => {
+//   switch (filter) {
+//     case 'active':
+//       return tasks.filter(t => !t.isDone);
+//     case 'completed':
+//       return tasks.filter(t => t.isDone);
+//     default:
+//       return tasks;
+//   }
+// };
+
+export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
+  let tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[todoLists.id]);
+
+  const dispatch = useDispatch();
+
   const addNewTask = (title: string) => {
-    addTask(title, todoLists.id);
+    dispatch(AddTaskTitleAC(title, todoLists.id));
   };
 
-  const handlerCreator = (filter: FilterTaskType) => () => changeFilter(filter, todoLists.id);
+  const handlerCreator = (filter: FilterTaskType) => () =>
+    dispatch(ChangeTodoListFilterAC(filter, todoLists.id));
 
   const changeTodolistTitleHandler = (title: string) => {
-    changeTodolistTitle(title, todoLists.id);
+    dispatch(ChangeTodoListTitleAC(title, todoLists.id));
   };
+
+  const getFilteredTasks = (tasks: TaskType[], filter: FilterTaskType) => {
+    switch (filter) {
+      case 'active':
+        return tasks.filter(t => !t.isDone);
+      case 'completed':
+        return tasks.filter(t => t.isDone);
+      default:
+        return tasks;
+    }
+  };
+  const filterdTasks: TaskType[] = getFilteredTasks(tasks, todoLists.filter);
 
   return (
     <>
       <div className="todolist" key={todoLists.id}>
         <h3>
           <EditebleSpan title={todoLists.title} changeTitleHandler={changeTodolistTitleHandler} />
-          <IconButton size={'small'} color="primary" onClick={() => removeTodolist(todoLists.id)}>
+          <IconButton
+            size={'small'}
+            color="primary"
+            onClick={() => dispatch(RemoveTodoListAC(todoLists.id))}
+          >
             <CancelPresentationIcon />
           </IconButton>
         </h3>
@@ -84,15 +106,7 @@ export const TodoList: FC<TodoListPropsType> = ({
         </ButtonGroup>
         <ul>
           {tasks.length ? (
-            tasks.map(t => (
-              <TaskList
-                task={t}
-                todoListsID={todoLists.id}
-                changeTaskStatus={changeTaskStatus}
-                changeTaskTitle={changeTaskTitle}
-                removeTask={removeTask}
-              />
-            ))
+            filterdTasks.map(t => <TaskList task={t} todoListsID={todoLists.id} />)
           ) : (
             <span>Your taskList is empty</span>
           )}

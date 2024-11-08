@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import App from './App';
-import AppWithRedux from './AppWithRedux';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -18,7 +18,6 @@ root.render(
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <App />
-      <AppWithRedux />
     </ThemeProvider>
   </Provider>
 );
