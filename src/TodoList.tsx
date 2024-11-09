@@ -14,7 +14,7 @@ import {
   RemoveTodoListAC,
   TodoListType,
 } from './reduces/todolists-reducer';
-import { AddTaskTitleAC, TasksStateType, TaskType } from './reduces/tasks-reducer';
+import { AddTaskTitleAC, TaskType } from './reduces/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppRootStateType } from './redux/store';
 
@@ -25,17 +25,6 @@ const SyledButton = styled(Button)({
 type TodoListPropsType = {
   todoLists: TodoListType;
 };
-
-// const getFilteredTasks = (tasks: TaskType[], filter: FilterTaskType) => {
-//   switch (filter) {
-//     case 'active':
-//       return tasks.filter(t => !t.isDone);
-//     case 'completed':
-//       return tasks.filter(t => t.isDone);
-//     default:
-//       return tasks;
-//   }
-// };
 
 export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
   let tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[todoLists.id]);
