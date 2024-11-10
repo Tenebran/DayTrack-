@@ -33,15 +33,3 @@ export const AddItemFormStorie: Story = {
     maxLengthUserMeaasge: 15,
   },
 };
-
-export const Secondary: Story = {
-  args: {},
-};
-
-export const Large: Story = {
-  args: {},
-};
-
-export const Small: Story = {
-  args: {},
-};
