@@ -38,8 +38,7 @@ export const TaskList: FC<TaskListProps> = ({ task, todoListsID }) => {
         <IconButton
           size={'small'}
           color="primary"
-          onClick={() => dispatch(RemoveTasksAC(task.id, todoListsID))}
-        >
+          onClick={() => dispatch(RemoveTasksAC(task.id, todoListsID))}>
           <CancelPresentationIcon />
         </IconButton>
       </li>

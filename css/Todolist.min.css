@@ -1,1 +1,14 @@
-.task{font-weight:700}.task-filterBtn{border-radius:3px}.task-done{font-weight:400;opacity:.5;text-decoration:line-through}.input-error{border:2px solid red}/*# sourceMappingURL=Todolist.min.css.map */
+.task {
+  font-weight: 700;
+}
+.task-filterBtn {
+  border-radius: 3px;
+}
+.task-done {
+  font-weight: 400;
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+.input-error {
+  border: 2px solid red;
+} /*# sourceMappingURL=Todolist.min.css.map */

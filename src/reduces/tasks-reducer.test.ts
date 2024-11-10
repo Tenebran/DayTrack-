@@ -31,15 +31,15 @@ test('correct task should be removed', () => {
 test('correct task should be change status', () => {
   const endState = tasksReducer(startState, ChangeTaskStatusAC(true, '3', todolistId1));
 
-  expect(endState[todolistId1].find(t => t.id === '3')?.isDone).toBe(true);
-  expect(endState[todolistId1].find(t => t.id === '2')?.isDone).toBe(false);
+  expect(endState[todolistId1].find((t) => t.id === '3')?.isDone).toBe(true);
+  expect(endState[todolistId1].find((t) => t.id === '2')?.isDone).toBe(false);
 });
 
 test('correct task should be change title', () => {
   const endState = tasksReducer(startState, ChangeTaskTitleAC('Book', '2', todolistId2));
 
-  expect(endState[todolistId2].find(t => t.id === '2')?.title).toBe('Book');
-  expect(endState[todolistId2].find(t => t.id === '1')?.title).toBe('Milk');
+  expect(endState[todolistId2].find((t) => t.id === '2')?.title).toBe('Book');
+  expect(endState[todolistId2].find((t) => t.id === '1')?.title).toBe('Milk');
 });
 
 test('correct task should be add title', () => {
@@ -55,7 +55,7 @@ test('new array should be added when new todolist is added', () => {
   const endState = tasksReducer(startState, action);
 
   const keys = Object.keys(endState);
-  const newKey = keys.find(k => k != todolistId1 && k != todolistId2);
+  const newKey = keys.find((k) => k != todolistId1 && k != todolistId2);
   if (!newKey) {
     throw Error('new key should be added');
   }

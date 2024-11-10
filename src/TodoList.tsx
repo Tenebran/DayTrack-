@@ -27,7 +27,7 @@ type TodoListPropsType = {
 };
 
 export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
-  let tasks = useSelector<AppRootStateType, TaskType[]>(state => state.tasks[todoLists.id]);
+  let tasks = useSelector<AppRootStateType, TaskType[]>((state) => state.tasks[todoLists.id]);
 
   const dispatch = useDispatch();
 
@@ -45,9 +45,9 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
   const getFilteredTasks = (tasks: TaskType[], filter: FilterTaskType) => {
     switch (filter) {
       case 'active':
-        return tasks.filter(t => !t.isDone);
+        return tasks.filter((t) => !t.isDone);
       case 'completed':
-        return tasks.filter(t => t.isDone);
+        return tasks.filter((t) => t.isDone);
       default:
         return tasks;
     }
@@ -62,8 +62,7 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
           <IconButton
             size={'small'}
             color="primary"
-            onClick={() => dispatch(RemoveTodoListAC(todoLists.id))}
-          >
+            onClick={() => dispatch(RemoveTodoListAC(todoLists.id))}>
             <CancelPresentationIcon />
           </IconButton>
         </h3>
@@ -74,28 +73,25 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
           <SyledButton
             size="small"
             variant={todoLists.filter === 'all' ? 'contained' : 'outlined'}
-            onClick={handlerCreator('all')}
-          >
+            onClick={handlerCreator('all')}>
             All
           </SyledButton>
           <SyledButton
             size="small"
             variant={todoLists.filter === 'active' ? 'contained' : 'outlined'}
-            onClick={handlerCreator('active')}
-          >
+            onClick={handlerCreator('active')}>
             Active
           </SyledButton>
           <SyledButton
             size="small"
             variant={todoLists.filter === 'completed' ? 'contained' : 'outlined'}
-            onClick={handlerCreator('completed')}
-          >
+            onClick={handlerCreator('completed')}>
             Completed
           </SyledButton>
         </ButtonGroup>
         <ul>
           {tasks.length ? (
-            filterdTasks.map(t => <TaskList task={t} todoListsID={todoLists.id} />)
+            filterdTasks.map((t) => <TaskList task={t} todoListsID={todoLists.id} />)
           ) : (
             <span>Your taskList is empty</span>
           )}

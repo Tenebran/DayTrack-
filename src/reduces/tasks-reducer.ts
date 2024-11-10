@@ -62,27 +62,27 @@ const initialState: TasksStateType = {
 
 export const tasksReducer = (
   state: TasksStateType = initialState,
-  action: ActionTypeTasksType
+  action: ActionTypeTasksType,
 ): TasksStateType => {
   switch (action.type) {
     case 'REMOVE_TASK':
       return {
         ...state,
-        [action.idTodolist]: state[action.idTodolist].filter(t => t.id !== action.id),
+        [action.idTodolist]: state[action.idTodolist].filter((t) => t.id !== action.id),
       };
     case 'CHANGE_TASK_STATUS':
       return {
         ...state,
-        [action.idTodolist]: state[action.idTodolist].map(t =>
-          t.id === action.id ? { ...t, isDone: action.isDone } : t
+        [action.idTodolist]: state[action.idTodolist].map((t) =>
+          t.id === action.id ? { ...t, isDone: action.isDone } : t,
         ),
       };
     case 'CHANGE_TASK_TITLE':
       return {
         ...state,
         [action.idTodolist]: [
-          ...state[action.idTodolist].map(t =>
-            t.id === action.id ? { ...t, title: action.title } : t
+          ...state[action.idTodolist].map((t) =>
+            t.id === action.id ? { ...t, title: action.title } : t,
           ),
         ],
       };
@@ -118,13 +118,13 @@ export const RemoveTasksAC = (id: string, idTodolist: string): RemoveTaskAT => (
 export const ChangeTaskStatusAC = (
   isDone: boolean,
   id: string,
-  idTodolist: string
+  idTodolist: string,
 ): ChangeTaskStatusAT => ({ type: 'CHANGE_TASK_STATUS', isDone, id, idTodolist });
 
 export const ChangeTaskTitleAC = (
   title: string,
   id: string,
-  idTodolist: string
+  idTodolist: string,
 ): ChangeTaskTitleAT => ({ type: 'CHANGE_TASK_TITLE', title, id, idTodolist });
 
 export const AddTaskTitleAC = (title: string, idTodolist: string): AddTaskTitleAT => ({

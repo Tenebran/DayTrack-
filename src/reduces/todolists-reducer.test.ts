@@ -43,7 +43,7 @@ test('correct todolist should be change title', () => {
 
   const endState = todolistsReducer(
     startState,
-    ChangeTodoListTitleAC(newTodolistTitle, todolistId1)
+    ChangeTodoListTitleAC(newTodolistTitle, todolistId1),
   );
 
   expect(endState.length).toBe(2);
