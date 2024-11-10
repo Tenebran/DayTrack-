@@ -21,6 +21,7 @@ import { AppRootStateType } from './redux/store';
 const SyledButton = styled(Button)({
   margin: '0 2px 0 0',
 });
+
 console.log('test');
 type TodoListPropsType = {
   todoLists: TodoListType;
