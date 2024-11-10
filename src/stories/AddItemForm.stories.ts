@@ -14,11 +14,10 @@ const meta = {
   tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
-    addItem: {
-      description: 'Clicked butoon inside form',
-      actions: 'cliked',
-    },
+    addItem: { action: 'clicked' },
+    maxLengthUserMeaasge: { control: { type: 'number' } },
   },
+
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   // args: { onClick: fn() },
 } satisfies Meta<typeof AddItemForm>;
@@ -31,5 +30,11 @@ export const AddItemFormStorie: Story = {
   args: {
     addItem: action('Clicked '),
     maxLengthUserMeaasge: 15,
+  },
+};
+
+export const AddItemFormErrorLongStories: Story = {
+  args: {
+    maxLengthUserMeaasge: 0,
   },
 };

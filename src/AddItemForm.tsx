@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
-import { Button, ButtonGroup, IconButton, styled, TextField } from '@mui/material';
+import { Button, ButtonGroup, styled, TextField } from '@mui/material';
 
 type AddItemFormType = {
   todoListsID?: string;
@@ -10,13 +10,11 @@ type AddItemFormType = {
   taskID?: string;
 };
 
-export const AddItemForm: FC<AddItemFormType> = ({
-  todoListsID,
-  addItem,
-  handleBlur,
-  taskID,
-  maxLengthUserMeaasge,
-}) => {
+const StyledButtonn = styled(Button)({
+  maxHeight: '39.99px',
+});
+
+export const AddItemForm: FC<AddItemFormType> = ({ addItem, maxLengthUserMeaasge }) => {
   const [title, setTitle] = useState<string>('');
   const [inputError, setInputError] = useState<boolean>(false);
 
@@ -49,18 +47,17 @@ export const AddItemForm: FC<AddItemFormType> = ({
         variant="outlined"
         size="small"
         label="Please, enter title"
-        className={inputError ? 'input-error' : undefined}
         autoFocus
         value={title}
         onChange={handlerInputChange}
         onKeyDown={(event) => {
           event.key === 'Enter' && handlerAddItem();
         }}
-        error={inputError}
+        error={!!userMessage}
         helperText={userMessage}
       />
 
-      <Button
+      <StyledButtonn
         size={'small'}
         variant="contained"
         color="primary"
@@ -68,7 +65,7 @@ export const AddItemForm: FC<AddItemFormType> = ({
         disabled={!title.length || title.length >= maxLengthUserMeaasge}
         endIcon={<SendIcon />}>
         ADD
-      </Button>
+      </StyledButtonn>
     </ButtonGroup>
   );
 };
