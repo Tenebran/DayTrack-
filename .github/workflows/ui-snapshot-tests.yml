@@ -24,13 +24,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Start Storybook
-        run: npm run storybook &
-        env:
-          CI: true
-
-      - name: Wait for Storybook to start
-        run: npx wait-on http://localhost:9009
-
+   
       - name: Run UI Snapshot Tests
         run: npm run test:integration
