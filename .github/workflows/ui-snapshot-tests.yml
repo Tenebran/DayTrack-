@@ -3,31 +3,34 @@ name: UI Snapshot Tests
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
+    branches:
+      - master
 
 jobs:
-  snapshot_tests:
+  ui-snapshot-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Check out the code
         uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Install dependencies
         run: npm install
 
       - name: Start Storybook
         run: npm run storybook &
-        continue-on-error: true
+        env:
+          CI: true
 
-      - name: Wait for Storybook to load
-        run: sleep 10
+      - name: Wait for Storybook to start
+        run: npx wait-on http://localhost:9009
 
-      - name: Run snapshot tests
+      - name: Run UI Snapshot Tests
         run: npm run test:integration
