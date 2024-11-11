@@ -10,7 +10,7 @@ import {
 } from './reduces/tasks-reducer';
 import { useDispatch } from 'react-redux';
 
-type TaskListProps = {
+export type TaskListProps = {
   task: TaskType;
   todoListsID: string;
 };
