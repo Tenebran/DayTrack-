@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC } from 'react';
 import { EditebleSpan } from './EditebleSpan';
 import { Checkbox, IconButton } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
-import { TaskType } from './reduces/tasks-reducer';
+import { TaskType } from './state/tasks-reducer';
 
 export type TaskProps = {
   task: TaskType;

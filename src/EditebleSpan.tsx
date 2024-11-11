@@ -1,6 +1,5 @@
 import { TextField } from '@mui/material';
 import React, { ChangeEvent, FC, useState } from 'react';
-import { TaskType } from './reduces/tasks-reducer';
 
 type EditebleSpanType = {
   title: string;

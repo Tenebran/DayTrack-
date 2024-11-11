@@ -13,14 +13,14 @@ import {
   FilterTaskType,
   RemoveTodoListAC,
   TodoListType,
-} from './reduces/todolists-reducer';
+} from './state/todolists-reducer';
 import {
   AddTaskTitleAC,
   ChangeTaskStatusAC,
   ChangeTaskTitleAC,
   RemoveTasksAC,
   TaskType,
-} from './reduces/tasks-reducer';
+} from './state/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppRootStateType } from './redux/store';
 
@@ -108,7 +108,7 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
           </SyledButton>
         </ButtonGroup>
         <ul>
-          {tasks.length ? (
+          {tasks && tasks.length ? (
             filterdTasks.map((t) => (
               <Task
                 task={t}

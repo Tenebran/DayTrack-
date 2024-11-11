@@ -13,10 +13,8 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { Menu 
-  
- } from '@mui/icons-material';
-import { addTodolistAC, TodoListType } from './reduces/todolists-reducer';
+import { Menu } from '@mui/icons-material';
+import { addTodolistAC, TodoListType } from './state/todolists-reducer';
 
 import { useSelector } from 'react-redux';
 import { AppRootStateType } from './redux/store';
