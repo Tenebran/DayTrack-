@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC } from 'react';
 import { EditebleSpan } from './EditebleSpan';
-import { Checkbox, IconButton } from '@mui/material';
+import { Checkbox, IconButton, ListItem } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import { TaskType } from './state/tasks-reducer';
 
@@ -24,7 +24,7 @@ export const Task: FC<TaskProps> = ({
   };
   return (
     <>
-      <li key={task.id}>
+      <ListItem key={task.id}>
         <Checkbox
           id={task.id}
           checked={task.isDone}
@@ -34,7 +34,7 @@ export const Task: FC<TaskProps> = ({
         <IconButton size={'small'} color="primary" onClick={() => removeTaskHandler(task.id)}>
           <CancelPresentationIcon />
         </IconButton>
-      </li>
+      </ListItem>
     </>
   );
 };

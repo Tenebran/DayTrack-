@@ -14,7 +14,7 @@ const StyledButtonn = styled(Button)({
   maxHeight: '39.99px',
 });
 
-export const AddItemForm: FC<AddItemFormType> = ({ addItem, maxLengthUserMeaasge }) => {
+export const AddItemForm: FC<AddItemFormType> = ({ addItem, maxLengthUserMeaasge, taskID }) => {
   const [title, setTitle] = useState<string>('');
   const [inputError, setInputError] = useState<boolean>(false);
 
@@ -47,7 +47,7 @@ export const AddItemForm: FC<AddItemFormType> = ({ addItem, maxLengthUserMeaasge
         variant="outlined"
         size="small"
         label="Please, enter title"
-        autoFocus
+        autoFocus={!!taskID}
         value={title}
         onChange={handlerInputChange}
         onKeyDown={(event) => {

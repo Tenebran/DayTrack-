@@ -28,6 +28,9 @@ export const AppStorie: Story = {
   ),
 };
 export const AppDarkThemeStorie: Story = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
   render: () => (
     <>
       <ThemeProvider theme={darkTheme}>

@@ -5,7 +5,7 @@ import { AddItemForm } from './AddItemForm';
 import { EditebleSpan } from './EditebleSpan';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-import { ButtonGroup, IconButton } from '@mui/material';
+import { ButtonGroup, IconButton, List } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import {
   ChangeTodoListFilterAC,
@@ -107,7 +107,7 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
             Completed
           </SyledButton>
         </ButtonGroup>
-        <ul>
+        <List>
           {tasks && tasks.length ? (
             filterdTasks.map((t) => (
               <Task
@@ -121,7 +121,7 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
           ) : (
             <span>Your taskList is empty</span>
           )}
-        </ul>
+        </List>
       </div>
     </>
   );
