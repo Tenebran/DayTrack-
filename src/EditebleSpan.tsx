@@ -1,19 +1,14 @@
 import { TextField } from '@mui/material';
 import React, { ChangeEvent, FC, useState } from 'react';
+import { TaskType } from './reduces/tasks-reducer';
 
 type EditebleSpanType = {
   title: string;
   spanClasses?: string;
-  inputClasses?: string;
   changeTitleHandler: (title: string) => void;
 };
 
-export const EditebleSpan: FC<EditebleSpanType> = ({
-  title,
-  spanClasses,
-  inputClasses,
-  changeTitleHandler,
-}) => {
+export const EditebleSpan: FC<EditebleSpanType> = ({ title, spanClasses, changeTitleHandler }) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [localTitle, setLocalTitle] = useState<string>(title);
 

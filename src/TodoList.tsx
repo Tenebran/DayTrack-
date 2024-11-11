@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import './Todolist.scss';
-import { TaskList } from './TaskList';
+import { Task } from './Task';
 import { AddItemForm } from './AddItemForm';
 import { EditebleSpan } from './EditebleSpan';
 import Button from '@mui/material/Button';
@@ -14,7 +14,13 @@ import {
   RemoveTodoListAC,
   TodoListType,
 } from './reduces/todolists-reducer';
-import { AddTaskTitleAC, TaskType } from './reduces/tasks-reducer';
+import {
+  AddTaskTitleAC,
+  ChangeTaskStatusAC,
+  ChangeTaskTitleAC,
+  RemoveTasksAC,
+  TaskType,
+} from './reduces/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppRootStateType } from './redux/store';
 
@@ -22,7 +28,6 @@ const SyledButton = styled(Button)({
   margin: '0 2px 0 0',
 });
 
-console.log('test');
 type TodoListPropsType = {
   todoLists: TodoListType;
 };
@@ -41,6 +46,18 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
 
   const changeTodolistTitleHandler = (title: string) => {
     dispatch(ChangeTodoListTitleAC(title, todoLists.id));
+  };
+
+  const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskID: string) => {
+    dispatch(ChangeTaskStatusAC(e.currentTarget.checked, taskID, todoLists.id));
+  };
+
+  const changeTaskTitleHandler = (title: string, taskID: string) => {
+    dispatch(ChangeTaskTitleAC(title, taskID, todoLists.id));
+  };
+
+  const removeTaskHandler = (taskID: string) => {
+    dispatch(RemoveTasksAC(taskID, todoLists.id));
   };
 
   const getFilteredTasks = (tasks: TaskType[], filter: FilterTaskType) => {
@@ -92,7 +109,15 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
         </ButtonGroup>
         <ul>
           {tasks.length ? (
-            filterdTasks.map((t) => <TaskList task={t} todoListsID={todoLists.id} />)
+            filterdTasks.map((t) => (
+              <Task
+                task={t}
+                todoListsID={todoLists.id}
+                changeStatusHandler={changeStatusHandler}
+                changeTaskTitleHandler={changeTaskTitleHandler}
+                removeTaskHandler={removeTaskHandler}
+              />
+            ))
           ) : (
             <span>Your taskList is empty</span>
           )}
