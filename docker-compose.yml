@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+      - GENERATE_SOURCEMAP=false
+    command: npm start
+
+  ui-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=test
+    command: npm run test:integration
+    depends_on:
+      - app
+    ports:
+      - "6006:9009"
+    volumes:
+      - .:/app
