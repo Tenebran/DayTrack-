@@ -28,18 +28,19 @@ jobs:
         run: npm run build-storybook
 
       - name: Run Storybook and UI Snapshot Tests
+        id: run_tests
         run: |
           npm run storybook & 
           npx wait-on http://localhost:9009 && 
           npm run test:integration
-        continue-on-error: true
-
-      - name: List screenshot files for debugging
-        run: ls -R integration/__image_snapshots__
 
       - name: Upload screenshot artifacts
-        if: always() 
+        if: always()
         uses: actions/upload-artifact@v4.4.3
         with:
           name: screenshot-artifacts
-          path: integration/__image_snapshots__/**
+          path: integration/__image_snapshots__/
+
+      - name: Set job status
+        if: failure()
+        run: exit 1
