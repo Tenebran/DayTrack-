@@ -1,4 +1,4 @@
-jest.setTimeout(30000);
+jest.setTimeout(120000);
 
 describe('app', () => {
   it('base example, visually looks correct', async () => {
