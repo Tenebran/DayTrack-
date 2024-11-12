@@ -32,3 +32,12 @@ jobs:
           npm run storybook & 
           npx wait-on http://localhost:9009 && 
           npm run test:integration
+
+      - name: Archive screenshots
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshots
+          path: |
+            integration/__image_snapshots__
+            integration/__image_snapshots__/__diff_output__
