@@ -34,7 +34,7 @@
     "storybook": "storybook dev -p 9009",
     "build-storybook": "storybook build",
     "jest:integration": "jest -c integration/jest.config.js",
-    "test:integration": "start-server-and-test storybook http-get://localhost:6006 jest:integration"
+    "test:integration": "start-server-and-test storybook http-get://localhost:9009 jest:integration"
   },
   "eslintConfig": {
     "extends": [
