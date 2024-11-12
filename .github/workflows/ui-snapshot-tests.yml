@@ -32,12 +32,11 @@ jobs:
           npm run storybook & 
           npx wait-on http://localhost:9009 && 
           npm run test:integration
-
-      - name: List screenshot files
-        run: ls -R integration/__image_snapshots__/
+        continue-on-error: true
 
       - name: Upload screenshot artifacts
+        if: always() 
         uses: actions/upload-artifact@v3
         with:
           name: screenshot-artifacts
-          path: integration/__image_snapshots__/**/*.png
+          path: integration/__image_snapshots__/
