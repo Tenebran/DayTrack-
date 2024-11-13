@@ -46,13 +46,14 @@ export const todolistsReducer = (
   switch (action.type) {
     case 'REMOVE-TODOLIST':
       return todoLists.filter((t) => t.id !== action.id);
-    case 'ADD-TODOLIST':
+    case 'ADD-TODOLIST': {
       const newTodoList: TodoListType = {
         id: action.todolistID,
         title: action.title,
         filter: 'all',
       };
       return [...todoLists, newTodoList];
+    }
     case 'CHANGE-TODOLIST-TITLE':
       return todoLists.map((t) => (t.id === action.id ? { ...t, title: action.title } : t));
     case 'CHANGE-TODOLIST-FILTER':

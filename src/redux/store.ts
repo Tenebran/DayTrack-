@@ -14,5 +14,5 @@ export const store = configureStore({
 
 export type AppRootStateType = ReturnType<typeof rootReducer>;
 
-// @ts-ignore
+// @ts-expect-error   is necessary.
 window.store = store;

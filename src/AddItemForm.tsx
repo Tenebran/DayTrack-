@@ -5,8 +5,7 @@ import { Button, ButtonGroup, styled, TextField } from '@mui/material';
 type AddItemFormType = {
   todoListsID?: string;
   maxLengthUserMeaasge: number;
-  addItem: (title: string) => void;
-  handleBlur?: (id: string, idTodolist: string) => void;
+  addItem: (_title: string) => void;
   taskID?: string;
 };
 
@@ -47,6 +46,7 @@ export const AddItemForm: FC<AddItemFormType> = ({ addItem, maxLengthUserMeaasge
         variant="outlined"
         size="small"
         label="Please, enter title"
+        // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={!!taskID}
         value={title}
         onChange={handlerInputChange}

@@ -6,7 +6,6 @@ import { TaskType } from './state/tasks-reducer';
 
 export type TaskProps = {
   task: TaskType;
-  todoListsID: string;
   changeStatusHandler: (e: ChangeEvent<HTMLInputElement>, taskID: string) => void;
   changeTaskTitleHandler: (title: string, taskID: string) => void;
   removeTaskHandler: (taskID: string) => void;
@@ -14,7 +13,6 @@ export type TaskProps = {
 
 export const Task: FC<TaskProps> = ({
   task,
-  todoListsID,
   changeStatusHandler,
   changeTaskTitleHandler,
   removeTaskHandler,

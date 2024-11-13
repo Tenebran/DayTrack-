@@ -21,7 +21,6 @@ const meta: Meta<typeof Task> = {
     removeTaskHandler: { action: 'task removed' },
   },
   args: {
-    todoListsID: 'todolist1',
   },
 };
 
@@ -32,18 +31,17 @@ type Story = StoryObj<TaskProps>;
 export const TaskStorie = () => {
   const [task, setTask] = useState({ id: '6', isDone: false, title: 'REACT TEST TASK' });
 
-  const changeTaskTitleHandler = (title: string, taskID: string) => {
+  const changeTaskTitleHandler = (title: string) => {
     setTask({ ...task, title });
   };
 
-  const changeTaskStatusHandler = (e: React.ChangeEvent<HTMLInputElement>, taskID: string) => {
+  const changeTaskStatusHandler = () => {
     setTask({ ...task, isDone: !task.isDone });
   };
 
   return (
     <Task
       task={task}
-      todoListsID="todolist1"
       changeStatusHandler={changeTaskStatusHandler}
       changeTaskTitleHandler={changeTaskTitleHandler}
       removeTaskHandler={action('Remove Task')}

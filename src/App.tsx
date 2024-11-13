@@ -28,7 +28,7 @@ const StyledPaper = styled(Paper)({
 });
 
 function App() {
-  let todoLists = useSelector<AppRootStateType, TodoListType[]>((state) => state.todolists);
+  const todoLists = useSelector<AppRootStateType, TodoListType[]>((state) => state.todolists);
 
   const dispatch = useDispatch();
 
@@ -57,8 +57,8 @@ function App() {
         <Grid2 container spacing={4}>
           {todoLists.map((t) => {
             return (
-              <StyledPaper elevation={3} variant="outlined">
-                <TodoList key={t.id} todoLists={t} />
+              <StyledPaper elevation={3} variant="outlined"  key={t.id}>
+                <TodoList todoLists={t} />
               </StyledPaper>
             );
           })}

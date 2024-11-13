@@ -39,7 +39,7 @@ test('correct todolist should be added', () => {
 });
 
 test('correct todolist should be change title', () => {
-  let newTodolistTitle = 'New Todolist';
+  const newTodolistTitle = 'New Todolist';
 
   const endState = todolistsReducer(
     startState,

@@ -33,7 +33,7 @@ type TodoListPropsType = {
 };
 
 export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
-  let tasks = useSelector<AppRootStateType, TaskType[]>((state) => state.tasks[todoLists.id]);
+  const tasks = useSelector<AppRootStateType, TaskType[]>((state) => state.tasks[todoLists.id]);
 
   const dispatch = useDispatch();
 
@@ -111,8 +111,8 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
           {tasks && tasks.length ? (
             filterdTasks.map((t) => (
               <Task
+                key={t.id}
                 task={t}
-                todoListsID={todoLists.id}
                 changeStatusHandler={changeStatusHandler}
                 changeTaskTitleHandler={changeTaskTitleHandler}
                 removeTaskHandler={removeTaskHandler}
