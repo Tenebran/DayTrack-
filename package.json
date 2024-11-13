@@ -29,6 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 9009",
@@ -67,6 +68,9 @@
     "@storybook/react-webpack5": "^8.4.2",
     "@storybook/test": "^8.4.2",
     "@types/node": "^22.9.0",
+    "@typescript-eslint/eslint-plugin": "^8.14.0",
+    "@typescript-eslint/parser": "^8.14.0",
+    "eslint": "^8.57.1",
     "eslint-plugin-storybook": "^0.11.0",
     "jest": "^27.5.1",
     "jest-image-snapshot": "^6.4.0",

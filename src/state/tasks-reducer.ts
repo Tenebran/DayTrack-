@@ -86,11 +86,11 @@ export const tasksReducer = (
         ...state,
         [action.todolistID]: [],
       };
-    case 'REMOVE-TODOLIST':
+    case 'REMOVE-TODOLIST': {
       const copyTasks = { ...state };
       delete copyTasks[action.id];
       return copyTasks;
-
+    }
     default:
       return state;
   }
