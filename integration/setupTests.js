@@ -4,27 +4,36 @@ const { toMatchImageSnapshot } = require('jest-image-snapshot');
 
 expect.extend({
   toMatchImageSnapshot(received, ...args) {
+    const testName = this.currentTestName.replace(/\s+/g, '-').replace(/[^a-z0-9-]/gi, '').toLowerCase();
+    const testFileName = path.basename(this.testPath, '.js').replace(/\./g, '-');
+
+    const snapshotIdentifier = `${testFileName}-${testName}-1-snap`; 
+
+    const customSnapshotsDir = path.resolve(__dirname, '__image_snapshots__');
+    const customDiffDir = path.resolve(customSnapshotsDir, '__diff_output__');
+
     const result = toMatchImageSnapshot.call(this, received, {
-      customSnapshotsDir: './integration/__image_snapshots__',
-      customDiffDir: './integration/__image_snapshots__/__diff_output__',
+      customSnapshotsDir,
+      customDiffDir,
+      customSnapshotIdentifier: snapshotIdentifier,
       failureThreshold: 0.01,
       failureThresholdType: 'percent',
       ...args,
     });
 
     if (!result.pass) {
-      console.log('Снимок не совпадает. Создание нового скриншота для сравнения.');
+      console.log('Snapshot does not match. Creating a new screenshot for comparison.');
 
-      // Создание директории new_snapshots, если она еще не существует
-      const newSnapshotDir = path.join(__dirname, 'integration/new_snapshots');
+      // Директория для новых снимков
+      const newSnapshotDir = path.resolve(customSnapshotsDir, '__corrected_snapshots__');
+      const newSnapshotPath = path.join(newSnapshotDir, `${snapshotIdentifier}.png`);
+
       if (!fs.existsSync(newSnapshotDir)) {
         fs.mkdirSync(newSnapshotDir, { recursive: true });
       }
 
-      // Сохранение нового скриншота в директории new_snapshots
-      const testName = this.currentTestName.replace(/\s+/g, '_'); // Замена пробелов для корректного имени файла
-      const newSnapshotPath = path.join(newSnapshotDir, `${testName}.png`);
       fs.writeFileSync(newSnapshotPath, received);
+      console.log('New screenshot successfully saved at path:', newSnapshotPath);
     }
 
     return result;

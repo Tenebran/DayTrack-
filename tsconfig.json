@@ -16,5 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src", "src/test/tasks-todolist-reducer.test.ts", "src/test/todolists-reducer.test.ts", "test/setupTests.ts"]
 }

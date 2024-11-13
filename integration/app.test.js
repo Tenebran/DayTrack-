@@ -21,5 +21,3 @@ describe('appDarkTheme', () => {
     expect(image).toMatchImageSnapshot();
   });
 });
-
-
