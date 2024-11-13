@@ -35,6 +35,10 @@ jobs:
           npm run test:integration
         continue-on-error: true
 
+      - name: Check for failed tests
+        if: steps.run_tests.outcome == 'failure'
+        run: exit 1
+
       - name: Upload new snapshot artifacts
         if: always() 
         uses: actions/upload-artifact@v4
@@ -55,7 +59,3 @@ jobs:
         with:
           name: screenshot-artifacts
           path: integration/__image_snapshots__/
-
-      - name: Set job status
-        if: failure()
-        run: exit 1
