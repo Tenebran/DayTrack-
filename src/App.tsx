@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import { TodoList } from './TodoList';
 import { AddItemForm } from './AddItemForm';
@@ -36,6 +36,10 @@ function App() {
     dispatch(addTodolistAC(title));
   };
 
+  // useEffect(() =>
+
+  // }, []);
+
   return (
     <>
       <AppBar position="static">
@@ -57,7 +61,7 @@ function App() {
         <Grid2 container spacing={4}>
           {todoLists.map((t) => {
             return (
-              <StyledPaper elevation={3} variant="outlined"  key={t.id}>
+              <StyledPaper elevation={3} variant="outlined" key={t.id}>
                 <TodoList todoLists={t} />
               </StyledPaper>
             );

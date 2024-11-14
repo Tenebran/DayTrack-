@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { ResponseType, TodoListType, TaskListType } from './type';
 
 const instance = axios.create({
@@ -35,7 +35,11 @@ export const todoListApi = {
   },
 
   createTasks(todoListID: string, title: string) {
-    return instance.post<ResponseType<{ item: TaskListType }>>(`/todo-lists/${todoListID}/tasks`, {
+    return instance.post<
+      ResponseType<{ item: TaskListType }>,
+      AxiosResponse<ResponseType<{ item: TaskListType }>>,
+      { title: string }
+    >(`/todo-lists/${todoListID}/tasks`, {
       title,
     });
   },
