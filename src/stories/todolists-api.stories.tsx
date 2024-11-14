@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { todoListApi } from '../api/todolist-api';
 
@@ -18,8 +17,8 @@ export const CreateTodolist = () => {
   const [state, setState] = useState<any>(null);
 
   useEffect(() => {
-    todoListApi.createTodolis('HELLO NEW TODOLIST').then((res) => {
-      setState(res.data);
+    todoListApi.createTodolist('HELLO NEW TODOLIST').then((res) => {
+      setState(res.data.data.item);
     });
   }, []);
 
