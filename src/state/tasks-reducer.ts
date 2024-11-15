@@ -6,7 +6,7 @@ import { TaskListApiType } from 'api/type';
 
 export type TaskType = {
   id: string;
-  isDone: boolean;
+  status: number;
   title: string;
 };
 
@@ -29,7 +29,7 @@ export type ChangeTaskTitleAT = {
 
 export type ChangeTaskStatusAT = {
   type: 'CHANGE_TASK_STATUS';
-  isDone: boolean;
+  status: number;
   id: string;
   idTodolist: string;
 };
@@ -68,7 +68,7 @@ export const tasksReducer = (
       return {
         ...state,
         [action.idTodolist]: state[action.idTodolist].map((t) =>
-          t.id === action.id ? { ...t, isDone: action.isDone } : t
+          t.id === action.id ? { ...t, status: action.status } : t
         ),
       };
     case 'CHANGE_TASK_TITLE':
@@ -84,7 +84,7 @@ export const tasksReducer = (
       return {
         ...state,
         [action.idTodolist]: [
-          { id: v1(), isDone: false, title: action.title },
+          { id: v1(), status: 0, title: action.title },
           ...(state[action.idTodolist] || []),
         ],
       };
@@ -119,10 +119,10 @@ export const RemoveTasksAC = (id: string, idTodolist: string): RemoveTaskAT => (
 });
 
 export const ChangeTaskStatusAC = (
-  isDone: boolean,
+  status: number,
   id: string,
   idTodolist: string
-): ChangeTaskStatusAT => ({ type: 'CHANGE_TASK_STATUS', isDone, id, idTodolist });
+): ChangeTaskStatusAT => ({ type: 'CHANGE_TASK_STATUS', status, id, idTodolist });
 
 export const ChangeTaskTitleAC = (
   title: string,
@@ -145,11 +145,6 @@ export const setTasksListsAC = (todoID: string, tasks: TaskType[]) =>
 
 export const getTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
   todoListApi.getTasks(todolistID).then((resp) => {
-    const tasks = resp.data.items.map((task) => ({
-      id: task.id,
-      isDone: task.status === 2,
-      title: task.title,
-    }));
-    dispatch(setTasksListsAC(todolistID, tasks));
+    dispatch(setTasksListsAC(todolistID, resp.data.items));
   });
 };

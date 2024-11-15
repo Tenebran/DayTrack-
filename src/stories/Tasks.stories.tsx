@@ -20,8 +20,7 @@ const meta: Meta<typeof Task> = {
     changeTaskTitleHandler: { action: 'title changed' },
     removeTaskHandler: { action: 'task removed' },
   },
-  args: {
-  },
+  args: {},
 };
 
 export default meta;
@@ -29,14 +28,14 @@ export default meta;
 type Story = StoryObj<TaskProps>;
 
 export const TaskStorie = () => {
-  const [task, setTask] = useState({ id: '6', isDone: false, title: 'REACT TEST TASK' });
+  const [task, setTask] = useState({ id: '6', status: 0, title: 'REACT TEST TASK' });
 
   const changeTaskTitleHandler = (title: string) => {
     setTask({ ...task, title });
   };
 
   const changeTaskStatusHandler = () => {
-    setTask({ ...task, isDone: !task.isDone });
+    setTask({ ...task, status: task.status === 2 ? 0 : 2 });
   };
 
   return (
@@ -49,22 +48,16 @@ export const TaskStorie = () => {
   );
 };
 
-
-
-
-
 export const TasksIsNotDoneStorie: Story = {
-
   render: (args: TaskProps) => (
     <Provider store={store}>
       <Task {...args} />
     </Provider>
   ),
   args: {
-    task: { id: '6', isDone: false, title: 'REACT IS NOT DONE' },
+    task: { id: '6', status: 0, title: 'REACT IS NOT DONE' },
   },
 };
-
 
 export const TasksIsNotDoneDarkThemeStorie: Story = {
   parameters: {
@@ -72,14 +65,14 @@ export const TasksIsNotDoneDarkThemeStorie: Story = {
   },
   render: (args: TaskProps) => (
     <ThemeProvider theme={darkTheme}>
-    <Provider store={store}>
-      <CssBaseline />
-      <Task {...args} />
-    </Provider>
+      <Provider store={store}>
+        <CssBaseline />
+        <Task {...args} />
+      </Provider>
     </ThemeProvider>
   ),
   args: {
-    task: { id: '6', isDone: false, title: 'REACT IS NOT DONE' },
+    task: { id: '6', status: 0, title: 'REACT IS NOT DONE' },
   },
 };
 
@@ -90,7 +83,7 @@ export const TasksIsDoneStorie: Story = {
     </Provider>
   ),
   args: {
-    task: { id: '5', isDone: true, title: 'REACT IS DONE' },
+    task: { id: '5', status: 2, title: 'REACT IS DONE' },
   },
 };
 
@@ -101,13 +94,13 @@ export const TasksIsDoneDarkThemeStorie: Story = {
 
   render: (args: TaskProps) => (
     <ThemeProvider theme={darkTheme}>
-    <Provider store={store}>
-    <CssBaseline />
-      <Task {...args} />
-    </Provider>
+      <Provider store={store}>
+        <CssBaseline />
+        <Task {...args} />
+      </Provider>
     </ThemeProvider>
   ),
   args: {
-    task: { id: '5', isDone: true, title: 'REACT IS DONE' },
+    task: { id: '5', status: 0, title: 'REACT IS DONE' },
   },
 };

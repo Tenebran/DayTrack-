@@ -19,16 +19,16 @@ beforeEach(() => {
 
   startState = {
     [todolistId1]: [
-      { id: '1', isDone: false, title: 'HTML&CSS' },
-      { id: '2', isDone: false, title: 'JS' },
-      { id: '3', isDone: false, title: 'React' },
-      { id: '4', isDone: false, title: 'Redux' },
+      { id: '1', status: 0, title: 'HTML&CSS' },
+      { id: '2', status: 0, title: 'JS' },
+      { id: '3', status: 0, title: 'React' },
+      { id: '4', status: 0, title: 'Redux' },
     ],
 
     [todolistId2]: [
-      { id: '1', isDone: false, title: 'Milk' },
-      { id: '2', isDone: false, title: 'Bread' },
-      { id: '3', isDone: false, title: 'Meat' },
+      { id: '1', status: 0, title: 'Milk' },
+      { id: '2', status: 0, title: 'Bread' },
+      { id: '3', status: 0, title: 'Meat' },
     ],
   };
 });
@@ -42,10 +42,10 @@ test('correct task should be removed', () => {
 });
 
 test('correct task should be change status', () => {
-  const endState = tasksReducer(startState, ChangeTaskStatusAC(true, '3', todolistId1));
+  const endState = tasksReducer(startState, ChangeTaskStatusAC(2, '3', todolistId1));
 
-  expect(endState[todolistId1].find((t) => t.id === '3')?.isDone).toBe(true);
-  expect(endState[todolistId1].find((t) => t.id === '2')?.isDone).toBe(false);
+  expect(endState[todolistId1].find((t) => t.id === '3')?.status).toBe(2);
+  expect(endState[todolistId1].find((t) => t.id === '2')?.status).toBe(0);
 });
 
 test('correct task should be change title', () => {

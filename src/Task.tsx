@@ -25,7 +25,7 @@ export const Task: FC<TaskProps> = ({
       <ListItem key={task.id}>
         <Checkbox
           id={task.id}
-          checked={task.isDone}
+          checked={task.status === 2}
           onChange={(e) => changeStatusHandler(e, task.id)}
         />
         <EditebleSpan title={task.title} changeTitleHandler={changeTaskTitle} />

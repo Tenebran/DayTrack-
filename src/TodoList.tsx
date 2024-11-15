@@ -22,7 +22,6 @@ import {
   RemoveTasksAC,
   TaskType,
 } from './state/tasks-reducer';
-import { useDispatch } from 'react-redux';
 import { useAppDispatch, useAppSelector } from './redux/store';
 
 const SyledButton = styled(Button)({
@@ -54,7 +53,7 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
   };
 
   const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskID: string) => {
-    dispatch(ChangeTaskStatusAC(e.currentTarget.checked, taskID, todoLists.id));
+    dispatch(ChangeTaskStatusAC(e.currentTarget.checked ? 2 : 0, taskID, todoLists.id));
   };
 
   const changeTaskTitleHandler = (title: string, taskID: string) => {
@@ -68,9 +67,9 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
   const getFilteredTasks = (tasks: TaskType[], filter: FilterTaskType) => {
     switch (filter) {
       case 'active':
-        return tasks.filter((t) => !t.isDone);
+        return tasks.filter((t) => t.status === 0);
       case 'completed':
-        return tasks.filter((t) => t.isDone);
+        return tasks.filter((t) => t.status === 2);
       default:
         return tasks;
     }
