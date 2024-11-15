@@ -14,11 +14,9 @@ import {
   Typography,
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
-import { addTodolistAC, TodoListType } from './state/todolists-reducer';
+import { addTodolistAC, setTodolistsTC, TodoListType } from './state/todolists-reducer';
 
-import { useSelector } from 'react-redux';
-import { AppRootStateType } from './redux/store';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from './redux/store';
 
 const StyledGridInput = styled(Grid2)({
   margin: '10px 0',
@@ -27,18 +25,18 @@ const StyledPaper = styled(Paper)({
   padding: '15px',
 });
 
-function App() {
-  const todoLists = useSelector<AppRootStateType, TodoListType[]>((state) => state.todolists);
+export function App() {
+  const todoLists = useAppSelector<TodoListType[]>((state) => state.todolists);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const addTodoList = (title: string) => {
     dispatch(addTodolistAC(title));
   };
 
-  // useEffect(() =>
-
-  // }, []);
+  useEffect(() => {
+    dispatch(setTodolistsTC());
+  }, []);
 
   return (
     <>
@@ -71,5 +69,3 @@ function App() {
     </>
   );
 }
-
-export default App;

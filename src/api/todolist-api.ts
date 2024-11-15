@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import { ResponseType, TodoListType, TaskListType } from './type';
+import { ResponseType, TodoListsApiType, TaskListApiType } from './type';
+import { TaskType } from 'state/tasks-reducer';
 
 const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -11,11 +12,15 @@ const instance = axios.create({
 
 export const todoListApi = {
   updateTodoList(todoListID: string, title: string) {
-    return instance.put<ResponseType>(`/todo-lists/${todoListID}`, { title });
+    return instance.put<
+      ResponseType<{ item: TodoListsApiType }>,
+      AxiosResponse<ResponseType<{ item: TodoListsApiType }>>,
+      { title: string }
+    >(`/todo-lists/${todoListID}`, { title });
   },
 
   getTodoLists() {
-    return instance.get<TodoListType[]>('/todo-lists');
+    return instance.get<TodoListsApiType[]>('/todo-lists');
   },
 
   deleteTodolist(todoListID: string) {
@@ -23,7 +28,11 @@ export const todoListApi = {
   },
 
   createTodolist(title: string) {
-    return instance.post<ResponseType<{ item: TodoListType }>>('/todo-lists', { title });
+    return instance.post<
+      ResponseType<{ item: TodoListsApiType }>,
+      AxiosResponse<ResponseType<{ item: TodoListsApiType }>>,
+      { title: string }
+    >('/todo-lists', { title });
   },
 
   updateTask(todoListID: string, tasksID: string, title: string) {
@@ -31,13 +40,13 @@ export const todoListApi = {
   },
 
   getTasks(todoListID: string) {
-    return instance.get<TaskListType[]>(`/todo-lists/${todoListID}/tasks`);
+    return instance.get<{ items: TaskListApiType[] }>(`/todo-lists/${todoListID}/tasks`);
   },
 
   createTasks(todoListID: string, title: string) {
     return instance.post<
-      ResponseType<{ item: TaskListType }>,
-      AxiosResponse<ResponseType<{ item: TaskListType }>>,
+      ResponseType<{ item: TaskType }>,
+      AxiosResponse<ResponseType<{ item: TaskListApiType }>>,
       { title: string }
     >(`/todo-lists/${todoListID}/tasks`, {
       title,

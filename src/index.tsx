@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-import App from './App';
+import { App } from './App';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
@@ -19,5 +19,5 @@ root.render(
       <CssBaseline />
       <App />
     </ThemeProvider>
-  </Provider>,
+  </Provider>
 );

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from 'react';
+import React, { ChangeEvent, FC, useEffect } from 'react';
 import './Todolist.scss';
 import { Task } from './Task';
 import { AddItemForm } from './AddItemForm';
@@ -18,11 +18,12 @@ import {
   AddTaskTitleAC,
   ChangeTaskStatusAC,
   ChangeTaskTitleAC,
+  getTasksTC,
   RemoveTasksAC,
   TaskType,
 } from './state/tasks-reducer';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppRootStateType } from './redux/store';
+import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from './redux/store';
 
 const SyledButton = styled(Button)({
   margin: '0 2px 0 0',
@@ -33,9 +34,13 @@ type TodoListPropsType = {
 };
 
 export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
-  const tasks = useSelector<AppRootStateType, TaskType[]>((state) => state.tasks[todoLists.id]);
+  const tasks = useAppSelector<TaskType[]>((state) => state.tasks[todoLists.id]);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getTasksTC(todoLists.id));
+  }, []);
 
   const addNewTask = (title: string) => {
     dispatch(AddTaskTitleAC(title, todoLists.id));
@@ -108,7 +113,7 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
           </SyledButton>
         </ButtonGroup>
         <List>
-          {tasks && tasks.length ? (
+          {tasks.length ? (
             filterdTasks.map((t) => (
               <Task
                 key={t.id}
