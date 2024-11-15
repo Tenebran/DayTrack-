@@ -15,14 +15,14 @@ import {
   TodoListType,
 } from './state/todolists-reducer';
 import {
-  AddTaskTitleAC,
-  ChangeTaskStatusAC,
-  ChangeTaskTitleAC,
+  addTasksTC,
+  changeTasksStatusTC,
+  changeTasksTitleTC,
   getTasksTC,
-  RemoveTasksAC,
-  TaskType,
+  removeTasksTC,
 } from './state/tasks-reducer';
 import { useAppDispatch, useAppSelector } from './redux/store';
+import { TaskListApiType } from 'api/type';
 
 const SyledButton = styled(Button)({
   margin: '0 2px 0 0',
@@ -33,7 +33,7 @@ type TodoListPropsType = {
 };
 
 export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
-  const tasks = useAppSelector<TaskType[]>((state) => state.tasks[todoLists.id]);
+  const tasks = useAppSelector<TaskListApiType[]>((state) => state.tasks[todoLists.id]);
 
   const dispatch = useAppDispatch();
 
@@ -42,7 +42,7 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
   }, []);
 
   const addNewTask = (title: string) => {
-    dispatch(AddTaskTitleAC(title, todoLists.id));
+    dispatch(addTasksTC(title, todoLists.id));
   };
 
   const handlerCreator = (filter: FilterTaskType) => () =>
@@ -52,19 +52,19 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
     dispatch(ChangeTodoListTitleAC(title, todoLists.id));
   };
 
-  const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskID: string) => {
-    dispatch(ChangeTaskStatusAC(e.currentTarget.checked ? 2 : 0, taskID, todoLists.id));
+  const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskID: string, title: string) => {
+    dispatch(changeTasksStatusTC(todoLists.id, taskID, e.currentTarget.checked ? 2 : 0, title));
   };
 
   const changeTaskTitleHandler = (title: string, taskID: string) => {
-    dispatch(ChangeTaskTitleAC(title, taskID, todoLists.id));
+    dispatch(changeTasksTitleTC(todoLists.id, taskID, title));
   };
 
   const removeTaskHandler = (taskID: string) => {
-    dispatch(RemoveTasksAC(taskID, todoLists.id));
+    dispatch(removeTasksTC(todoLists.id, taskID));
   };
 
-  const getFilteredTasks = (tasks: TaskType[], filter: FilterTaskType) => {
+  const getFilteredTasks = (tasks: TaskListApiType[], filter: FilterTaskType) => {
     switch (filter) {
       case 'active':
         return tasks.filter((t) => t.status === 0);
@@ -74,7 +74,7 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
         return tasks;
     }
   };
-  const filterdTasks: TaskType[] = getFilteredTasks(tasks, todoLists.filter);
+  const filterdTasks: TaskListApiType[] = getFilteredTasks(tasks, todoLists.filter);
 
   return (
     <>

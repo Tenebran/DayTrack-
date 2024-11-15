@@ -6,14 +6,14 @@ export type TodoListsApiType = {
 };
 
 export type TaskListApiType = {
-  addedDate: Date;
-  deadline: null | Date;
-  description: null | string;
+  addedDate?: Date;
+  deadline?: null | Date;
+  description?: null | string;
   id: string;
-  order: number;
-  priority: number;
-  startDate: null | Date;
-  status: number;
+  order?: number;
+  priority?: number;
+  startDate?: null | Date;
+  status?: number;
   title: string;
   todoListId: string;
 };
@@ -24,7 +24,7 @@ export type ResponseType<T = object> = {
     items: any
   ): {
     readonly type: 'SET-TASKS';
-    readonly tasks: import('../state/tasks-reducer').TaskType[];
+    readonly tasks: TaskListApiType[];
     readonly todoID: string;
   };
   data: T;

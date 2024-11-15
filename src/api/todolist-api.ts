@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 import { ResponseType, TodoListsApiType, TaskListApiType } from './type';
-import { TaskType } from 'state/tasks-reducer';
 
 const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -35,8 +34,15 @@ export const todoListApi = {
     >('/todo-lists', { title });
   },
 
-  updateTask(todoListID: string, tasksID: string, title: string) {
+  updateTitleTask(todoListID: string, tasksID: string, title: string) {
     return instance.put<ResponseType>(`/todo-lists/${todoListID}/tasks/${tasksID}`, { title });
+  },
+
+  updateStatusTask(todoListID: string, tasksID: string, status: number, title: string) {
+    return instance.put<ResponseType>(`/todo-lists/${todoListID}/tasks/${tasksID}`, {
+      status,
+      title,
+    });
   },
 
   getTasks(todoListID: string) {
@@ -45,7 +51,7 @@ export const todoListApi = {
 
   createTasks(todoListID: string, title: string) {
     return instance.post<
-      ResponseType<{ item: TaskType }>,
+      ResponseType<{ item: TaskListApiType }>,
       AxiosResponse<ResponseType<{ item: TaskListApiType }>>,
       { title: string }
     >(`/todo-lists/${todoListID}/tasks`, {

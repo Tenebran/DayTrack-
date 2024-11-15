@@ -28,7 +28,12 @@ export default meta;
 type Story = StoryObj<TaskProps>;
 
 export const TaskStorie = () => {
-  const [task, setTask] = useState({ id: '6', status: 0, title: 'REACT TEST TASK' });
+  const [task, setTask] = useState({
+    id: '6',
+    status: 0,
+    title: 'REACT TEST TASK',
+    todoListId: 'todoListId',
+  });
 
   const changeTaskTitleHandler = (title: string) => {
     setTask({ ...task, title });
@@ -55,7 +60,13 @@ export const TasksIsNotDoneStorie: Story = {
     </Provider>
   ),
   args: {
-    task: { id: '6', status: 0, title: 'REACT IS NOT DONE' },
+    task: {
+      id: '6',
+      status: 0,
+      title: 'REACT IS NOT DONE',
+      deadline: null,
+      todoListId: 'todoListId2',
+    },
   },
 };
 
@@ -72,7 +83,7 @@ export const TasksIsNotDoneDarkThemeStorie: Story = {
     </ThemeProvider>
   ),
   args: {
-    task: { id: '6', status: 0, title: 'REACT IS NOT DONE' },
+    task: { id: '6', status: 0, title: 'REACT IS NOT DONE', todoListId: 'todoListId3' },
   },
 };
 
@@ -83,7 +94,7 @@ export const TasksIsDoneStorie: Story = {
     </Provider>
   ),
   args: {
-    task: { id: '5', status: 2, title: 'REACT IS DONE' },
+    task: { id: '5', status: 2, title: 'REACT IS DONE', todoListId: 'todoListId' },
   },
 };
 
@@ -101,6 +112,6 @@ export const TasksIsDoneDarkThemeStorie: Story = {
     </ThemeProvider>
   ),
   args: {
-    task: { id: '5', status: 0, title: 'REACT IS DONE' },
+    task: { id: '5', status: 0, title: 'REACT IS DONE', todoListId: 'todoListId' },
   },
 };

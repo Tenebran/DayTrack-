@@ -45,7 +45,7 @@ export const UpdateTaskTitle = () => {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
     todoListApi
-      .updateTask(
+      .updateTitleTask(
         '6acfff44-a056-4886-a8bd-f3896e327f07',
         'd605d7e3-e3a5-4331-ae74-d83898f758ff',
         'REACT NEW TASK 2024'

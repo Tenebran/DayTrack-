@@ -8,6 +8,7 @@ import {
   TasksStateType,
 } from '../state/tasks-reducer';
 import { addTodolistAC, RemoveTodoListAC } from '../state/todolists-reducer';
+import { TaskListApiType } from 'api/type';
 
 let todolistId1: string;
 let todolistId2: string;
@@ -19,16 +20,16 @@ beforeEach(() => {
 
   startState = {
     [todolistId1]: [
-      { id: '1', status: 0, title: 'HTML&CSS' },
-      { id: '2', status: 0, title: 'JS' },
-      { id: '3', status: 0, title: 'React' },
-      { id: '4', status: 0, title: 'Redux' },
+      { id: '1', status: 0, title: 'HTML&CSS', todoListId: todolistId1 },
+      { id: '2', status: 0, title: 'JS', todoListId: todolistId1 },
+      { id: '3', status: 0, title: 'React', todoListId: todolistId1 },
+      { id: '4', status: 0, title: 'Redux', todoListId: todolistId1 },
     ],
 
     [todolistId2]: [
-      { id: '1', status: 0, title: 'Milk' },
-      { id: '2', status: 0, title: 'Bread' },
-      { id: '3', status: 0, title: 'Meat' },
+      { id: '1', status: 0, title: 'Milk', todoListId: todolistId2 },
+      { id: '2', status: 0, title: 'Bread', todoListId: todolistId2 },
+      { id: '3', status: 0, title: 'Meat', todoListId: todolistId2 },
     ],
   };
 });
@@ -55,12 +56,18 @@ test('correct task should be change title', () => {
   expect(endState[todolistId2].find((t) => t.id === '1')?.title).toBe('Milk');
 });
 
-test('correct task should be add title', () => {
-  const endState = tasksReducer(startState, AddTaskTitleAC('Book', todolistId2));
+test('correct task should be added', () => {
+  const newTask: TaskListApiType = {
+    id: v1(),
+    status: 0,
+    title: 'New Task',
+    todoListId: todolistId2,
+  };
 
-  expect(endState[todolistId2][2].title).toBe('Bread');
+  const endState = tasksReducer(startState, AddTaskTitleAC(newTask));
+
+  expect(endState[todolistId2][0].title).toBe('New Task');
   expect(endState[todolistId2][1].title).toBe('Milk');
-  expect(endState[todolistId2][0].title).toBe('Book');
 });
 
 test('new array should be added when new todolist is added', () => {
@@ -68,7 +75,7 @@ test('new array should be added when new todolist is added', () => {
   const endState = tasksReducer(startState, action);
 
   const keys = Object.keys(endState);
-  const newKey = keys.find((k) => k != todolistId1 && k != todolistId2);
+  const newKey = keys.find((k) => k !== todolistId1 && k !== todolistId2);
   if (!newKey) {
     throw Error('new key should be added');
   }
