@@ -9,10 +9,10 @@ import { ButtonGroup, IconButton, List } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import {
   ChangeTodoListFilterAC,
-  ChangeTodoListTitleAC,
+  delteTodolistTC,
   FilterTaskType,
-  RemoveTodoListAC,
   TodoListType,
+  updateTodolistTC,
 } from './state/todolists-reducer';
 import {
   addTasksTC,
@@ -41,6 +41,9 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
     dispatch(getTasksTC(todoLists.id));
   }, []);
 
+  const deleteTodolist = () => {
+    dispatch(delteTodolistTC(todoLists.id));
+  };
   const addNewTask = (title: string) => {
     dispatch(addTasksTC(title, todoLists.id));
   };
@@ -49,11 +52,11 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
     dispatch(ChangeTodoListFilterAC(filter, todoLists.id));
 
   const changeTodolistTitleHandler = (title: string) => {
-    dispatch(ChangeTodoListTitleAC(title, todoLists.id));
+    dispatch(updateTodolistTC(todoLists.id, title));
   };
 
-  const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskID: string, title: string) => {
-    dispatch(changeTasksStatusTC(todoLists.id, taskID, e.currentTarget.checked ? 2 : 0, title));
+  const changeStatusHandler = (e: ChangeEvent<HTMLInputElement>, taskID: string) => {
+    dispatch(changeTasksStatusTC(todoLists.id, taskID, e.currentTarget.checked ? 2 : 0));
   };
 
   const changeTaskTitleHandler = (title: string, taskID: string) => {
@@ -81,10 +84,7 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
       <div className="todolist" key={todoLists.id}>
         <h3>
           <EditebleSpan title={todoLists.title} changeTitleHandler={changeTodolistTitleHandler} />
-          <IconButton
-            size={'small'}
-            color="primary"
-            onClick={() => dispatch(RemoveTodoListAC(todoLists.id))}>
+          <IconButton size={'small'} color="primary" onClick={deleteTodolist}>
             <CancelPresentationIcon />
           </IconButton>
         </h3>

@@ -1,22 +1,29 @@
 import React, { useEffect } from 'react';
 import './App.scss';
-import { TodoList } from './TodoList';
-import { AddItemForm } from './AddItemForm';
+import { TodoList } from '../TodoList';
+import { AddItemForm } from '../AddItemForm';
 import {
   AppBar,
   Button,
   Container,
   Grid2,
   IconButton,
+  LinearProgress,
   Paper,
   styled,
   Toolbar,
   Typography,
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
-import { addTodolistAC, setTodolistsTC, TodoListType } from './state/todolists-reducer';
+import {
+  addTodolistAC,
+  addTodolistTC,
+  setTodolistsTC,
+  TodoListType,
+} from '../state/todolists-reducer';
 
-import { useAppDispatch, useAppSelector } from './redux/store';
+import { useAppDispatch, useAppSelector } from '../redux/store';
+import { RequestStatusType } from '../state/app-reducer';
 
 const StyledGridInput = styled(Grid2)({
   margin: '10px 0',
@@ -27,11 +34,12 @@ const StyledPaper = styled(Paper)({
 
 export function App() {
   const todoLists = useAppSelector<TodoListType[]>((state) => state.todolists);
+  const status = useAppSelector<RequestStatusType>((state) => state.app.status);
 
   const dispatch = useAppDispatch();
 
   const addTodoList = (title: string) => {
-    dispatch(addTodolistAC(title));
+    dispatch(addTodolistTC(title));
   };
 
   useEffect(() => {
@@ -51,7 +59,7 @@ export function App() {
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
-
+      {status === 'loading' && <LinearProgress />}
       <Container>
         <StyledGridInput container>
           <AddItemForm maxLengthUserMeaasge={15} addItem={addTodoList} />

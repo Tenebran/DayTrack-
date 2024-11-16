@@ -3,19 +3,20 @@ import { configureStore } from '@reduxjs/toolkit';
 import { tasksReducer } from '../state/tasks-reducer';
 import { todolistsReducer } from '../state/todolists-reducer';
 import { ThunkDispatch } from 'redux-thunk';
-import { TypedUseSelectorHook, useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { appReducer } from 'state/app-reducer';
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
   todolists: todolistsReducer,
+  app: appReducer,
 });
 
 export const store = configureStore({
   reducer: rootReducer,
 });
 
-type AppRootStateType = ReturnType<typeof rootReducer>;
+export type AppRootStateType = ReturnType<typeof rootReducer>;
 
 export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, Action>;
 export const useAppDispatch: () => AppDispatchType = useDispatch;

@@ -14,8 +14,8 @@ export const todoListApi = {
     return instance.put<
       ResponseType<{ item: TodoListsApiType }>,
       AxiosResponse<ResponseType<{ item: TodoListsApiType }>>,
-      { title: string }
-    >(`/todo-lists/${todoListID}`, { title });
+      { todoListID: string; title: string }
+    >(`/todo-lists/${todoListID}`, { todoListID, title });
   },
 
   getTodoLists() {
@@ -38,10 +38,9 @@ export const todoListApi = {
     return instance.put<ResponseType>(`/todo-lists/${todoListID}/tasks/${tasksID}`, { title });
   },
 
-  updateStatusTask(todoListID: string, tasksID: string, status: number, title: string) {
-    return instance.put<ResponseType>(`/todo-lists/${todoListID}/tasks/${tasksID}`, {
-      status,
-      title,
+  updateStatusTask(model: TaskListApiType) {
+    return instance.put<ResponseType>(`/todo-lists/${model.todoListId}/tasks/${model.id}`, {
+      ...model,
     });
   },
 

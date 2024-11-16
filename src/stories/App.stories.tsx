@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { App } from '../App';
+import { App } from '../app/App';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { darkTheme, whiteTheme } from './storiesTheme';
 import { ReduxStoreProviderDecorator } from '../state/ReduxStoreProviderDecorator';
