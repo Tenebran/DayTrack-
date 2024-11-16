@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import './Todolist.scss';
 import { Task } from './Task';
 import { AddItemForm } from './AddItemForm';
@@ -11,7 +11,6 @@ import {
   ChangeTodoListFilterAC,
   delteTodolistTC,
   FilterTaskType,
-  TodoListType,
   updateTodolistTC,
 } from './state/todolists-reducer';
 import {
@@ -22,17 +21,24 @@ import {
   removeTasksTC,
 } from './state/tasks-reducer';
 import { useAppDispatch, useAppSelector } from './redux/store';
-import { TaskListApiType } from 'api/type';
+import { TaskListApiType, TodoListsApiType } from 'api/type';
+import { TodolistFilterValue } from 'app/App';
 
 const SyledButton = styled(Button)({
   margin: '0 2px 0 0',
 });
 
 type TodoListPropsType = {
-  todoLists: TodoListType;
+  todoLists: TodoListsApiType;
+  currentFilter: TodolistFilterValue;
+  updateTodolistFilter: (id: string, newFilter: 'all' | 'active' | 'completed') => void;
 };
 
-export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
+export const TodoList: FC<TodoListPropsType> = ({
+  todoLists,
+  currentFilter,
+  updateTodolistFilter,
+}) => {
   const tasks = useAppSelector<TaskListApiType[]>((state) => state.tasks[todoLists.id]);
 
   const dispatch = useAppDispatch();
@@ -67,8 +73,8 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
     dispatch(removeTasksTC(todoLists.id, taskID));
   };
 
-  const getFilteredTasks = (tasks: TaskListApiType[], filter: FilterTaskType) => {
-    switch (filter) {
+  const getFilteredTasks = (tasks: TaskListApiType[]) => {
+    switch (currentFilter) {
       case 'active':
         return tasks.filter((t) => t.status === 0);
       case 'completed':
@@ -77,7 +83,7 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
         return tasks;
     }
   };
-  const filterdTasks: TaskListApiType[] = getFilteredTasks(tasks, todoLists.filter);
+  const filterdTasks: TaskListApiType[] = getFilteredTasks(tasks);
 
   return (
     <>
@@ -94,20 +100,20 @@ export const TodoList: FC<TodoListPropsType> = ({ todoLists }) => {
         <ButtonGroup fullWidth>
           <SyledButton
             size="small"
-            variant={todoLists.filter === 'all' ? 'contained' : 'outlined'}
-            onClick={handlerCreator('all')}>
+            variant={currentFilter === 'all' ? 'contained' : 'outlined'}
+            onClick={() => updateTodolistFilter(todoLists.id, 'all')}>
             All
           </SyledButton>
           <SyledButton
             size="small"
-            variant={todoLists.filter === 'active' ? 'contained' : 'outlined'}
-            onClick={handlerCreator('active')}>
+            variant={currentFilter === 'active' ? 'contained' : 'outlined'}
+            onClick={() => updateTodolistFilter(todoLists.id, 'active')}>
             Active
           </SyledButton>
           <SyledButton
             size="small"
-            variant={todoLists.filter === 'completed' ? 'contained' : 'outlined'}
-            onClick={handlerCreator('completed')}>
+            variant={currentFilter === 'completed' ? 'contained' : 'outlined'}
+            onClick={() => updateTodolistFilter(todoLists.id, 'completed')}>
             Completed
           </SyledButton>
         </ButtonGroup>

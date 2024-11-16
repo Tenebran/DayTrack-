@@ -17,8 +17,8 @@ const todolistId2 = v1();
 
 const initialGlobalState = {
   todolists: [
-    { id: todolistId1, title: 'What to learn', filter: 'all' },
-    { id: todolistId2, title: 'What to buy', filter: 'all' },
+    { id: todolistId1, title: 'What to learn' },
+    { id: todolistId2, title: 'What to buy' },
   ],
   tasks: {
     [todolistId1]: [

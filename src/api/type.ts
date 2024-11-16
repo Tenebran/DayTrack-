@@ -1,7 +1,7 @@
 export type TodoListsApiType = {
-  addedDate: Date;
+  addedDate?: Date;
   id: string;
-  order: number;
+  order?: number;
   title: string;
 };
 

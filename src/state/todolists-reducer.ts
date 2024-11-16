@@ -4,12 +4,6 @@ import { Dispatch } from 'redux';
 import { v1 } from 'uuid';
 import { setStatusAC } from './app-reducer';
 
-export type TodoListType = {
-  id: string;
-  title: string;
-  filter: FilterTaskType;
-};
-
 export type FilterTaskType = 'all' | 'active' | 'completed';
 
 export type RemoveTodolistAT = {
@@ -19,8 +13,7 @@ export type RemoveTodolistAT = {
 
 export type AddTodoListAT = {
   type: 'ADD-TODOLIST';
-  title: string;
-  todolistID: string;
+  todolist: TodoListsApiType;
 };
 
 export type ChangeTodoListTitleAT = {
@@ -44,39 +37,33 @@ export type ActionTypeTodolists =
 
 export type _SetTodosType = ReturnType<typeof setTodolistsAC>;
 
-const initialState: TodoListType[] = [];
+const initialState: TodoListsApiType[] = [];
 
 export const todolistsReducer = (
-  todoLists: TodoListType[] = initialState,
+  todoLists: TodoListsApiType[] = initialState,
   action: ActionTypeTodolists
-): TodoListType[] => {
+): TodoListsApiType[] => {
   switch (action.type) {
     case 'REMOVE-TODOLIST':
       return todoLists.filter((t) => t.id !== action.id);
     case 'ADD-TODOLIST': {
-      const newTodoList: TodoListType = {
-        id: action.todolistID,
-        title: action.title,
-        filter: 'all',
-      };
-      return [...todoLists, newTodoList];
+      return [action.todolist, ...todoLists];
     }
     case 'CHANGE-TODOLIST-TITLE':
       return todoLists.map((t) => (t.id === action.id ? { ...t, title: action.title } : t));
     case 'CHANGE-TODOLIST-FILTER':
-      return todoLists.map((t) => (t.id === action.id ? { ...t, filter: action.filter } : t));
+      return todoLists.map((t) => (t.id === action.id ? { ...t } : t));
     case 'SET-TODOS':
-      return action.todos.map((tl) => ({ ...tl, filter: 'all' }));
+      return action.todos.map((tl) => ({ ...tl }));
     default:
       return todoLists;
   }
 };
 
 export const RemoveTodoListAC = (id: string): RemoveTodolistAT => ({ type: 'REMOVE-TODOLIST', id });
-export const addTodolistAC = (title: string): AddTodoListAT => ({
+export const addTodolistAC = (todolist: TodoListsApiType): AddTodoListAT => ({
   type: 'ADD-TODOLIST',
-  title,
-  todolistID: v1(),
+  todolist,
 });
 export const ChangeTodoListTitleAC = (title: string, id: string): ChangeTodoListTitleAT => ({
   type: 'CHANGE-TODOLIST-TITLE',
@@ -124,8 +111,9 @@ export const updateTodolistTC = (todolistID: string, title: string) => (dispatch
 
 export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC('loading'));
-  todoListApi.createTodolist(title).then(() => {
-    dispatch(addTodolistAC(title));
+  todoListApi.createTodolist(title).then((resp) => {
+    console.log(resp.data.data.item);
+    dispatch(addTodolistAC(resp.data.data.item));
     dispatch(setStatusAC('succeeded'));
   });
 };

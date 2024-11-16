@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { TodoList } from '../TodoList';
 import { AddItemForm } from '../AddItemForm';
@@ -15,15 +15,18 @@ import {
   Typography,
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
-import {
-  addTodolistAC,
-  addTodolistTC,
-  setTodolistsTC,
-  TodoListType,
-} from '../state/todolists-reducer';
+import { addTodolistAC, addTodolistTC, setTodolistsTC } from '../state/todolists-reducer';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { RequestStatusType } from '../state/app-reducer';
+import { TodoListsApiType } from 'api/type';
+
+export type TodolistFilterValue = 'all' | 'active' | 'completed';
+
+export type TodolistFilterType = {
+  id: string;
+  filter: TodolistFilterValue;
+};
 
 const StyledGridInput = styled(Grid2)({
   margin: '10px 0',
@@ -33,7 +36,12 @@ const StyledPaper = styled(Paper)({
 });
 
 export function App() {
-  const todoLists = useAppSelector<TodoListType[]>((state) => state.todolists);
+  const [todolistFilter, setTodolistFilter] = useState<TodolistFilterType[]>(() => {
+    const storedFilter = localStorage.getItem('taskFilter');
+    return storedFilter ? JSON.parse(storedFilter) : [];
+  });
+
+  const todoLists = useAppSelector<TodoListsApiType[]>((state) => state.todolists);
   const status = useAppSelector<RequestStatusType>((state) => state.app.status);
 
   const dispatch = useAppDispatch();
@@ -45,6 +53,29 @@ export function App() {
   useEffect(() => {
     dispatch(setTodolistsTC());
   }, []);
+
+  useEffect(() => {
+    const updatedFilters = [...todolistFilter];
+
+    todoLists.forEach((todolist) => {
+      if (!todolistFilter.find((filter) => filter.id === todolist.id)) {
+        updatedFilters.push({ id: todolist.id, filter: 'all' });
+      }
+    });
+
+    if (updatedFilters.length !== todolistFilter.length) {
+      setTodolistFilter(updatedFilters);
+      localStorage.setItem('taskFilter', JSON.stringify(updatedFilters));
+    }
+  }, [todoLists]);
+
+  const updateTodolistFilter = (id: string, newFilter: 'all' | 'active' | 'completed') => {
+    const updatedFilters = todolistFilter.map((filter) =>
+      filter.id === id ? { ...filter, filter: newFilter } : filter
+    );
+    setTodolistFilter(updatedFilters);
+    localStorage.setItem('taskFilter', JSON.stringify(updatedFilters));
+  };
 
   return (
     <>
@@ -66,9 +97,16 @@ export function App() {
         </StyledGridInput>
         <Grid2 container spacing={4}>
           {todoLists.map((t) => {
+            const currentFilter =
+              todolistFilter.find((filter) => filter.id === t.id)?.filter || 'all';
+            console.log(currentFilter);
             return (
               <StyledPaper elevation={3} variant="outlined" key={t.id}>
-                <TodoList todoLists={t} />
+                <TodoList
+                  todoLists={t}
+                  currentFilter={currentFilter}
+                  updateTodolistFilter={updateTodolistFilter}
+                />
               </StyledPaper>
             );
           })}
