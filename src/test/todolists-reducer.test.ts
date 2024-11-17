@@ -1,23 +1,25 @@
 import { TodoListsApiType } from 'api/type';
 import {
-  addTodolistAC,
+  AddTodolistAC,
   ChangeTodoListTitleAC,
+  KeyType,
   RemoveTodoListAC,
+  TodolistDomainType,
   todolistsReducer,
 } from '../state/todolists-reducer';
 import { v1 } from 'uuid';
 
 let todolistId1: string;
 let todolistId2: string;
-let startState: TodoListsApiType[];
+let startState: TodolistDomainType[];
 
 beforeEach(() => {
   todolistId1 = v1();
   todolistId2 = v1();
 
   startState = [
-    { id: todolistId1, title: 'What to learn' },
-    { id: todolistId2, title: 'What to buy' },
+    // { id: todolistId1, title: 'What to learn', filter: 'all' as KeyType },
+    // { id: todolistId2, title: 'What to buy', filter: 'all' as KeyType },
   ];
 });
 
@@ -31,7 +33,7 @@ test('correct todolist should be removed', () => {
 test('correct todolist should be added', () => {
   const newTodolistTitle = 'New Todolist';
 
-  const endState = todolistsReducer(startState, addTodolistAC({ title: 'New Todolist', id: v1() }));
+  const endState = todolistsReducer(startState, AddTodolistAC({ title: 'New Todolist', id: v1() }));
 
   expect(endState.length).toBe(3);
   expect(endState[0].title).toBe(newTodolistTitle);

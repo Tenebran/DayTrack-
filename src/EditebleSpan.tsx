@@ -16,7 +16,7 @@ export const EditebleSpan: FC<EditebleSpanType> = ({ title, spanClasses, changeT
 
     if (trimTaskTitle || event.target.value.length === 0) {
       trimTaskTitle.length <= 15 && setLocalTitle(event.target.value);
-    } 
+    }
     setLocalTitle(event.target.value);
   };
 

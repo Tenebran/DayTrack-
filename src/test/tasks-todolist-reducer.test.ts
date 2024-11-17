@@ -1,13 +1,13 @@
 import { v1 } from 'uuid';
 import { tasksReducer, TasksStateType } from '../state/tasks-reducer';
-import { addTodolistAC, todolistsReducer } from '../state/todolists-reducer';
+import { AddTodolistAC, TodolistDomainType, todolistsReducer } from '../state/todolists-reducer';
 import { TodoListsApiType } from 'api/type';
 
 test('ids should be equals', () => {
   const startTasksState: TasksStateType = {};
-  const startTodolistsState: Array<TodoListsApiType> = [];
+  const startTodolistsState: Array<TodolistDomainType> = [];
 
-  const action = addTodolistAC({ title: 'new todolist', id: v1() });
+  const action = AddTodolistAC({ title: 'new todolist', id: v1() });
 
   const endTasksState = tasksReducer(startTasksState, action);
   const endTodolistsState = todolistsReducer(startTodolistsState, action);

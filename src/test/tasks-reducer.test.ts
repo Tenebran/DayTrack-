@@ -7,7 +7,7 @@ import {
   tasksReducer,
   TasksStateType,
 } from '../state/tasks-reducer';
-import { addTodolistAC, RemoveTodoListAC } from '../state/todolists-reducer';
+import { AddTodolistAC, RemoveTodoListAC } from '../state/todolists-reducer';
 import { TaskListApiType } from 'api/type';
 
 let todolistId1: string;
@@ -71,7 +71,7 @@ test('correct task should be added', () => {
 });
 
 test('new array should be added when new todolist is added', () => {
-  const action = addTodolistAC({ title: 'new todolist', id: v1() });
+  const action = AddTodolistAC({ title: 'new todolist', id: v1() });
   const endState = tasksReducer(startState, action);
 
   const keys = Object.keys(endState);

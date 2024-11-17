@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { AddItemForm } from './AddItemForm';
 import { EditebleSpan } from './EditebleSpan';
 import Button from '@mui/material/Button';
@@ -13,8 +13,15 @@ import {
   getTasksTC,
   removeTasksTC,
 } from './state/tasks-reducer';
-import { delteTodolistTC, updateTodolistTC } from './state/todolists-reducer';
+import {
+  ChangeTodoListFilterAC,
+  DelteTodolistTC,
+  KeyType,
+  TodolistDomainType,
+  UpdateTodolistTC,
+} from './state/todolists-reducer';
 import { Task } from './Task';
+import { TaskListApiType } from 'api/type';
 
 const StyledButton = styled(Button)({
   margin: '0 2px',
@@ -24,17 +31,12 @@ const ButtonGroupWrapper = styled('div')({
   maxWidth: '100%',
 });
 type TodoListItemProps = {
-  todoList: { id: string; title: string };
-  currentFilter: 'all' | 'active' | 'completed';
-  updateTodolistFilter: (id: string, filter: 'all' | 'active' | 'completed') => void;
+  todoList: TodolistDomainType;
 };
 
-export const TodoListItem: FC<TodoListItemProps> = ({
-  todoList,
-  currentFilter,
-  updateTodolistFilter,
-}) => {
+export const TodoListItem: FC<TodoListItemProps> = ({ todoList }) => {
   const tasks = useAppSelector((state) => state.tasks[todoList.id]);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export const TodoListItem: FC<TodoListItemProps> = ({
   }, [dispatch, todoList.id]);
 
   const deleteTodolist = () => {
-    dispatch(delteTodolistTC(todoList.id));
+    dispatch(DelteTodolistTC(todoList.id));
   };
 
   const addNewTask = (title: string) => {
@@ -50,14 +52,21 @@ export const TodoListItem: FC<TodoListItemProps> = ({
   };
 
   const changeTodolistTitle = (title: string) => {
-    dispatch(updateTodolistTC(todoList.id, title));
+    dispatch(UpdateTodolistTC(todoList.id, title));
   };
 
-  const filteredTasks = tasks?.filter((task) => {
-    if (currentFilter === 'active') return task.status === 0;
-    if (currentFilter === 'completed') return task.status === 2;
-    return true;
-  });
+  const changeFilter = (changeValue: KeyType, todolistId: string) => {
+    dispatch(ChangeTodoListFilterAC(changeValue, todolistId));
+  };
+
+  let filteredTask = tasks;
+
+  if (todoList.filter === 'active') {
+    filteredTask = tasks.filter((list) => list.status === 0);
+  } else if (todoList.filter === 'completed') {
+    console.log('hello1111');
+    filteredTask = tasks.filter((list) => list.status === 2);
+  }
 
   return (
     <div>
@@ -67,15 +76,15 @@ export const TodoListItem: FC<TodoListItemProps> = ({
           <CancelPresentationIcon />
         </IconButton>
       </h3>
-      <AddItemForm todoListsID={todoList.id} addItem={addNewTask} maxLengthUserMeaasge={15} />
+      <AddItemForm todoListsID={todoList.id} addItem={addNewTask} maxLengthUserMeaasge={150} />
       <ButtonGroupWrapper>
         <ButtonGroup fullWidth>
           {['all', 'active', 'completed'].map((filter) => (
             <StyledButton
               key={filter}
               size="small"
-              variant={currentFilter === filter ? 'contained' : 'outlined'}
-              onClick={() => updateTodolistFilter(todoList.id, filter as any)}>
+              variant={todoList.filter === filter ? 'contained' : 'outlined'}
+              onClick={() => changeFilter(filter as KeyType, todoList.id)}>
               {filter.charAt(0).toUpperCase() + filter.slice(1)}
             </StyledButton>
           ))}
@@ -83,8 +92,8 @@ export const TodoListItem: FC<TodoListItemProps> = ({
       </ButtonGroupWrapper>
 
       <List>
-        {filteredTasks?.length ? (
-          filteredTasks.map((task) => (
+        {filteredTask?.length ? (
+          filteredTask.map((task) => (
             <Task
               key={task.id}
               task={task}

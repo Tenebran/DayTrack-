@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import { useAppDispatch, useAppSelector } from './redux/store';
+import { setErrorAC } from 'state/app-reducer';
 
 export const ErrorSnackbar = () => {
-  const [open, setOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const error = useAppSelector<null | string>((state) => state.app.error);
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    setOpen(false);
+    dispatch(setErrorAC(null));
   };
 
   return (
     <Snackbar
-      open={open}
+      open={!!error}
       autoHideDuration={6000}
       onClose={handleClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
       <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
-        This is a success Alert inside a Snackbar!
+        {error && error}
       </Alert>
     </Snackbar>
   );

@@ -1,52 +1,32 @@
-import { _SetTodosType, AddTodoListAT, RemoveTodolistAT } from './todolists-reducer';
+import { SetTodolistsAC, AddTodolistAC, RemoveTodoListAC } from './todolists-reducer';
 import { todoListApi } from 'api/todolist-api';
 import { Dispatch } from 'redux';
-import { TaskListApiType, TaskStatuses } from 'api/type';
+import { TaskListApiType, TaskStatuses, TodoListsApiType } from 'api/type';
 import { AppRootStateType } from '../redux/store';
-import { setStatusAC } from './app-reducer';
+import { setErrorAC, setStatusAC } from './app-reducer';
 
 export type TasksStateType = {
   [todoListId: string]: TaskListApiType[];
 };
 
-export type RemoveTaskAT = {
-  type: 'REMOVE_TASK';
-  id: string;
-  idTodolist: string;
-};
-
-export type ChangeTaskTitleAT = {
-  type: 'CHANGE_TASK_TITLE';
-  title: string;
-  id: string;
-  idTodolist: string;
-};
-
-export type ChangeTaskStatusAT = {
-  type: 'CHANGE_TASK_STATUS';
-  status: number;
-  id: string;
-  idTodolist: string;
-};
-
-export type AddTaskTitleAT = {
-  type: 'ADD_TASK_TITLE';
-  task: TaskListApiType;
-};
-
 export type _SetTasksType = ReturnType<typeof setTasksListsAC>;
 
 export type ActionTypeTasksType =
-  | RemoveTaskAT
-  | ChangeTaskStatusAT
-  | ChangeTaskTitleAT
-  | AddTaskTitleAT
-  | AddTodoListAT
-  | RemoveTodolistAT
-  | _SetTodosType
+  | ReturnType<typeof RemoveTasksAC>
+  | ReturnType<typeof ChangeTaskStatusAC>
+  | ReturnType<typeof ChangeTaskTitleAC>
+  | ReturnType<typeof AddTaskTitleAC>
+  | ReturnType<typeof AddTodolistAC>
+  | ReturnType<typeof RemoveTodoListAC>
+  | ReturnType<typeof SetTodolistsAC>
   | _SetTasksType;
 
 const initialState: TasksStateType = {};
+
+enum RESULT_CODE {
+  SUCCEEDED = 0,
+  ERROR,
+}
 
 export const tasksReducer = (
   state: TasksStateType = initialState,
@@ -89,9 +69,9 @@ export const tasksReducer = (
       delete copyTasks[action.id];
       return copyTasks;
     }
-    case 'SET-TODOS': {
+    case 'SET-TODOLIST': {
       const copyState = { ...state };
-      action.todos.forEach((tl) => (copyState[tl.id] = []));
+      action.todos.forEach((tl: TodoListsApiType) => (copyState[tl.id] = []));
       return copyState;
     }
 
@@ -103,28 +83,24 @@ export const tasksReducer = (
   }
 };
 
-export const RemoveTasksAC = (id: string, idTodolist: string): RemoveTaskAT => ({
-  type: 'REMOVE_TASK',
-  id,
-  idTodolist,
-});
+export const RemoveTasksAC = (id: string, idTodolist: string) =>
+  ({
+    type: 'REMOVE_TASK',
+    id,
+    idTodolist,
+  }) as const;
 
-export const ChangeTaskStatusAC = (
-  status: number,
-  id: string,
-  idTodolist: string
-): ChangeTaskStatusAT => ({ type: 'CHANGE_TASK_STATUS', status, id, idTodolist });
+export const ChangeTaskStatusAC = (status: number, id: string, idTodolist: string) =>
+  ({ type: 'CHANGE_TASK_STATUS', status, id, idTodolist }) as const;
 
-export const ChangeTaskTitleAC = (
-  title: string,
-  id: string,
-  idTodolist: string
-): ChangeTaskTitleAT => ({ type: 'CHANGE_TASK_TITLE', title, id, idTodolist });
+export const ChangeTaskTitleAC = (title: string, id: string, idTodolist: string) =>
+  ({ type: 'CHANGE_TASK_TITLE', title, id, idTodolist }) as const;
 
-export const AddTaskTitleAC = (task: TaskListApiType): AddTaskTitleAT => ({
-  type: 'ADD_TASK_TITLE',
-  task,
-});
+export const AddTaskTitleAC = (task: TaskListApiType) =>
+  ({
+    type: 'ADD_TASK_TITLE',
+    task,
+  }) as const;
 
 export const setTasksListsAC = (todoID: string, tasks: TaskListApiType[]) =>
   ({
@@ -152,17 +128,35 @@ export const removeTasksTC = (todolistID: string, taskID: string) => (dispatch: 
 export const addTasksTC = (title: string, todolistID: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC('loading'));
   todoListApi.createTasks(todolistID, title).then((res) => {
-    dispatch(AddTaskTitleAC(res.data.data.item));
-    dispatch(setStatusAC('succeeded'));
+    if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
+      dispatch(AddTaskTitleAC(res.data.data.item));
+      dispatch(setStatusAC('succeeded'));
+    } else {
+      if (res.data.messages.length) {
+        dispatch(setErrorAC(res.data.messages[0]));
+      } else {
+        dispatch(setErrorAC('Some Error'));
+      }
+      dispatch(setStatusAC('failed'));
+    }
   });
 };
 
 export const changeTasksTitleTC =
   (todolistID: string, taskID: string, title: string) => (dispatch: Dispatch) => {
     dispatch(setStatusAC('loading'));
-    todoListApi.updateTitleTask(todolistID, taskID, title).then(() => {
-      dispatch(ChangeTaskTitleAC(title, taskID, todolistID));
-      dispatch(setStatusAC('succeeded'));
+    todoListApi.updateTitleTask(todolistID, taskID, title).then((res) => {
+      if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
+        dispatch(ChangeTaskTitleAC(title, taskID, todolistID));
+        dispatch(setStatusAC('succeeded'));
+      } else {
+        if (res.data.messages.length) {
+          dispatch(setErrorAC(res.data.messages[0]));
+        } else {
+          dispatch(setErrorAC('Some Error'));
+        }
+        dispatch(setStatusAC('failed'));
+      }
     });
   };
 

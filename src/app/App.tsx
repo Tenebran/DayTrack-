@@ -14,7 +14,12 @@ import {
   Typography,
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
-import { addTodolistTC, setTodolistsTC } from '../state/todolists-reducer';
+import {
+  addTodolistTC,
+  ChangeTodoListFilterAC,
+  KeyType,
+  SetTodolistsTC,
+} from '../state/todolists-reducer';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { RequestStatusType } from '../state/app-reducer';
@@ -34,7 +39,7 @@ export function App() {
   };
 
   useEffect(() => {
-    dispatch(setTodolistsTC());
+    dispatch(SetTodolistsTC());
   }, []);
 
   return (
