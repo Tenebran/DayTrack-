@@ -87,6 +87,7 @@ export const setTodolistsAC = (todos: TodoListsApiType[]) =>
   }) as const;
 
 export const setTodolistsTC = () => (dispatch: Dispatch) => {
+  dispatch(setStatusAC('loading'));
   return todoListApi.getTodoLists().then((res) => {
     dispatch(setTodolistsAC(res.data));
     dispatch(setStatusAC('succeeded'));
@@ -112,7 +113,6 @@ export const updateTodolistTC = (todolistID: string, title: string) => (dispatch
 export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC('loading'));
   todoListApi.createTodolist(title).then((resp) => {
-    console.log(resp.data.data.item);
     dispatch(addTodolistAC(resp.data.data.item));
     dispatch(setStatusAC('succeeded'));
   });

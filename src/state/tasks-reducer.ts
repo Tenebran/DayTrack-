@@ -134,27 +134,35 @@ export const setTasksListsAC = (todoID: string, tasks: TaskListApiType[]) =>
   }) as const;
 
 export const getTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
+  dispatch(setStatusAC('loading'));
   todoListApi.getTasks(todolistID).then((resp) => {
     dispatch(setTasksListsAC(todolistID, resp.data.items));
+    dispatch(setStatusAC('succeeded'));
   });
 };
 
 export const removeTasksTC = (todolistID: string, taskID: string) => (dispatch: Dispatch) => {
+  dispatch(setStatusAC('loading'));
   todoListApi.deleteTask(todolistID, taskID).then(() => {
     dispatch(RemoveTasksAC(taskID, todolistID));
+    dispatch(setStatusAC('succeeded'));
   });
 };
 
 export const addTasksTC = (title: string, todolistID: string) => (dispatch: Dispatch) => {
+  dispatch(setStatusAC('loading'));
   todoListApi.createTasks(todolistID, title).then((res) => {
     dispatch(AddTaskTitleAC(res.data.data.item));
+    dispatch(setStatusAC('succeeded'));
   });
 };
 
 export const changeTasksTitleTC =
   (todolistID: string, taskID: string, title: string) => (dispatch: Dispatch) => {
+    dispatch(setStatusAC('loading'));
     todoListApi.updateTitleTask(todolistID, taskID, title).then(() => {
       dispatch(ChangeTaskTitleAC(title, taskID, todolistID));
+      dispatch(setStatusAC('succeeded'));
     });
   };
 
@@ -174,9 +182,10 @@ export const changeTasksStatusTC =
         id: task.id,
         todoListId: task.todoListId,
       };
-
+      dispatch(setStatusAC('loading'));
       todoListApi.updateStatusTask(model).then(() => {
         dispatch(ChangeTaskStatusAC(status, taskID, todolistID));
+        dispatch(setStatusAC('succeeded'));
       });
     }
   };

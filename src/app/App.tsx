@@ -18,6 +18,7 @@ import { addTodolistTC, setTodolistsTC } from '../state/todolists-reducer';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { RequestStatusType } from '../state/app-reducer';
+import { ErrorSnackbar } from 'ErrorSnackbar';
 
 const StyledGridInput = styled(Grid2)({
   margin: '10px 0',
@@ -50,6 +51,7 @@ export function App() {
         </Toolbar>
       </AppBar>
       {status === 'loading' && <LinearProgress />}
+      <ErrorSnackbar />
       <Container>
         <StyledGridInput container>
           <AddItemForm maxLengthUserMeaasge={15} addItem={addTodoList} />
