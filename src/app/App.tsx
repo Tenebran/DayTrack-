@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import { TodoList } from '../TodoList';
 import { AddItemForm } from '../AddItemForm';
@@ -9,17 +9,15 @@ import {
   Grid2,
   IconButton,
   LinearProgress,
-  Paper,
   styled,
   Toolbar,
   Typography,
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
-import { addTodolistAC, addTodolistTC, setTodolistsTC } from '../state/todolists-reducer';
+import { addTodolistTC, setTodolistsTC } from '../state/todolists-reducer';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { RequestStatusType } from '../state/app-reducer';
-import { TodoListsApiType } from 'api/type';
 
 const StyledGridInput = styled(Grid2)({
   margin: '10px 0',
