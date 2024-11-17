@@ -18,7 +18,7 @@ export type TaskListApiType = {
   todoListId: string;
 };
 
-export type ResponseType<T = object> = {
+export type ResponseType<T = {}> = {
   items(
     todolistID: string,
     items: any

@@ -53,9 +53,7 @@ export const todoListApi = {
       ResponseType<{ item: TaskListApiType }>,
       AxiosResponse<ResponseType<{ item: TaskListApiType }>>,
       { title: string }
-    >(`/todo-lists/${todoListID}/tasks`, {
-      title,
-    });
+    >(`/todo-lists/${todoListID}/tasks`, { title });
   },
 
   deleteTask(todoListID: string, tasksID: string) {

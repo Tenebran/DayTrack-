@@ -42,7 +42,7 @@ export const AppDarkThemeStorie: Story = {
   render: () => (
     <>
       <ThemeProvider theme={darkTheme}>
-        <AddItemForm addItem={ action('Clicked ')} maxLengthUserMeaasge={15} />
+        <AddItemForm addItem={action('Clicked ')} maxLengthUserMeaasge={15} disabled={false} />
       </ThemeProvider>
     </>
   ),
@@ -53,8 +53,6 @@ export const AddItemFormErrorLongStories: Story = {
     maxLengthUserMeaasge: 0,
   },
 };
-
-
 
 export const AppDarkThemeErrorStorie: Story = {
   parameters: {

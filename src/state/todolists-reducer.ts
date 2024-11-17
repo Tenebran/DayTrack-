@@ -1,7 +1,9 @@
 import { todoListApi } from 'api/todolist-api';
 import { TodoListsApiType } from 'api/type';
 import { Dispatch } from 'redux';
-import { RequestStatusType, setStatusAC } from './app-reducer';
+import { RequestStatusType, setErrorAC, setStatusAC } from './app-reducer';
+import { RESULT_CODE } from './tasks-reducer';
+import { handleServerNetworkError } from 'utils/error-utils';
 
 export const REMOVE_TODOLISTS = 'REMOVE-TODOLIST';
 export const ADD_TODOLIST = 'ADD-TODOLIST' as const;
@@ -21,7 +23,8 @@ export type ActionTypeTodolists =
   | ReturnType<typeof RemoveTodoListAC>
   | ReturnType<typeof ChangeTodoListTitleAC>
   | ReturnType<typeof ChangeTodoListFilterAC>
-  | ReturnType<typeof SetTodolistsAC>;
+  | ReturnType<typeof SetTodolistsAC>
+  | ReturnType<typeof SetEntityStatusAC>;
 
 const initialState: TodolistDomainType[] = [];
 
@@ -47,10 +50,18 @@ export const todolistsReducer = (
       return todoLists.map((t) => (t.id === action.id ? { ...t, filter: action.filter } : t));
     }
     case SET_TODOLIST: {
-      return action.todos.map((list) => {
-        return { ...list, filter: 'all', entityStatus: 'idle' };
-      });
+      return action.todos.map((list) => ({
+        ...list,
+        filter: 'all',
+        entityStatus: 'idle',
+      }));
     }
+    case 'SET-ENTITY-STATUS': {
+      return todoLists.map((todo) =>
+        todo.id === action.todoId ? { ...todo, entityStatus: action.entityStatus } : todo
+      );
+    }
+
     default:
       return todoLists;
   }
@@ -88,32 +99,70 @@ export const SetTodolistsAC = (todos: TodoListsApiType[]) => {
 
 export const SetTodolistsTC = () => (dispatch: Dispatch) => {
   dispatch(setStatusAC('loading'));
-  return todoListApi.getTodoLists().then((res) => {
-    dispatch(SetTodolistsAC(res.data));
-    dispatch(setStatusAC('succeeded'));
-  });
+  return todoListApi
+    .getTodoLists()
+    .then((res) => {
+      dispatch(SetTodolistsAC(res.data));
+      dispatch(setStatusAC('succeeded'));
+    })
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch);
+    });
+};
+
+export const SetEntityStatusAC = (todoId: string, entityStatus: RequestStatusType) => {
+  return { type: 'SET-ENTITY-STATUS', todoId, entityStatus } as const;
 };
 
 export const DelteTodolistTC = (todolistID: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC('loading'));
-  return todoListApi.deleteTodolist(todolistID).then(() => {
-    dispatch(RemoveTodoListAC(todolistID));
-    dispatch(setStatusAC('succeeded'));
-  });
+  dispatch(SetEntityStatusAC(todolistID, 'loading'));
+  return todoListApi
+    .deleteTodolist(todolistID)
+    .then(() => {
+      dispatch(RemoveTodoListAC(todolistID));
+      dispatch(setStatusAC('succeeded'));
+    })
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch);
+      dispatch(SetEntityStatusAC(todolistID, 'idle'));
+    });
 };
 
 export const UpdateTodolistTC = (todolistID: string, title: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC('loading'));
-  return todoListApi.updateTodoList(todolistID, title).then(() => {
-    dispatch(ChangeTodoListTitleAC(title, todolistID));
-    dispatch(setStatusAC('succeeded'));
-  });
+  return todoListApi
+    .updateTodoList(todolistID, title)
+    .then(() => {
+      dispatch(ChangeTodoListTitleAC(title, todolistID));
+      dispatch(setStatusAC('succeeded'));
+    })
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch);
+      dispatch(SetEntityStatusAC(todolistID, 'idle'));
+    });
 };
 
 export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC('loading'));
-  todoListApi.createTodolist(title).then((resp) => {
-    dispatch(AddTodolistAC(resp.data.data.item));
-    dispatch(setStatusAC('succeeded'));
-  });
+  todoListApi
+    .createTodolist(title)
+    .then((resp) => {
+      if (resp.data.resultCode === RESULT_CODE.SUCCEEDED) {
+        dispatch(AddTodolistAC(resp.data.data.item));
+        dispatch(setStatusAC('succeeded'));
+      } else {
+        if (resp.data.messages.length) {
+          dispatch(setErrorAC(resp.data.messages[0]));
+        } else {
+          dispatch(setErrorAC('Some Error'));
+        }
+        dispatch(setStatusAC('failed'));
+      }
+
+      dispatch(setStatusAC('succeeded'));
+    })
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch);
+    });
 };

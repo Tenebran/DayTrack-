@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { AddItemForm } from './AddItemForm';
 import { EditebleSpan } from './EditebleSpan';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import { ButtonGroup, IconButton, List } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
-import { useAppDispatch, useAppSelector } from './redux/store';
+import { useAppDispatch } from './redux/store';
 import {
   addTasksTC,
   changeTasksStatusTC,
@@ -32,11 +32,10 @@ const ButtonGroupWrapper = styled('div')({
 });
 type TodoListItemProps = {
   todoList: TodolistDomainType;
+  tasks: TaskListApiType[];
 };
 
-export const TodoListItem: FC<TodoListItemProps> = ({ todoList }) => {
-  const tasks = useAppSelector((state) => state.tasks[todoList.id]);
-
+export const TodoListItem: FC<TodoListItemProps> = ({ todoList, tasks }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -64,7 +63,6 @@ export const TodoListItem: FC<TodoListItemProps> = ({ todoList }) => {
   if (todoList.filter === 'active') {
     filteredTask = tasks.filter((list) => list.status === 0);
   } else if (todoList.filter === 'completed') {
-    console.log('hello1111');
     filteredTask = tasks.filter((list) => list.status === 2);
   }
 
@@ -72,11 +70,20 @@ export const TodoListItem: FC<TodoListItemProps> = ({ todoList }) => {
     <div>
       <h3>
         <EditebleSpan title={todoList.title} changeTitleHandler={changeTodolistTitle} />
-        <IconButton size="small" color="primary" onClick={deleteTodolist}>
+        <IconButton
+          size="small"
+          color="primary"
+          onClick={deleteTodolist}
+          disabled={todoList.entityStatus === 'loading'}>
           <CancelPresentationIcon />
         </IconButton>
       </h3>
-      <AddItemForm todoListsID={todoList.id} addItem={addNewTask} maxLengthUserMeaasge={150} />
+      <AddItemForm
+        todoListsID={todoList.id}
+        addItem={addNewTask}
+        maxLengthUserMeaasge={15}
+        disabled={todoList.entityStatus === 'loading'}
+      />
       <ButtonGroupWrapper>
         <ButtonGroup fullWidth>
           {['all', 'active', 'completed'].map((filter) => (

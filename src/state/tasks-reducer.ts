@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import { TaskListApiType, TaskStatuses, TodoListsApiType } from 'api/type';
 import { AppRootStateType } from '../redux/store';
 import { setErrorAC, setStatusAC } from './app-reducer';
+import { handlerServerAppError, handleServerNetworkError } from 'utils/error-utils';
 
 export type TasksStateType = {
   [todoListId: string]: TaskListApiType[];
@@ -23,7 +24,7 @@ export type ActionTypeTasksType =
 
 const initialState: TasksStateType = {};
 
-enum RESULT_CODE {
+export enum RESULT_CODE {
   SUCCEEDED = 0,
   ERROR,
 }
@@ -119,45 +120,55 @@ export const getTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
 
 export const removeTasksTC = (todolistID: string, taskID: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC('loading'));
-  todoListApi.deleteTask(todolistID, taskID).then(() => {
-    dispatch(RemoveTasksAC(taskID, todolistID));
-    dispatch(setStatusAC('succeeded'));
-  });
+  todoListApi
+    .deleteTask(todolistID, taskID)
+    .then(() => {
+      dispatch(RemoveTasksAC(taskID, todolistID));
+      dispatch(setStatusAC('succeeded'));
+    })
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch);
+    });
 };
 
 export const addTasksTC = (title: string, todolistID: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC('loading'));
-  todoListApi.createTasks(todolistID, title).then((res) => {
-    if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
-      dispatch(AddTaskTitleAC(res.data.data.item));
-      dispatch(setStatusAC('succeeded'));
-    } else {
-      if (res.data.messages.length) {
-        dispatch(setErrorAC(res.data.messages[0]));
+  todoListApi
+    .createTasks(todolistID, title)
+    .then((res) => {
+      if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
+        dispatch(AddTaskTitleAC(res.data.data.item));
+        dispatch(setStatusAC('succeeded'));
       } else {
-        dispatch(setErrorAC('Some Error'));
+        handlerServerAppError<{ item: TaskListApiType }>(dispatch, res.data);
       }
-      dispatch(setStatusAC('failed'));
-    }
-  });
+    })
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch);
+    });
 };
 
 export const changeTasksTitleTC =
   (todolistID: string, taskID: string, title: string) => (dispatch: Dispatch) => {
     dispatch(setStatusAC('loading'));
-    todoListApi.updateTitleTask(todolistID, taskID, title).then((res) => {
-      if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
-        dispatch(ChangeTaskTitleAC(title, taskID, todolistID));
-        dispatch(setStatusAC('succeeded'));
-      } else {
-        if (res.data.messages.length) {
-          dispatch(setErrorAC(res.data.messages[0]));
+    todoListApi
+      .updateTitleTask(todolistID, taskID, title)
+      .then((res) => {
+        if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
+          dispatch(ChangeTaskTitleAC(title, taskID, todolistID));
+          dispatch(setStatusAC('succeeded'));
         } else {
-          dispatch(setErrorAC('Some Error'));
+          if (res.data.messages.length) {
+            dispatch(setErrorAC(res.data.messages[0]));
+          } else {
+            dispatch(setErrorAC('Some Error'));
+          }
+          dispatch(setStatusAC('failed'));
         }
-        dispatch(setStatusAC('failed'));
-      }
-    });
+      })
+      .catch((error) => {
+        handleServerNetworkError(error, dispatch);
+      });
   };
 
 export const changeTasksStatusTC =
@@ -177,9 +188,14 @@ export const changeTasksStatusTC =
         todoListId: task.todoListId,
       };
       dispatch(setStatusAC('loading'));
-      todoListApi.updateStatusTask(model).then(() => {
-        dispatch(ChangeTaskStatusAC(status, taskID, todolistID));
-        dispatch(setStatusAC('succeeded'));
-      });
+      todoListApi
+        .updateStatusTask(model)
+        .then(() => {
+          dispatch(ChangeTaskStatusAC(status, taskID, todolistID));
+          dispatch(setStatusAC('succeeded'));
+        })
+        .catch((error) => {
+          handleServerNetworkError(error, dispatch);
+        });
     }
   };
