@@ -33,6 +33,7 @@ const ButtonGroupWrapper = styled('div')({
 type TodoListItemProps = {
   todoList: TodolistDomainType;
   tasks: TaskListApiType[];
+  isLoggedIn: boolean;
 };
 
 export const TodoListItem: FC<TodoListItemProps> = ({ todoList, tasks }) => {

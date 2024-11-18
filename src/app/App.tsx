@@ -5,6 +5,7 @@ import { AddItemForm } from '../AddItemForm';
 import {
   AppBar,
   Button,
+  CircularProgress,
   Container,
   Grid2,
   IconButton,
@@ -14,29 +15,30 @@ import {
   Typography,
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
-import { addTodolistTC, SetTodolistsTC } from '../state/todolists-reducer';
 
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { RequestStatusType } from '../state/app-reducer';
 import { ErrorSnackbar } from 'ErrorSnackbar';
-
-const StyledGridInput = styled(Grid2)({
-  margin: '10px 0',
-});
+import { Login } from '../features/Login';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { meTC } from 'features/auth-reducer';
 
 export function App() {
   const status = useAppSelector<RequestStatusType>((state) => state.app.status);
-
+  const isInitialized = useAppSelector((state) => state.app.isInitialized);
   const dispatch = useAppDispatch();
 
-  const addTodoList = (title: string) => {
-    dispatch(addTodolistTC(title));
-  };
-
   useEffect(() => {
-    dispatch(SetTodolistsTC());
+    dispatch(meTC());
   }, []);
 
+  if (!isInitialized) {
+    return (
+      <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
+        <CircularProgress />
+      </div>
+    );
+  }
   return (
     <>
       <AppBar position="static">
@@ -53,10 +55,12 @@ export function App() {
       {status === 'loading' && <LinearProgress />}
       <ErrorSnackbar />
       <Container>
-        <StyledGridInput container>
-          <AddItemForm maxLengthUserMeaasge={15} addItem={addTodoList} />
-        </StyledGridInput>
-        <TodoList />
+        <Routes>
+          <Route path="/" element={<TodoList />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/404" element={<h1>PAGE NOT FOUND 404 </h1>} />
+          <Route path="*" element={<Navigate to={'/404'} />} />
+        </Routes>
       </Container>
     </>
   );
