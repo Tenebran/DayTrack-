@@ -10,7 +10,6 @@ import { Grid2 } from '@mui/material';
 import { useFormik } from 'formik';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { loginTC } from './auth-reducer';
-import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 type FormikErrorType = {
@@ -43,7 +42,7 @@ export const Login = () => {
 
       if (!values.password) {
         errors.password = 'Required';
-      } else if (values.password.length < 5) {
+      } else if (values.password.length < 3) {
         errors.password = 'Must be more five symbols';
       }
       return errors;

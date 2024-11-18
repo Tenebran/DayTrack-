@@ -70,6 +70,24 @@ export const meTC = () => async (dispatch: Dispatch<ActionsType>) => {
   }
 };
 
+export const logOutTC = () => async (dispatch: Dispatch<ActionsType>) => {
+  dispatch(setStatusAC('loading'));
+
+  try {
+    const res = await authAPI.logOut();
+    if (res.data.resultCode === 0) {
+      dispatch(setIsLoggedInAC(false));
+      dispatch(setStatusAC('succeeded'));
+    } else {
+      handlerServerAppError(dispatch, res.data);
+      dispatch(setStatusAC('failed'));
+    }
+  } catch (error) {
+    handleServerNetworkError(error as { message: string }, dispatch);
+    dispatch(setStatusAC('failed'));
+  }
+};
+
 type ActionsType =
   | ReturnType<typeof setIsLoggedInAC>
   | SetStatusType

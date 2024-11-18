@@ -21,11 +21,16 @@ import { RequestStatusType } from '../state/app-reducer';
 import { ErrorSnackbar } from 'ErrorSnackbar';
 import { Login } from '../features/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { meTC } from 'features/auth-reducer';
+import { logOutTC, meTC } from 'features/auth-reducer';
 
 export function App() {
   const status = useAppSelector<RequestStatusType>((state) => state.app.status);
   const isInitialized = useAppSelector((state) => state.app.isInitialized);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const logOut = () => {
+    dispatch(logOutTC());
+  };
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -49,7 +54,11 @@ export function App() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Todolists
           </Typography>
-          <Button color="inherit">Login</Button>
+          {isLoggedIn && (
+            <Button color="inherit" onClick={logOut}>
+              Log out
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       {status === 'loading' && <LinearProgress />}
