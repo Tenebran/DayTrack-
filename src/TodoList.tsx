@@ -4,9 +4,22 @@ import { Grid2, Paper } from '@mui/material';
 import { useAppDispatch, useAppSelector } from './redux/store';
 import { TodoListItem } from 'TodolistItem';
 import { Navigate } from 'react-router-dom';
-import { addTodolistTC, SetTodolistsTC } from 'state/todolists-reducer';
+import {
+  addTodolistTC,
+  ChangeTodoListFilterAC,
+  DelteTodolistTC,
+  KeyType,
+  SetTodolistsTC,
+  UpdateTodolistTC,
+} from 'state/todolists-reducer';
 import { AddItemForm } from 'AddItemForm';
-import { getTasksTC } from 'state/tasks-reducer';
+import {
+  addTasksTC,
+  changeTasksStatusTC,
+  changeTasksTitleTC,
+  getTasksTC,
+  removeTasksTC,
+} from 'state/tasks-reducer';
 
 const StyledPaper = styled(Paper)({ padding: '16px', marginBottom: '16px' });
 
@@ -28,19 +41,50 @@ export const TodoList: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const addTodoList = (title: string) => {
-    dispatch(addTodolistTC(title));
-  };
-  // dispatch(getTasksTC(todoList.id));
-
   useEffect(() => {
     if (!isLoggedIn) return;
-    dispatch(SetTodolistsTC()).then((res) => {});
+    dispatch(SetTodolistsTC());
   }, [isLoggedIn]);
 
   if (!isLoggedIn) {
     return <Navigate to="/login" />;
   }
+
+  const addTodoList = (title: string) => {
+    dispatch(addTodolistTC(title));
+  };
+
+  const deleteTodolist = (todoListId: string) => {
+    dispatch(DelteTodolistTC(todoListId));
+  };
+
+  const addNewTask = (title: string, todoListID: string) => {
+    dispatch(addTasksTC(title, todoListID));
+  };
+
+  const changeTodolistTitle = (title: string, todolistID: string) => {
+    dispatch(UpdateTodolistTC(todolistID, title));
+  };
+
+  const changeFilter = (changeValue: KeyType, todolistId: string) => {
+    dispatch(ChangeTodoListFilterAC(changeValue, todolistId));
+  };
+
+  const changeTaskStatus = (
+    todoListID: string,
+    taskID: string,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    dispatch(changeTasksStatusTC(todoListID, taskID, event.target.checked ? 2 : 0));
+  };
+
+  const changeTasksTitle = (todolistID: string, taskID: string, title: string) => {
+    dispatch(changeTasksTitleTC(todolistID, taskID, title));
+  };
+
+  const removeTask = (todolistID: string, taskID: string) => {
+    dispatch(removeTasksTC(todolistID, taskID));
+  };
 
   return (
     <>
@@ -55,6 +99,13 @@ export const TodoList: FC = () => {
                 todoList={todoList}
                 tasks={tasks[todoList.id]}
                 isLoggedIn={isLoggedIn}
+                deleteTodolist={deleteTodolist}
+                addNewTask={addNewTask}
+                changeTodolistTitle={changeTodolistTitle}
+                changeFilter={changeFilter}
+                changeTaskStatus={changeTaskStatus}
+                changeTasksTitle={changeTasksTitle}
+                removeTask={removeTask}
               />
             </StyledPaper>
           );

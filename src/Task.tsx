@@ -7,7 +7,7 @@ import { TaskListApiType } from 'api/type';
 export type TaskProps = {
   task: TaskListApiType;
   changeStatusHandler: (e: ChangeEvent<HTMLInputElement>, taskID: string, title: string) => void;
-  changeTaskTitleHandler: (title: string, taskID: string) => void;
+  changeTaskTitleHandler: (title: string) => void;
   removeTaskHandler: (taskID: string) => void;
 };
 
@@ -17,9 +17,6 @@ export const Task: FC<TaskProps> = ({
   changeTaskTitleHandler,
   removeTaskHandler,
 }) => {
-  const changeTaskTitle = (title: string) => {
-    changeTaskTitleHandler(title, task.id);
-  };
   return (
     <>
       <ListItem key={task.id}>
@@ -28,7 +25,7 @@ export const Task: FC<TaskProps> = ({
           checked={task.status === 2}
           onChange={(e) => changeStatusHandler(e, task.id, task.title)}
         />
-        <EditebleSpan title={task.title} changeTitleHandler={changeTaskTitle} />
+        <EditebleSpan title={task.title} changeTitleHandler={changeTaskTitleHandler} />
         <IconButton size={'small'} color="primary" onClick={() => removeTaskHandler(task.id)}>
           <CancelPresentationIcon />
         </IconButton>

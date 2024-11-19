@@ -34,27 +34,30 @@ type TodoListItemProps = {
   todoList: TodolistDomainType;
   tasks: TaskListApiType[];
   isLoggedIn: boolean;
+  deleteTodolist: (todoListId: string) => void;
+  addNewTask: (title: string, todoListID: string) => void;
+  changeTodolistTitle: (title: string, todolistID: string) => void;
+  changeFilter: (changeValue: KeyType, todolistId: string) => void;
+  changeTaskStatus: (
+    todoListID: string,
+    taskID: string,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void;
+  changeTasksTitle: (todolistID: string, taskID: string, title: string) => void;
+  removeTask: (todolistID: string, taskID: string) => void;
 };
 
-export const TodoListItem: FC<TodoListItemProps> = ({ todoList, tasks }) => {
-  const dispatch = useAppDispatch();
-
-  const deleteTodolist = () => {
-    dispatch(DelteTodolistTC(todoList.id));
-  };
-
-  const addNewTask = (title: string) => {
-    dispatch(addTasksTC(title, todoList.id));
-  };
-
-  const changeTodolistTitle = (title: string) => {
-    dispatch(UpdateTodolistTC(todoList.id, title));
-  };
-
-  const changeFilter = (changeValue: KeyType, todolistId: string) => {
-    dispatch(ChangeTodoListFilterAC(changeValue, todolistId));
-  };
-
+export const TodoListItem: FC<TodoListItemProps> = ({
+  todoList,
+  tasks,
+  deleteTodolist,
+  addNewTask,
+  changeTodolistTitle,
+  changeFilter,
+  changeTaskStatus,
+  changeTasksTitle,
+  removeTask,
+}) => {
   let filteredTask = tasks;
 
   if (todoList.filter === 'active') {
@@ -66,11 +69,14 @@ export const TodoListItem: FC<TodoListItemProps> = ({ todoList, tasks }) => {
   return (
     <div>
       <h3>
-        <EditebleSpan title={todoList.title} changeTitleHandler={changeTodolistTitle} />
+        <EditebleSpan
+          title={todoList.title}
+          changeTitleHandler={(title) => changeTodolistTitle(title, todoList.id)}
+        />
         <IconButton
           size="small"
           color="primary"
-          onClick={deleteTodolist}
+          onClick={() => deleteTodolist(todoList.id)}
           disabled={todoList.entityStatus === 'loading'}>
           <CancelPresentationIcon />
         </IconButton>
@@ -101,13 +107,9 @@ export const TodoListItem: FC<TodoListItemProps> = ({ todoList, tasks }) => {
             <Task
               key={task.id}
               task={task}
-              changeStatusHandler={(e) =>
-                dispatch(changeTasksStatusTC(todoList.id, task.id, e.target.checked ? 2 : 0))
-              }
-              changeTaskTitleHandler={(title) =>
-                dispatch(changeTasksTitleTC(todoList.id, task.id, title))
-              }
-              removeTaskHandler={() => dispatch(removeTasksTC(todoList.id, task.id))}
+              changeStatusHandler={(e) => changeTaskStatus(todoList.id, task.id, e)}
+              changeTaskTitleHandler={(title) => changeTasksTitle(todoList.id, task.id, title)}
+              removeTaskHandler={() => removeTask(todoList.id, task.id)}
             />
           ))
         ) : (

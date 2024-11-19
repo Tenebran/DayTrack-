@@ -6,7 +6,7 @@ import { RequestStatusType } from 'state/app-reducer';
 type AddItemFormType = {
   todoListsID?: string;
   maxLengthUserMeaasge: number;
-  addItem: (_title: string) => void;
+  addItem: (_title: string, todolistID: string) => void;
   taskID?: string;
   disabled?: boolean;
 };
@@ -20,6 +20,7 @@ export const AddItemForm: FC<AddItemFormType> = ({
   maxLengthUserMeaasge,
   taskID,
   disabled,
+  todoListsID,
 }) => {
   const [title, setTitle] = useState<string>('');
   const [inputError, setInputError] = useState<boolean>(false);
@@ -42,7 +43,7 @@ export const AddItemForm: FC<AddItemFormType> = ({
   };
 
   const handlerAddItem = () => {
-    title.length && addItem(title);
+    title.length && todoListsID?.length && addItem(title, todoListsID);
 
     setTitle('');
   };
