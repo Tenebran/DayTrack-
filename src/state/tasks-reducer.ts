@@ -1,4 +1,9 @@
-import { SetTodolistsAC, AddTodolistAC, RemoveTodoListAC } from './todolists-reducer';
+import {
+  SetTodolistsAC,
+  AddTodolistAC,
+  RemoveTodoListAC,
+  clearTodosDataAC,
+} from './todolists-reducer';
 import { todoListApi } from 'api/todolist-api';
 import { Dispatch } from 'redux';
 import { TaskListApiType, TaskStatuses, TodoListsApiType } from 'api/type';
@@ -20,6 +25,7 @@ export type ActionTypeTasksType =
   | ReturnType<typeof AddTodolistAC>
   | ReturnType<typeof RemoveTodoListAC>
   | ReturnType<typeof SetTodolistsAC>
+  | ReturnType<typeof clearTodosDataAC>
   | _SetTasksType;
 
 const initialState: TasksStateType = {};
@@ -75,7 +81,9 @@ export const tasksReducer = (
       action.todos.forEach((tl: TodoListsApiType) => (copyState[tl.id] = []));
       return copyState;
     }
-
+    case 'CLEAR-DATA': {
+      return {};
+    }
     case 'SET-TASKS': {
       return { ...state, [action.todoID]: action.tasks };
     }

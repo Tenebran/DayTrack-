@@ -54,7 +54,6 @@ export const Login = () => {
     },
   });
 
-  console.log(isLoggedIn);
   if (isLoggedIn) {
     return <Navigate to="/" />;
   }

@@ -39,10 +39,6 @@ type TodoListItemProps = {
 export const TodoListItem: FC<TodoListItemProps> = ({ todoList, tasks }) => {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(getTasksTC(todoList.id));
-  }, [dispatch, todoList.id]);
-
   const deleteTodolist = () => {
     dispatch(DelteTodolistTC(todoList.id));
   };

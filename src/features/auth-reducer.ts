@@ -9,6 +9,7 @@ import {
 } from 'state/app-reducer';
 import { handlerServerAppError, handleServerNetworkError } from 'utils/error-utils';
 import { LoginData } from './Login';
+import { clearTodosDataAC } from 'state/todolists-reducer';
 
 const initialState = {
   isLoggedIn: false,
@@ -78,6 +79,7 @@ export const logOutTC = () => async (dispatch: Dispatch<ActionsType>) => {
     if (res.data.resultCode === 0) {
       dispatch(setIsLoggedInAC(false));
       dispatch(setStatusAC('succeeded'));
+      dispatch(clearTodosDataAC());
     } else {
       handlerServerAppError(dispatch, res.data);
       dispatch(setStatusAC('failed'));
@@ -92,4 +94,5 @@ type ActionsType =
   | ReturnType<typeof setIsLoggedInAC>
   | SetStatusType
   | SetErrorType
-  | SettIsInitializedType;
+  | SettIsInitializedType
+  | ReturnType<typeof clearTodosDataAC>;

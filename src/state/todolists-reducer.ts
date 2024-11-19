@@ -1,9 +1,11 @@
 import { todoListApi } from 'api/todolist-api';
 import { TodoListsApiType } from 'api/type';
-import { Dispatch } from 'redux';
+import { Dispatch, UnknownAction } from 'redux';
 import { RequestStatusType, setErrorAC, setStatusAC } from './app-reducer';
-import { RESULT_CODE } from './tasks-reducer';
+import { getTasksTC, RESULT_CODE, setTasksListsAC } from './tasks-reducer';
 import { handleServerNetworkError } from 'utils/error-utils';
+import { ThunkDispatch } from 'redux-thunk';
+import { AppRootStateType } from './ReduxStoreProviderDecorator';
 
 export const REMOVE_TODOLISTS = 'REMOVE-TODOLIST';
 export const ADD_TODOLIST = 'ADD-TODOLIST' as const;
@@ -24,7 +26,10 @@ export type ActionTypeTodolists =
   | ReturnType<typeof ChangeTodoListTitleAC>
   | ReturnType<typeof ChangeTodoListFilterAC>
   | ReturnType<typeof SetTodolistsAC>
-  | ReturnType<typeof SetEntityStatusAC>;
+  | ReturnType<typeof SetEntityStatusAC>
+  | ReturnType<typeof setStatusAC>
+  | ReturnType<typeof setTasksListsAC>
+  | ReturnType<typeof clearTodosDataAC>;
 
 const initialState: TodolistDomainType[] = [];
 
@@ -55,6 +60,9 @@ export const todolistsReducer = (
         filter: 'all',
         entityStatus: 'idle',
       }));
+    }
+    case 'CLEAR-DATA': {
+      return [];
     }
     case 'SET-ENTITY-STATUS': {
       return todoLists.map((todo) =>
@@ -97,21 +105,32 @@ export const SetTodolistsAC = (todos: TodoListsApiType[]) => {
   } as const;
 };
 
-export const SetTodolistsTC = () => (dispatch: Dispatch) => {
-  dispatch(setStatusAC('loading'));
-  return todoListApi
-    .getTodoLists()
-    .then((res) => {
-      dispatch(SetTodolistsAC(res.data));
-      dispatch(setStatusAC('succeeded'));
-    })
-    .catch((error) => {
-      handleServerNetworkError(error, dispatch);
-    });
-};
+export const SetTodolistsTC =
+  () => (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionTypeTodolists>) => {
+    dispatch(setStatusAC('loading'));
+    return todoListApi
+      .getTodoLists()
+      .then((res) => {
+        dispatch(SetTodolistsAC(res.data));
+        dispatch(setStatusAC('succeeded'));
+        return res.data;
+      })
+      .then((res) =>
+        res.forEach((todo) => {
+          dispatch(getTasksTC(todo.id));
+        })
+      )
+      .catch((error) => {
+        handleServerNetworkError(error, dispatch);
+      });
+  };
 
 export const SetEntityStatusAC = (todoId: string, entityStatus: RequestStatusType) => {
   return { type: 'SET-ENTITY-STATUS', todoId, entityStatus } as const;
+};
+
+export const clearTodosDataAC = () => {
+  return { type: 'CLEAR-DATA' } as const;
 };
 
 export const DelteTodolistTC = (todolistID: string) => (dispatch: Dispatch) => {

@@ -6,6 +6,7 @@ import { TodoListItem } from 'TodolistItem';
 import { Navigate } from 'react-router-dom';
 import { addTodolistTC, SetTodolistsTC } from 'state/todolists-reducer';
 import { AddItemForm } from 'AddItemForm';
+import { getTasksTC } from 'state/tasks-reducer';
 
 const StyledPaper = styled(Paper)({ padding: '16px', marginBottom: '16px' });
 
@@ -30,11 +31,13 @@ export const TodoList: FC = () => {
   const addTodoList = (title: string) => {
     dispatch(addTodolistTC(title));
   };
+  // dispatch(getTasksTC(todoList.id));
 
   useEffect(() => {
     if (!isLoggedIn) return;
-    dispatch(SetTodolistsTC());
-  }, []);
+    dispatch(SetTodolistsTC()).then((res) => {});
+  }, [isLoggedIn]);
+
   if (!isLoggedIn) {
     return <Navigate to="/login" />;
   }
