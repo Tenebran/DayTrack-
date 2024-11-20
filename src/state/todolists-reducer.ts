@@ -3,7 +3,7 @@ import { TodoListsApiType } from 'api/type';
 import { Dispatch, UnknownAction } from 'redux';
 import { RequestStatusType, setErrorAC, setStatusAC } from './app-reducer';
 import { getTasksTC, RESULT_CODE, setTasksListsAC } from './tasks-reducer';
-import { handleServerNetworkError } from 'utils/error-utils';
+import { handleServerNetworkError } from '../utils/error-utils';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppRootStateType } from './ReduxStoreProviderDecorator';
 

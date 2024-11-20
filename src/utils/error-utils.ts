@@ -1,6 +1,6 @@
 import { ResponseType } from 'api/type';
 import { Dispatch } from 'redux';
-import { setErrorAC, SetErrorType, setStatusAC, SetStatusType } from 'state/app-reducer';
+import { setErrorAC, SetErrorType, setStatusAC, SetStatusType } from '../state/app-reducer';
 
 type ErrorUtilsDispatchType = Dispatch<SetStatusType | SetErrorType>;
 

@@ -1,8 +1,6 @@
-import { TodoListsApiType } from 'api/type';
 import {
   AddTodolistAC,
   ChangeTodoListTitleAC,
-  KeyType,
   RemoveTodoListAC,
   TodolistDomainType,
   todolistsReducer,
@@ -18,8 +16,8 @@ beforeEach(() => {
   todolistId2 = v1();
 
   startState = [
-    // { id: todolistId1, title: 'What to learn', filter: 'all' as KeyType },
-    // { id: todolistId2, title: 'What to buy', filter: 'all' as KeyType },
+    { id: todolistId1, title: 'What to learn', filter: 'all', entityStatus: 'idle' },
+    { id: todolistId2, title: 'What to buy', filter: 'all', entityStatus: 'idle' },
   ];
 });
 

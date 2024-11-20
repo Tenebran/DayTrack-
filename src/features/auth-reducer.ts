@@ -7,7 +7,7 @@ import {
   SetStatusType,
   SettIsInitializedType,
 } from 'state/app-reducer';
-import { handlerServerAppError, handleServerNetworkError } from 'utils/error-utils';
+import { handlerServerAppError, handleServerNetworkError } from '../utils/error-utils';
 import { LoginData } from './Login';
 import { clearTodosDataAC } from 'state/todolists-reducer';
 

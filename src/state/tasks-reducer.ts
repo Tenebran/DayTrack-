@@ -9,7 +9,7 @@ import { Dispatch } from 'redux';
 import { TaskListApiType, TaskStatuses, TodoListsApiType } from 'api/type';
 import { AppRootStateType } from '../redux/store';
 import { setErrorAC, setStatusAC } from './app-reducer';
-import { handlerServerAppError, handleServerNetworkError } from 'utils/error-utils';
+import { handlerServerAppError, handleServerNetworkError } from '../utils/error-utils';
 
 export type TasksStateType = {
   [todoListId: string]: TaskListApiType[];
@@ -212,6 +212,7 @@ export const changeTasksStatusTC =
         })
         .catch((error) => {
           handleServerNetworkError(error, dispatch);
+          dispatch(setStatusAC('failed'));
         });
     }
   };
