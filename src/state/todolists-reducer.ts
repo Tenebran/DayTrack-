@@ -122,6 +122,7 @@ export const SetTodolistsTC =
       )
       .catch((error) => {
         handleServerNetworkError(error, dispatch);
+        dispatch(setStatusAC('failed'));
       });
   };
 
@@ -145,6 +146,7 @@ export const DelteTodolistTC = (todolistID: string) => (dispatch: Dispatch) => {
     .catch((error) => {
       handleServerNetworkError(error, dispatch);
       dispatch(SetEntityStatusAC(todolistID, 'idle'));
+      dispatch(setStatusAC('failed'));
     });
 };
 
@@ -159,6 +161,7 @@ export const UpdateTodolistTC = (todolistID: string, title: string) => (dispatch
     .catch((error) => {
       handleServerNetworkError(error, dispatch);
       dispatch(SetEntityStatusAC(todolistID, 'idle'));
+      dispatch(setStatusAC('failed'));
     });
 };
 
@@ -183,5 +186,6 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
     })
     .catch((error) => {
       handleServerNetworkError(error, dispatch);
+      dispatch(setStatusAC('failed'));
     });
 };

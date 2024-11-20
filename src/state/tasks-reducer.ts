@@ -120,10 +120,15 @@ export const setTasksListsAC = (todoID: string, tasks: TaskListApiType[]) =>
 
 export const getTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
   dispatch(setStatusAC('loading'));
-  todoListApi.getTasks(todolistID).then((resp) => {
-    dispatch(setTasksListsAC(todolistID, resp.data.items));
-    dispatch(setStatusAC('succeeded'));
-  });
+  todoListApi
+    .getTasks(todolistID)
+    .then((resp) => {
+      dispatch(setTasksListsAC(todolistID, resp.data.items));
+      dispatch(setStatusAC('succeeded'));
+    })
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch);
+    });
 };
 
 export const removeTasksTC = (todolistID: string, taskID: string) => (dispatch: Dispatch) => {
@@ -136,6 +141,7 @@ export const removeTasksTC = (todolistID: string, taskID: string) => (dispatch: 
     })
     .catch((error) => {
       handleServerNetworkError(error, dispatch);
+      dispatch(setStatusAC('failed'));
     });
 };
 
@@ -153,6 +159,7 @@ export const addTasksTC = (title: string, todolistID: string) => (dispatch: Disp
     })
     .catch((error) => {
       handleServerNetworkError(error, dispatch);
+      dispatch(setStatusAC('failed'));
     });
 };
 
@@ -176,6 +183,7 @@ export const changeTasksTitleTC =
       })
       .catch((error) => {
         handleServerNetworkError(error, dispatch);
+        dispatch(setStatusAC('failed'));
       });
   };
 
