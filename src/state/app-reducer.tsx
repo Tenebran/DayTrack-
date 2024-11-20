@@ -6,12 +6,12 @@ const slice = createSlice({
   name: 'app',
   initialState: {
     isInitialized: false,
+    status: 'idle' as RequestStatusType,
     error: null as null | string,
-    status: 'idle',
   },
   reducers: {
     setAppStatus: (state, action: PayloadAction<{ status: RequestStatusType }>) => {
-      state.status === action.payload.status;
+      state.status = action.payload.status;
     },
     setAppError: (state, action: PayloadAction<{ error: null | string }>) => {
       state.error = action.payload.error;
@@ -24,3 +24,5 @@ const slice = createSlice({
 
 export const appReducer = slice.reducer;
 export const appActions = slice.actions;
+
+export type InitialStateType = ReturnType<typeof slice.getInitialState>;

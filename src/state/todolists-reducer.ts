@@ -1,11 +1,8 @@
 import { todoListApi } from 'api/todolist-api';
 import { TodoListsApiType } from 'api/type';
-import { Dispatch } from 'redux';
 import { appActions, RequestStatusType } from './app-reducer';
 import { getTasksTC, RESULT_CODE, setTasksListsAC } from './tasks-reducer';
 import { handleServerNetworkError } from '../utils/error-utils';
-import { ThunkDispatch } from 'redux-thunk';
-import { AppRootStateType } from './ReduxStoreProviderDecorator';
 import { AppThunk } from 'redux/store';
 
 export const REMOVE_TODOLISTS = 'REMOVE-TODOLIST';

@@ -135,41 +135,46 @@ export const getTasksTC =
       });
   };
 
-export const removeTasksTC = (todolistID: string, taskID: string) => (dispatch: Dispatch) => {
-  dispatch(appActions.setAppStatus({ status: 'loading' }));
+export const removeTasksTC =
+  (todolistID: string, taskID: string): AppThunk =>
+  (dispatch) => {
+    dispatch(appActions.setAppStatus({ status: 'loading' }));
 
-  todoListApi
-    .deleteTask(todolistID, taskID)
-    .then(() => {
-      dispatch(RemoveTasksAC(taskID, todolistID));
-      dispatch(appActions.setAppStatus({ status: 'succeeded' }));
-    })
-    .catch((error) => {
-      handleServerNetworkError(error, dispatch);
-      dispatch(appActions.setAppStatus({ status: 'failed' }));
-    });
-};
-
-export const addTasksTC = (title: string, todolistID: string) => (dispatch: Dispatch) => {
-  dispatch(appActions.setAppStatus({ status: 'loading' }));
-  todoListApi
-    .createTasks(todolistID, title)
-    .then((res) => {
-      if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
-        dispatch(AddTaskTitleAC(res.data.data.item));
+    todoListApi
+      .deleteTask(todolistID, taskID)
+      .then(() => {
+        dispatch(RemoveTasksAC(taskID, todolistID));
         dispatch(appActions.setAppStatus({ status: 'succeeded' }));
-      } else {
-        handlerServerAppError<{ item: TaskListApiType }>(dispatch, res.data);
-      }
-    })
-    .catch((error) => {
-      handleServerNetworkError(error, dispatch);
-      dispatch(appActions.setAppStatus({ status: 'failed' }));
-    });
-};
+      })
+      .catch((error) => {
+        handleServerNetworkError(error, dispatch);
+        dispatch(appActions.setAppStatus({ status: 'failed' }));
+      });
+  };
+
+export const addTasksTC =
+  (title: string, todolistID: string): AppThunk =>
+  (dispatch) => {
+    dispatch(appActions.setAppStatus({ status: 'loading' }));
+    todoListApi
+      .createTasks(todolistID, title)
+      .then((res) => {
+        if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
+          dispatch(AddTaskTitleAC(res.data.data.item));
+          dispatch(appActions.setAppStatus({ status: 'succeeded' }));
+        } else {
+          handlerServerAppError<{ item: TaskListApiType }>(dispatch, res.data);
+        }
+      })
+      .catch((error) => {
+        handleServerNetworkError(error, dispatch);
+        dispatch(appActions.setAppStatus({ status: 'failed' }));
+      });
+  };
 
 export const changeTasksTitleTC =
-  (todolistID: string, taskID: string, title: string) => (dispatch: Dispatch) => {
+  (todolistID: string, taskID: string, title: string): AppThunk =>
+  (dispatch) => {
     dispatch(appActions.setAppStatus({ status: 'loading' }));
     todoListApi
       .updateTitleTask(todolistID, taskID, title)
@@ -193,8 +198,8 @@ export const changeTasksTitleTC =
   };
 
 export const changeTasksStatusTC =
-  (todolistID: string, taskID: string, status: TaskStatuses) =>
-  (dispatch: Dispatch, getState: () => AppRootStateType) => {
+  (todolistID: string, taskID: string, status: TaskStatuses): AppThunk =>
+  (dispatch, getState: () => AppRootStateType) => {
     const rootState = getState();
     const task = rootState.tasks[todolistID].find((task) => taskID === task.id);
 

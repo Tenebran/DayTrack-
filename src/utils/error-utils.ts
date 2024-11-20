@@ -1,6 +1,6 @@
 import { ResponseType } from 'api/type';
 import { AppDispatchType } from 'redux/store';
-import { appActions } from 'state/app-reducer';
+import { appActions } from '../state/app-reducer';
 
 export const handleServerNetworkError = (error: { message: string }, dispatch: AppDispatchType) => {
   dispatch(appActions.setAppError({ error: error.message }));
