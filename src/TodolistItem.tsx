@@ -83,7 +83,7 @@ export const TodoListItem: FC<TodoListItemProps> = ({
       </h3>
       <AddItemForm
         todoListsID={todoList.id}
-        addItem={addNewTask}
+        addItem={(title) => addNewTask(todoList.id, title)}
         maxLengthUserMeaasge={15}
         disabled={todoList.entityStatus === 'loading'}
       />

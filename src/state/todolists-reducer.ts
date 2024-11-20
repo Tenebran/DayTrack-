@@ -1,11 +1,12 @@
 import { todoListApi } from 'api/todolist-api';
 import { TodoListsApiType } from 'api/type';
-import { Dispatch, UnknownAction } from 'redux';
-import { RequestStatusType, setErrorAC, setStatusAC } from './app-reducer';
+import { Dispatch } from 'redux';
+import { appActions, RequestStatusType } from './app-reducer';
 import { getTasksTC, RESULT_CODE, setTasksListsAC } from './tasks-reducer';
 import { handleServerNetworkError } from '../utils/error-utils';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppRootStateType } from './ReduxStoreProviderDecorator';
+import { AppThunk } from 'redux/store';
 
 export const REMOVE_TODOLISTS = 'REMOVE-TODOLIST';
 export const ADD_TODOLIST = 'ADD-TODOLIST' as const;
@@ -27,7 +28,6 @@ export type ActionTypeTodolists =
   | ReturnType<typeof ChangeTodoListFilterAC>
   | ReturnType<typeof SetTodolistsAC>
   | ReturnType<typeof SetEntityStatusAC>
-  | ReturnType<typeof setStatusAC>
   | ReturnType<typeof setTasksListsAC>
   | ReturnType<typeof clearTodosDataAC>;
 
@@ -105,26 +105,25 @@ export const SetTodolistsAC = (todos: TodoListsApiType[]) => {
   } as const;
 };
 
-export const SetTodolistsTC =
-  () => (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionTypeTodolists>) => {
-    dispatch(setStatusAC('loading'));
-    return todoListApi
-      .getTodoLists()
-      .then((res) => {
-        dispatch(SetTodolistsAC(res.data));
-        dispatch(setStatusAC('succeeded'));
-        return res.data;
+export const SetTodolistsTC = (): AppThunk => (dispatch) => {
+  dispatch(appActions.setAppStatus({ status: 'loading' }));
+  return todoListApi
+    .getTodoLists()
+    .then((res) => {
+      dispatch(SetTodolistsAC(res.data));
+      dispatch(appActions.setAppStatus({ status: 'succeeded' }));
+      return res.data;
+    })
+    .then((res) =>
+      res.forEach((todo) => {
+        dispatch(getTasksTC(todo.id));
       })
-      .then((res) =>
-        res.forEach((todo) => {
-          dispatch(getTasksTC(todo.id));
-        })
-      )
-      .catch((error) => {
-        handleServerNetworkError(error, dispatch);
-        dispatch(setStatusAC('failed'));
-      });
-  };
+    )
+    .catch((error) => {
+      handleServerNetworkError(error, dispatch);
+      dispatch(appActions.setAppStatus({ status: 'failed' }));
+    });
+};
 
 export const SetEntityStatusAC = (todoId: string, entityStatus: RequestStatusType) => {
   return { type: 'SET-ENTITY-STATUS', todoId, entityStatus } as const;
@@ -134,58 +133,64 @@ export const clearTodosDataAC = () => {
   return { type: 'CLEAR-DATA' } as const;
 };
 
-export const DelteTodolistTC = (todolistID: string) => (dispatch: Dispatch) => {
-  dispatch(setStatusAC('loading'));
-  dispatch(SetEntityStatusAC(todolistID, 'loading'));
-  return todoListApi
-    .deleteTodolist(todolistID)
-    .then(() => {
-      dispatch(RemoveTodoListAC(todolistID));
-      dispatch(setStatusAC('succeeded'));
-    })
-    .catch((error) => {
-      handleServerNetworkError(error, dispatch);
-      dispatch(SetEntityStatusAC(todolistID, 'idle'));
-      dispatch(setStatusAC('failed'));
-    });
-};
+export const DelteTodolistTC =
+  (todolistID: string): AppThunk =>
+  (dispatch) => {
+    dispatch(appActions.setAppStatus({ status: 'loading' }));
+    dispatch(SetEntityStatusAC(todolistID, 'loading'));
+    return todoListApi
+      .deleteTodolist(todolistID)
+      .then(() => {
+        dispatch(RemoveTodoListAC(todolistID));
+        dispatch(appActions.setAppStatus({ status: 'succeeded' }));
+      })
+      .catch((error) => {
+        handleServerNetworkError(error, dispatch);
+        dispatch(SetEntityStatusAC(todolistID, 'idle'));
+        dispatch(appActions.setAppStatus({ status: 'failed' }));
+      });
+  };
 
-export const UpdateTodolistTC = (todolistID: string, title: string) => (dispatch: Dispatch) => {
-  dispatch(setStatusAC('loading'));
-  return todoListApi
-    .updateTodoList(todolistID, title)
-    .then(() => {
-      dispatch(ChangeTodoListTitleAC(title, todolistID));
-      dispatch(setStatusAC('succeeded'));
-    })
-    .catch((error) => {
-      handleServerNetworkError(error, dispatch);
-      dispatch(SetEntityStatusAC(todolistID, 'idle'));
-      dispatch(setStatusAC('failed'));
-    });
-};
+export const UpdateTodolistTC =
+  (todolistID: string, title: string): AppThunk =>
+  (dispatch) => {
+    dispatch(appActions.setAppStatus({ status: 'loading' }));
+    return todoListApi
+      .updateTodoList(todolistID, title)
+      .then(() => {
+        dispatch(ChangeTodoListTitleAC(title, todolistID));
+        dispatch(appActions.setAppStatus({ status: 'succeeded' }));
+      })
+      .catch((error) => {
+        handleServerNetworkError(error, dispatch);
+        dispatch(SetEntityStatusAC(todolistID, 'idle'));
+        dispatch(appActions.setAppStatus({ status: 'failed' }));
+      });
+  };
 
-export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
-  dispatch(setStatusAC('loading'));
-  todoListApi
-    .createTodolist(title)
-    .then((resp) => {
-      if (resp.data.resultCode === RESULT_CODE.SUCCEEDED) {
-        dispatch(AddTodolistAC(resp.data.data.item));
-        dispatch(setStatusAC('succeeded'));
-      } else {
-        if (resp.data.messages.length) {
-          dispatch(setErrorAC(resp.data.messages[0]));
+export const addTodolistTC =
+  (title: string): AppThunk =>
+  (dispatch) => {
+    dispatch(appActions.setAppStatus({ status: 'loading' }));
+    todoListApi
+      .createTodolist(title)
+      .then((resp) => {
+        if (resp.data.resultCode === RESULT_CODE.SUCCEEDED) {
+          dispatch(AddTodolistAC(resp.data.data.item));
+          dispatch(appActions.setAppStatus({ status: 'succeeded' }));
         } else {
-          dispatch(setErrorAC('Some Error'));
+          if (resp.data.messages.length) {
+            dispatch(appActions.setAppError({ error: resp.data.messages[0] }));
+          } else {
+            dispatch(appActions.setAppError({ error: 'Some Error' }));
+          }
+          dispatch(appActions.setAppStatus({ status: 'failed' }));
         }
-        dispatch(setStatusAC('failed'));
-      }
 
-      dispatch(setStatusAC('succeeded'));
-    })
-    .catch((error) => {
-      handleServerNetworkError(error, dispatch);
-      dispatch(setStatusAC('failed'));
-    });
-};
+        dispatch(appActions.setAppStatus({ status: 'succeeded' }));
+      })
+      .catch((error) => {
+        handleServerNetworkError(error, dispatch);
+        dispatch(appActions.setAppStatus({ status: 'failed' }));
+      });
+  };

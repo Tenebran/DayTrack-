@@ -58,7 +58,7 @@ export const TodoList: FC = () => {
     dispatch(DelteTodolistTC(todoListId));
   };
 
-  const addNewTask = (title: string, todoListID: string) => {
+  const addNewTask = (todoListID: string, title: string) => {
     dispatch(addTasksTC(title, todoListID));
   };
 

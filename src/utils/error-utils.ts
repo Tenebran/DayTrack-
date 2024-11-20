@@ -1,25 +1,17 @@
 import { ResponseType } from 'api/type';
-import { Dispatch } from 'redux';
-import { setErrorAC, SetErrorType, setStatusAC, SetStatusType } from '../state/app-reducer';
+import { AppDispatchType } from 'redux/store';
+import { appActions } from 'state/app-reducer';
 
-type ErrorUtilsDispatchType = Dispatch<SetStatusType | SetErrorType>;
-
-export const handleServerNetworkError = (
-  error: { message: string },
-  dispatch: ErrorUtilsDispatchType
-) => {
-  dispatch(setErrorAC(error.message));
-  dispatch(setStatusAC('idle'));
+export const handleServerNetworkError = (error: { message: string }, dispatch: AppDispatchType) => {
+  dispatch(appActions.setAppError({ error: error.message }));
+  dispatch(appActions.setAppStatus({ status: 'idle' }));
 };
 
-export const handlerServerAppError = <D>(
-  dispatch: ErrorUtilsDispatchType,
-  data: ResponseType<D>
-) => {
+export const handlerServerAppError = <D>(dispatch: AppDispatchType, data: ResponseType<D>) => {
   if (data.messages.length) {
-    dispatch(setErrorAC(data.messages[0]));
+    dispatch(appActions.setAppError({ error: data.messages[0] }));
   } else {
-    dispatch(setErrorAC('Some Error'));
+    dispatch(appActions.setAppError({ error: 'Some Error' }));
   }
-  dispatch(setStatusAC('failed'));
+  dispatch(appActions.setAppStatus({ status: 'failed' }));
 };

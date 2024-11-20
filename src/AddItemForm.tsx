@@ -1,12 +1,11 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import { Button, ButtonGroup, styled, TextField } from '@mui/material';
-import { RequestStatusType } from 'state/app-reducer';
 
 type AddItemFormType = {
   todoListsID?: string;
   maxLengthUserMeaasge: number;
-  addItem: (_title: string, todolistID: string) => void;
+  addItem: (title: string) => void;
   taskID?: string;
   disabled?: boolean;
 };
@@ -43,7 +42,7 @@ export const AddItemForm: FC<AddItemFormType> = ({
   };
 
   const handlerAddItem = () => {
-    title.length && todoListsID?.length && addItem(title, todoListsID);
+    title.length && addItem(title);
 
     setTitle('');
   };
