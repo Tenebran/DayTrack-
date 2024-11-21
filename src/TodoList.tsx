@@ -91,12 +91,12 @@ export const TodoList: FC = () => {
         <AddItemForm maxLengthUserMeaasge={15} addItem={addTodoList} />
       </StyledGridInput>
       <Grid2 container spacing={4} alignItems="stretch">
-        {todoLists.todoLists.map((todoList) => {
+        {todoLists.map((todoList) => {
           return (
             <StyledPaper elevation={3} key={todoList.id}>
               <TodoListItem
                 todoList={todoList}
-                tasks={tasks.task[todoList.id]}
+                tasks={tasks[todoList.id]}
                 isLoggedIn={isLoggedIn}
                 deleteTodolist={deleteTodolist}
                 addNewTask={addNewTask}

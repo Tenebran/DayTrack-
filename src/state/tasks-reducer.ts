@@ -4,70 +4,57 @@ import { AppRootStateType, AppThunk } from '../redux/store';
 import { handlerServerAppError, handleServerNetworkError } from '../utils/error-utils';
 import { appActions } from './app-reducer';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { clearAllData } from '../redux/commonActions';
 import { todolistsActions } from './todolists-reducer';
 
 const slice = createSlice({
   name: 'tasks',
-  initialState: { task: {} as TasksStateType },
+  initialState: {} as TasksStateType,
   reducers: {
     removeTask: (state, actions: PayloadAction<{ id: string; todolistId: string }>) => {
-      state.task = {
-        ...state.task,
-        [actions.payload.todolistId]: state.task[actions.payload.todolistId].filter(
-          (t) => t.id !== actions.payload.id
-        ),
-      };
+      const index = state[actions.payload.todolistId].findIndex((t) => t.id !== actions.payload.id);
+      if (index !== -1) state[actions.payload.todolistId].splice(index, 1);
     },
     changeTaskStatus: (
       state,
       actions: PayloadAction<{ status: number; id: string; todolistId: string }>
     ) => {
-      state.task = {
-        ...state.task,
-        [actions.payload.todolistId]: state.task[actions.payload.todolistId].map((t) =>
-          t.id === actions.payload.id ? { ...t, status: actions.payload.status } : t
-        ),
-      };
+      const task = state[actions.payload.todolistId].find((t) => t.id === actions.payload.id);
+      if (task) task.status = actions.payload.status;
     },
     changeTaskTitle: (
       state,
       actions: PayloadAction<{ title: string; id: string; todolistId: string }>
     ) => {
-      state.task = {
-        ...state.task,
-        [actions.payload.todolistId]: state.task[actions.payload.todolistId].map((t) =>
-          t.id === actions.payload.id ? { ...t, title: actions.payload.title } : t
-        ),
-      };
+      const task = state[actions.payload.todolistId].find((t) => t.id === actions.payload.id);
+      if (task) task.title = actions.payload.title;
     },
     createTask: (state, actions: PayloadAction<{ task: TaskListApiType }>) => {
-      state.task = {
-        ...state.task,
-        [actions.payload.task.todoListId]: [
-          actions.payload.task,
-          ...state.task[actions.payload.task.todoListId],
-        ],
-      };
+      state[actions.payload.task.todoListId].unshift(actions.payload.task);
     },
     setTasksLists: (
       state,
       actions: PayloadAction<{ todoID: string; tasks: TaskListApiType[] }>
     ) => {
-      state.task = { ...state.task, [actions.payload.todoID]: actions.payload.tasks };
+      state[actions.payload.todoID] = actions.payload.tasks;
     },
-    clearDataTask: (state) => {
-      state.task = {};
-    },
-    setTodolists: (state, actions: PayloadAction<{ todolists: TodoListsApiType[] }>) => {
-      actions.payload.todolists.forEach((tl: TodoListsApiType) => (state.task[tl.id] = []));
-    },
-    removeTodolist: (state, actions: PayloadAction<{ taskId: string }>) => {
-      delete state.task[actions.payload.taskId];
-    },
-    // addTodolist: (state, actions: PayloadAction<{todolistId: string}>) {
-    //   state.task =  {...state,
-    //   [actions.payload.todolistId]: [],}
-    // }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(clearAllData, (state) => {
+        Object.keys(state).forEach((key) => delete state[key]);
+      })
+      .addCase(todolistsActions.addTodolist, (state, actions) => {
+        state[actions.payload.todolist.id] = [];
+      })
+      .addCase(todolistsActions.removeTodoList, (state, actions) => {
+        delete state[actions.payload.id];
+      })
+      .addCase(todolistsActions.setTodolists, (state, actions) => {
+        actions.payload.todos.forEach((tl) => {
+          state[tl.id];
+        });
+      });
   },
 });
 
@@ -162,9 +149,7 @@ export const changeTasksStatusTC =
   (todolistID: string, taskID: string, status: TaskStatuses): AppThunk =>
   (dispatch, getState: () => AppRootStateType) => {
     const rootState = getState();
-    const task = rootState.tasks.task[todolistID].find(
-      (task: { id: string }) => taskID === task.id
-    );
+    const task = rootState.tasks[todolistID].find((task: { id: string }) => taskID === task.id);
 
     if (task) {
       const model: TaskListApiType = {

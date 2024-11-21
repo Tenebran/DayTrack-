@@ -4,7 +4,7 @@ import { LoginData } from './Login';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from 'redux/store';
 import { appActions } from 'state/app-reducer';
-import { todolistsActions } from 'state/todolists-reducer';
+import { clearAllData } from '../redux/commonActions';
 
 const slice = createSlice({
   name: 'auth',
@@ -68,7 +68,7 @@ export const logOutTC = (): AppThunk => async (dispatch) => {
     if (res.data.resultCode === 0) {
       dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
       dispatch(appActions.setAppStatus({ status: 'succeeded' }));
-      dispatch(todolistsActions.clearData());
+      dispatch(clearAllData());
     } else {
       handlerServerAppError(dispatch, res.data);
       dispatch(appActions.setAppStatus({ status: 'failed' }));
