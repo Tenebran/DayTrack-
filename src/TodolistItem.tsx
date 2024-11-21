@@ -1,25 +1,12 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { AddItemForm } from './AddItemForm';
 import { EditebleSpan } from './EditebleSpan';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import { ButtonGroup, IconButton, List } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
-import { useAppDispatch } from './redux/store';
-import {
-  addTasksTC,
-  changeTasksStatusTC,
-  changeTasksTitleTC,
-  getTasksTC,
-  removeTasksTC,
-} from './state/tasks-reducer';
-import {
-  ChangeTodoListFilterAC,
-  DelteTodolistTC,
-  KeyType,
-  TodolistDomainType,
-  UpdateTodolistTC,
-} from './state/todolists-reducer';
+
+import { KeyTypeTodolist, TodolistDomainType } from './state/todolists-reducer';
 import { Task } from './Task';
 import { TaskListApiType } from 'api/type';
 
@@ -37,7 +24,7 @@ type TodoListItemProps = {
   deleteTodolist: (todoListId: string) => void;
   addNewTask: (title: string, todoListID: string) => void;
   changeTodolistTitle: (title: string, todolistID: string) => void;
-  changeFilter: (changeValue: KeyType, todolistId: string) => void;
+  changeFilter: (changeValue: KeyTypeTodolist, todolistId: string) => void;
   changeTaskStatus: (
     todoListID: string,
     taskID: string,
@@ -94,7 +81,7 @@ export const TodoListItem: FC<TodoListItemProps> = ({
               key={filter}
               size="small"
               variant={todoList.filter === filter ? 'contained' : 'outlined'}
-              onClick={() => changeFilter(filter as KeyType, todoList.id)}>
+              onClick={() => changeFilter(filter as KeyTypeTodolist, todoList.id)}>
               {filter.charAt(0).toUpperCase() + filter.slice(1)}
             </StyledButton>
           ))}

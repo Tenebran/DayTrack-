@@ -30,7 +30,7 @@ const initialGlobalState = {
       { id: v1(), title: 'React Book', status: 2 },
     ],
   },
-} as AppRootStateType;
+} as unknown as AppRootStateType;
 
 export const storyBookStore = configureStore({
   reducer: rootReducer,

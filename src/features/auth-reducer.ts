@@ -1,10 +1,10 @@
 import { authAPI } from 'api/todolist-api';
 import { handlerServerAppError, handleServerNetworkError } from '../utils/error-utils';
 import { LoginData } from './Login';
-import { clearTodosDataAC } from 'state/todolists-reducer';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from 'redux/store';
 import { appActions } from 'state/app-reducer';
+import { todolistsActions } from 'state/todolists-reducer';
 
 const slice = createSlice({
   name: 'auth',
@@ -68,7 +68,7 @@ export const logOutTC = (): AppThunk => async (dispatch) => {
     if (res.data.resultCode === 0) {
       dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
       dispatch(appActions.setAppStatus({ status: 'succeeded' }));
-      dispatch(clearTodosDataAC());
+      dispatch(todolistsActions.clearData());
     } else {
       handlerServerAppError(dispatch, res.data);
       dispatch(appActions.setAppStatus({ status: 'failed' }));
