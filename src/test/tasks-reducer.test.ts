@@ -1,5 +1,5 @@
 import { v1 } from 'uuid';
-import { tasksActions, tasksReducer, TasksStateType } from '../state/tasks-reducer';
+import { tasksActions, tasksReducer, TasksStateType, taskThunks } from '../state/tasks-reducer';
 import { TaskListApiType } from '../api/type';
 import { todolistsActions } from '../state/todolists-reducer';
 
@@ -68,10 +68,30 @@ test('correct task should be added', () => {
 
   const endState = tasksReducer(startState, tasksActions.createTask({ task: newTask }));
 
-  console.log('endState[todolistId2]', endState[todolistId2]);
-
   expect(endState[todolistId2][0].title).toBe('New Task');
   expect(endState[todolistId2][1].title).toBe('Milk');
+});
+
+test('tasks should be added for todolist', () => {
+  const action = taskThunks.getTasks.fulfilled(
+    {
+      tasks: startState[todolistId1],
+      todolistID: todolistId1,
+    },
+    'requestId',
+    todolistId1
+  );
+
+  const endState = tasksReducer(
+    {
+      [todolistId2]: [],
+      [todolistId1]: [],
+    },
+    action
+  );
+
+  expect(endState[todolistId1].length).toBe(4);
+  expect(endState[todolistId2].length).toBe(0);
 });
 
 test('new array should be added when new todolist is added', () => {
