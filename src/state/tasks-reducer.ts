@@ -22,13 +22,6 @@ const slice = createSlice({
       const task = state[actions.payload.todolistId].find((t) => t.id === actions.payload.id);
       if (task) task.status = actions.payload.status;
     },
-    changeTaskTitle: (
-      state,
-      actions: PayloadAction<{ title: string; id: string; todolistId: string }>
-    ) => {
-      const task = state[actions.payload.todolistId].find((t) => t.id === actions.payload.id);
-      if (task) task.title = actions.payload.title;
-    },
     createTask: (state, actions: PayloadAction<{ task: TaskListApiType }>) => {
       state[actions.payload.task.todoListId].unshift(actions.payload.task);
     },
@@ -47,6 +40,16 @@ const slice = createSlice({
       })
       .addCase(addTask.fulfilled, (state, actions) => {
         state[actions.payload.task.todoListId].unshift(actions.payload.task);
+      })
+      .addCase(updateTask.fulfilled, (state, actions) => {
+        const task = state[actions.payload.todolistId]?.find(
+          (t) => t.id === actions.payload.taskID
+        );
+        console.log('Task found:', task);
+        if (task) {
+          console.log('Updating title to:', actions.payload.title);
+          task.title = actions.payload.title;
+        }
       })
       .addCase(clearAllData, (state) => {
         Object.keys(state).forEach((key) => delete state[key]);
@@ -130,30 +133,39 @@ const addTask = createAsyncThunk<any, { todolistID: string; title: string }>(
   }
 );
 
-export const changeTasksTitleTC =
-  (todolistID: string, taskID: string, title: string): AppThunk =>
-  (dispatch) => {
-    dispatch(appActions.setAppStatus({ status: 'loading' }));
-    todoListApi
-      .updateTitleTask(todolistID, taskID, title)
-      .then((res) => {
-        if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
-          dispatch(slice.actions.changeTaskTitle({ title, id: taskID, todolistId: todolistID }));
-          dispatch(appActions.setAppStatus({ status: 'succeeded' }));
+const updateTask = createAsyncThunk<any, { todolistID: string; taskID: string; title: string }>(
+  'tasks/updateTask',
+  async (arg, thunkApi) => {
+    const { dispatch, rejectWithValue } = thunkApi;
+    console.log('HELLO');
+    try {
+      dispatch(appActions.setAppStatus({ status: 'loading' }));
+      const res = await todoListApi.updateTitleTask(arg.todolistID, arg.taskID, arg.title);
+      if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
+        dispatch(appActions.setAppStatus({ status: 'succeeded' }));
+        return {
+          state: res.data.items,
+          title: arg.title,
+          taskID: arg.taskID,
+          todolistId: arg.todolistID,
+        };
+      } else {
+        if (res.data.messages.length) {
+          dispatch(appActions.setAppError({ error: res.data.messages[0] }));
         } else {
-          if (res.data.messages.length) {
-            dispatch(appActions.setAppError({ error: res.data.messages[0] }));
-          } else {
-            dispatch(appActions.setAppError({ error: 'Some Error' }));
-          }
-          dispatch(appActions.setAppStatus({ status: 'failed' }));
+          dispatch(appActions.setAppError({ error: 'Some Error' }));
         }
-      })
-      .catch((error) => {
-        handleServerNetworkError(error, dispatch);
         dispatch(appActions.setAppStatus({ status: 'failed' }));
-      });
-  };
+      }
+    } catch (error) {
+      console.log('HELLO ERROR');
+
+      handleServerNetworkError(error, dispatch as AppDispatchType);
+      dispatch(appActions.setAppStatus({ status: 'failed' }));
+      rejectWithValue(null);
+    }
+  }
+);
 
 export const changeTasksStatusTC =
   (todolistID: string, taskID: string, status: TaskStatuses): AppThunk =>
@@ -187,4 +199,4 @@ export const changeTasksStatusTC =
 
 export const tasksReducer = slice.reducer;
 export const tasksActions = slice.actions;
-export const taskThunks = { getTasks, addTask };
+export const taskThunks = { getTasks, addTask, updateTask };

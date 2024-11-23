@@ -49,10 +49,12 @@ test('correct task should be change status', () => {
 });
 
 test('correct task should be change title', () => {
-  const endState = tasksReducer(
-    startState,
-    tasksActions.changeTaskTitle({ title: 'Book', id: '2', todolistId: todolistId2 })
+  const action = taskThunks.updateTask.fulfilled(
+    { title: 'Book', todolistId: todolistId2, taskID: '2' },
+    'requestId',
+    { title: 'Book', todolistID: todolistId2, taskID: '2' }
   );
+  const endState = tasksReducer(startState, action);
 
   expect(endState[todolistId2].find((t) => t.id === '2')?.title).toBe('Book');
   expect(endState[todolistId2].find((t) => t.id === '1')?.title).toBe('Milk');
