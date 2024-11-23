@@ -14,10 +14,10 @@ import {
 } from 'state/todolists-reducer';
 import { AddItemForm } from 'AddItemForm';
 import {
-  addTasksTC,
   changeTasksStatusTC,
   changeTasksTitleTC,
   removeTasksTC,
+  taskThunks,
 } from 'state/tasks-reducer';
 
 const StyledPaper = styled(Paper)({ padding: '16px', marginBottom: '16px' });
@@ -57,8 +57,8 @@ export const TodoList: FC = () => {
     dispatch(DelteTodolistTC(todoListId));
   };
 
-  const addNewTask = (todoListID: string, title: string) => {
-    dispatch(addTasksTC(title, todoListID));
+  const addNewTask = (todolistID: string, title: string) => {
+    dispatch(taskThunks.addTask({ todolistID, title }));
   };
 
   const changeTodolistTitle = (title: string, todolistID: string) => {

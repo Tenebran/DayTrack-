@@ -72,6 +72,36 @@ test('correct task should be added', () => {
   expect(endState[todolistId2][1].title).toBe('Milk');
 });
 
+test('correct task should be added to correct array', () => {
+  const task = {
+    todoListId: todolistId2,
+    title: 'juce',
+    status: 0,
+    addedDate: '',
+    deadline: '',
+    description: '',
+    order: 0,
+    priority: 0,
+    startDate: '',
+    id: 'id exists',
+  };
+  const action = taskThunks.addTask.fulfilled(
+    {
+      task,
+    },
+    'requestId',
+    { title: task.title, todolistID: task.todoListId }
+  );
+
+  const endState = tasksReducer(startState, action);
+
+  expect(endState[todolistId1].length).toBe(4);
+  expect(endState[todolistId2].length).toBe(4);
+  expect(endState[todolistId2][0].id).toBeDefined();
+  expect(endState[todolistId2][0].title).toBe('juce');
+  expect(endState[todolistId2][0].status).toBe(0);
+});
+
 test('tasks should be added for todolist', () => {
   const action = taskThunks.getTasks.fulfilled(
     {

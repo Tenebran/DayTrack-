@@ -1,5 +1,5 @@
 import { todoListApi } from 'api/todolist-api';
-import { TaskListApiType, TaskStatuses, TodoListsApiType } from 'api/type';
+import { TaskListApiType, TaskStatuses } from 'api/type';
 import { AppDispatchType, AppRootStateType, AppThunk } from '../redux/store';
 import { handlerServerAppError, handleServerNetworkError } from '../utils/error-utils';
 import { appActions } from './app-reducer';
@@ -45,6 +45,9 @@ const slice = createSlice({
         if (actions.payload?.todolistID)
           state[actions.payload?.todolistID] = actions.payload?.tasks;
       })
+      .addCase(addTask.fulfilled, (state, actions) => {
+        state[actions.payload.task.todoListId].unshift(actions.payload.task);
+      })
       .addCase(clearAllData, (state) => {
         Object.keys(state).forEach((key) => delete state[key]);
       })
@@ -71,20 +74,24 @@ export enum RESULT_CODE {
   ERROR,
 }
 
-export const getTasks = createAsyncThunk('tasks/getTasks', async (todolistID: string, thunkApi) => {
-  const { dispatch } = thunkApi;
+const getTasks = createAsyncThunk<{ tasks: TaskListApiType[]; todolistID: string }, string>(
+  'tasks/getTasks',
+  async (todolistID, thunkApi) => {
+    const { dispatch, rejectWithValue } = thunkApi;
 
-  dispatch(appActions.setAppStatus({ status: 'loading' }));
+    dispatch(appActions.setAppStatus({ status: 'loading' }));
 
-  try {
-    const res = await todoListApi.getTasks(todolistID);
-    dispatch(appActions.setAppStatus({ status: 'succeeded' }));
-    return { tasks: res.data.items, todolistID };
-  } catch (error) {
-    dispatch(appActions.setAppStatus({ status: 'failed' }));
-    handleServerNetworkError(error as { message: string }, dispatch as AppDispatchType);
+    try {
+      const res = await todoListApi.getTasks(todolistID);
+      dispatch(appActions.setAppStatus({ status: 'succeeded' }));
+      return { tasks: res.data.items, todolistID };
+    } catch (error) {
+      dispatch(appActions.setAppStatus({ status: 'failed' }));
+      handleServerNetworkError(error, dispatch as AppDispatchType);
+      return rejectWithValue(null);
+    }
   }
-});
+);
 
 export const removeTasksTC =
   (todolistID: string, taskID: string): AppThunk =>
@@ -103,25 +110,25 @@ export const removeTasksTC =
       });
   };
 
-export const addTasksTC =
-  (title: string, todolistID: string): AppThunk =>
-  (dispatch) => {
-    dispatch(appActions.setAppStatus({ status: 'loading' }));
-    todoListApi
-      .createTasks(todolistID, title)
-      .then((res) => {
-        if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
-          dispatch(slice.actions.createTask({ task: res.data.data.item }));
-          dispatch(appActions.setAppStatus({ status: 'succeeded' }));
-        } else {
-          handlerServerAppError<{ item: TaskListApiType }>(dispatch, res.data);
-        }
-      })
-      .catch((error) => {
-        handleServerNetworkError(error, dispatch);
-        dispatch(appActions.setAppStatus({ status: 'failed' }));
-      });
-  };
+const addTask = createAsyncThunk<any, { todolistID: string; title: string }>(
+  'tasks/addTask',
+  async (arg, thunkApi) => {
+    const { dispatch, rejectWithValue } = thunkApi;
+    try {
+      dispatch(appActions.setAppStatus({ status: 'loading' }));
+      const res = await todoListApi.createTasks(arg.todolistID, arg.title);
+      if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
+        dispatch(appActions.setAppStatus({ status: 'succeeded' }));
+        return { task: res.data.data.item };
+      } else {
+        handlerServerAppError<{ item: TaskListApiType }>(dispatch as AppDispatchType, res.data);
+      }
+    } catch (error) {
+      handleServerNetworkError(error, dispatch as AppDispatchType);
+      rejectWithValue(null);
+    }
+  }
+);
 
 export const changeTasksTitleTC =
   (todolistID: string, taskID: string, title: string): AppThunk =>
@@ -180,4 +187,4 @@ export const changeTasksStatusTC =
 
 export const tasksReducer = slice.reducer;
 export const tasksActions = slice.actions;
-export const taskThunks = { getTasks };
+export const taskThunks = { getTasks, addTask };
