@@ -38,21 +38,21 @@ test('correct task should be removed', () => {
   expect(endState[todolistId2][1].title).toBe('Meat');
 });
 
-test('correct task should be change status', () => {
-  const endState = tasksReducer(
-    startState,
-    tasksActions.changeTaskStatus({ status: 2, id: '3', todolistId: todolistId1 })
-  );
-
-  expect(endState[todolistId1].find((t) => t.id === '3')?.status).toBe(2);
-  expect(endState[todolistId1].find((t) => t.id === '2')?.status).toBe(0);
-});
-
 test('correct task should be change title', () => {
   const action = taskThunks.updateTask.fulfilled(
-    { title: 'Book', todolistId: todolistId2, taskID: '2' },
+    {
+      model: {
+        title: 'Book',
+        todoListId: todolistId2,
+        id: '2',
+      },
+    },
     'requestId',
-    { title: 'Book', todolistID: todolistId2, taskID: '2' }
+    {
+      title: 'Book',
+      todoListId: todolistId2,
+      id: '2',
+    }
   );
   const endState = tasksReducer(startState, action);
 
@@ -60,15 +60,33 @@ test('correct task should be change title', () => {
   expect(endState[todolistId2].find((t) => t.id === '1')?.title).toBe('Milk');
 });
 
-test('correct task should be added', () => {
-  const newTask: TaskListApiType = {
-    id: v1(),
-    status: 0,
-    title: 'New Task',
-    todoListId: todolistId2,
-  };
+test('correct task should be change status', () => {
+  const action = taskThunks.updateTask.fulfilled(
+    { model: { todoListId: todolistId2, id: '2', status: 2 } },
+    'requestId',
+    { todoListId: todolistId2, id: '2', status: 2 }
+  );
+  const endState = tasksReducer(startState, action);
 
-  const endState = tasksReducer(startState, tasksActions.createTask({ task: newTask }));
+  expect(endState[todolistId2].find((t) => t.id === '2')?.status).toBe(2);
+  expect(endState[todolistId2].find((t) => t.id === '1')?.status).toBe(0);
+});
+
+test('correct task should be added', () => {
+  const action = taskThunks.addTask.fulfilled(
+    {
+      task: {
+        todoListId: todolistId2,
+        title: 'New Task',
+      },
+    },
+    'requestId',
+    {
+      todolistID: todolistId2,
+      title: 'New Task',
+    }
+  );
+  const endState = tasksReducer(startState, action);
 
   expect(endState[todolistId2][0].title).toBe('New Task');
   expect(endState[todolistId2][1].title).toBe('Milk');

@@ -18,6 +18,19 @@ export type TaskListApiType = {
   todoListId: string;
 };
 
+export type TaskListModelType = {
+  addedDate?: Date;
+  deadline?: null | Date;
+  description?: null | string;
+  id: string;
+  order?: number;
+  priority?: number;
+  startDate?: null | Date;
+  status?: number;
+  title?: string;
+  todoListId: string;
+};
+
 export type ResponseType<T = object> = {
   items(
     todolistID: string,

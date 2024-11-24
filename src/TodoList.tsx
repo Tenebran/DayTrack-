@@ -13,7 +13,7 @@ import {
   UpdateTodolistTC,
 } from 'state/todolists-reducer';
 import { AddItemForm } from 'AddItemForm';
-import { changeTasksStatusTC, removeTasksTC, taskThunks } from 'state/tasks-reducer';
+import { removeTasksTC, taskThunks } from 'state/tasks-reducer';
 
 const StyledPaper = styled(Paper)({ padding: '16px', marginBottom: '16px' });
 
@@ -65,15 +65,21 @@ export const TodoList: FC = () => {
   };
 
   const changeTaskStatus = (
-    todoListID: string,
-    taskID: string,
+    todoListId: string,
+    id: string,
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    dispatch(changeTasksStatusTC(todoListID, taskID, event.target.checked ? 2 : 0));
+    dispatch(
+      taskThunks.updateTask({
+        id,
+        todoListId,
+        status: event.target.checked ? 2 : 0,
+      })
+    );
   };
 
-  const changeTasksTitle = (todolistID: string, taskID: string, title: string) => {
-    dispatch(taskThunks.updateTask({ todolistID, taskID, title }));
+  const changeTasksTitle = (todoListId: string, id: string, title: string) => {
+    dispatch(taskThunks.updateTask({ todoListId, id, title }));
   };
 
   const removeTask = (todolistID: string, taskID: string) => {
