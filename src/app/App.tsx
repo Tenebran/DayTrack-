@@ -16,7 +16,7 @@ import { Menu } from '@mui/icons-material';
 import { ErrorSnackbar } from 'common/components/ErrorSnackbar';
 import { Login } from '../features/auth/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { logOutTC, meTC } from 'features/auth/auth-reducer';
+import { authThunks } from 'features/auth/auth-reducer';
 import { useAppSelector } from 'common/hooks/useAppSelector';
 import { useAppDispatch } from 'common/hooks/useAppDispatch';
 
@@ -25,13 +25,13 @@ export function App() {
   const isInitialized = useAppSelector((state) => state.app.isInitialized);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const logOut = () => {
-    dispatch(logOutTC());
+    dispatch(authThunks.logOut());
   };
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(meTC());
+    dispatch(authThunks.initialized());
   }, []);
 
   if (!isInitialized) {
