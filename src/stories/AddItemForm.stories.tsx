@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { AddItemForm } from '../AddItemForm';
+import { AddItemForm } from '../common/components/AddItemForm';
 import { ThemeProvider } from '@emotion/react';
 import { darkTheme } from './storiesTheme';
 

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC } from 'react';
-import { EditebleSpan } from './EditebleSpan';
+import { EditebleSpan } from '../EditebleSpan';
 import { Checkbox, IconButton, ListItem } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import { TaskListApiType } from 'api/type';

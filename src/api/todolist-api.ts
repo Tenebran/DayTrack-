@@ -1,38 +1,13 @@
 import axios, { AxiosResponse } from 'axios';
 import { ResponseType, TodoListsApiType, TaskListApiType } from './type';
-import { LoginData } from 'features/Login';
 
-type UserType = {
-  id: number;
-  email: string;
-  login: string;
-};
-
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.1/',
   withCredentials: true,
   headers: {
     'API-KEY': process.env.REACT_APP_API_KEY,
   },
 });
-
-export const authAPI = {
-  me() {
-    return instance.get<ResponseType<UserType>, any>(`/auth/me`);
-  },
-
-  logOut() {
-    return instance.delete<ResponseType>(`/auth/login`);
-  },
-
-  login(data: LoginData) {
-    return instance.post<
-      ResponseType<{ userId: number }>,
-      AxiosResponse<ResponseType<{ userId: number }>>,
-      any
-    >(`/auth/login`, data);
-  },
-};
 
 export const todoListApi = {
   updateTodoList(todoListID: string, title: string) {

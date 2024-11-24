@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { useAppDispatch, useAppSelector } from './redux/store';
-import { appActions } from 'state/app-reducer';
+import { appActions } from 'app/app-reducer';
+import { useAppDispatch } from 'common/hooks/useAppDispatch';
+import { useAppSelector } from 'common/hooks/useAppSelector';
 
 export const ErrorSnackbar = () => {
   const dispatch = useAppDispatch();

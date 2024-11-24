@@ -1,5 +1,5 @@
-import { AppDispatchType } from 'redux/store';
-import { appActions } from '../state/app-reducer';
+import { AppDispatchType } from 'common/hooks/useAppDispatch';
+import { appActions } from '../app/app-reducer';
 import axios from 'axios';
 
 export const handleServerNetworkError = (error: unknown, dispatch: AppDispatchType) => {

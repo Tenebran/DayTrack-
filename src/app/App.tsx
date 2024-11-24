@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.scss';
-import { TodoList } from '../TodoList';
+import { TodoList } from '../common/pages/Todolist/TodoList';
 import {
   AppBar,
   Button,
@@ -13,11 +13,12 @@ import {
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 
-import { useAppDispatch, useAppSelector } from '../redux/store';
-import { ErrorSnackbar } from 'ErrorSnackbar';
-import { Login } from '../features/Login';
+import { ErrorSnackbar } from 'common/components/ErrorSnackbar';
+import { Login } from '../features/auth/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { logOutTC, meTC } from 'features/auth-reducer';
+import { logOutTC, meTC } from 'features/auth/auth-reducer';
+import { useAppSelector } from 'common/hooks/useAppSelector';
+import { useAppDispatch } from 'common/hooks/useAppDispatch';
 
 export function App() {
   const status = useAppSelector((state) => state.app.status);

@@ -1,11 +1,11 @@
 import { Action, AnyAction, combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { tasksReducer } from '../state/tasks-reducer';
-import { todolistsReducer } from '../state/todolists-reducer';
+import { tasksReducer } from '../common/components/Task/tasks-reducer';
+import { todolistsReducer } from '../common/pages/Todolist/todolists-reducer';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { appReducer } from 'state/app-reducer';
-import { authReducer } from 'features/auth-reducer';
+import { appReducer } from 'app/app-reducer';
+import { authReducer } from 'features/auth/auth-reducer';
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
@@ -19,17 +19,6 @@ export const store = configureStore({
 });
 
 export type AppRootStateType = ReturnType<typeof rootReducer>;
-
-export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, Action>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  AppRootStateType,
-  unknown,
-  Action
->;
-
-export const useAppDispatch: () => AppDispatchType = useDispatch;
-export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
 
 // @ts-expect-error   is necessary.
 window.store = store;

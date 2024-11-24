@@ -1,4 +1,8 @@
-import { TodolistDomainType, todolistsActions, todolistsReducer } from '../state/todolists-reducer';
+import {
+  TodolistDomainType,
+  todolistsActions,
+  todolistsReducer,
+} from '../common/pages/Todolist/todolists-reducer';
 import { v1 } from 'uuid';
 
 let todolistId1: string;

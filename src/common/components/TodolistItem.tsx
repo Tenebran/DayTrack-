@@ -6,8 +6,8 @@ import { styled } from '@mui/material/styles';
 import { ButtonGroup, IconButton, List } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
-import { KeyTypeTodolist, TodolistDomainType } from './state/todolists-reducer';
-import { Task } from './Task';
+import { KeyTypeTodolist, TodolistDomainType } from '../pages/Todolist/todolists-reducer';
+import { Task } from './Task/Task';
 import { TaskListApiType } from 'api/type';
 
 const StyledButton = styled(Button)({

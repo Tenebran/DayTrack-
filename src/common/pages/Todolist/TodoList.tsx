@@ -1,8 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Grid2, Paper } from '@mui/material';
-import { useAppDispatch, useAppSelector } from './redux/store';
-import { TodoListItem } from 'TodolistItem';
+import { TodoListItem } from 'common/components/TodolistItem';
 import { Navigate } from 'react-router-dom';
 import {
   addTodolistTC,
@@ -11,9 +10,11 @@ import {
   SetTodolistsTC,
   todolistsActions,
   UpdateTodolistTC,
-} from 'state/todolists-reducer';
-import { AddItemForm } from 'AddItemForm';
-import { removeTasksTC, taskThunks } from 'state/tasks-reducer';
+} from 'common/pages/Todolist/todolists-reducer';
+import { AddItemForm } from 'common/components/AddItemForm';
+import { taskThunks } from 'common/components/Task/tasks-reducer';
+import { useAppSelector } from 'common/hooks/useAppSelector';
+import { useAppDispatch } from 'common/hooks/useAppDispatch';
 
 const StyledPaper = styled(Paper)({ padding: '16px', marginBottom: '16px' });
 
@@ -83,7 +84,7 @@ export const TodoList: FC = () => {
   };
 
   const removeTask = (todolistID: string, taskID: string) => {
-    dispatch(removeTasksTC(todolistID, taskID));
+    dispatch(taskThunks.removeTask({ todolistID, taskID }));
   };
 
   return (

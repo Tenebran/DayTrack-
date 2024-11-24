@@ -1,7 +1,12 @@
 import { v1 } from 'uuid';
-import { tasksActions, tasksReducer, TasksStateType, taskThunks } from '../state/tasks-reducer';
+import {
+  tasksActions,
+  tasksReducer,
+  TasksStateType,
+  taskThunks,
+} from '../common/components/Task/tasks-reducer';
 import { TaskListApiType } from '../api/type';
-import { todolistsActions } from '../state/todolists-reducer';
+import { todolistsActions } from '../common/pages/Todolist/todolists-reducer';
 
 let todolistId1: string;
 let todolistId2: string;
