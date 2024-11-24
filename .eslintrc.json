@@ -1,0 +1,67 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "globals": {
+    "page": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": ["@typescript-eslint", "import"],
+  "rules": {
+    "no-unused-vars": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/no-autofocus": "off",
+    "jsx-a11y/anchor-is-valid": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^React$" }
+    ],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
+    "@typescript-eslint/no-require-imports": "off",
+    "@typescript-eslint/ban-ts-comment": [
+      "warn",
+      {
+        "ts-ignore": "allow-with-description",
+        "ts-expect-error": "allow-with-description"
+      }
+    ],
+    "import/no-unused-modules": [
+      "warn",
+      {
+        "unusedExports": true
+      }
+    ],
+    "import/no-duplicates": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["src/stories/**/*.tsx"],
+      "rules": {
+        "no-unused-vars": "off",
+        "no-undef": "off"
+      }
+    }
+  ]
+}
