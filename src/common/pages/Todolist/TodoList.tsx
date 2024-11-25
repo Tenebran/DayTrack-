@@ -4,12 +4,10 @@ import { Grid2, Paper } from '@mui/material';
 import { TodoListItem } from 'common/components/TodolistItem';
 import { Navigate } from 'react-router-dom';
 import {
-  addTodolistTC,
-  DelteTodolistTC,
   KeyTypeTodolist,
   SetTodolistsTC,
   todolistsActions,
-  UpdateTodolistTC,
+  todolistsThunk,
 } from 'common/pages/Todolist/todolists-reducer';
 import { AddItemForm } from 'common/components/AddItemForm';
 import { taskThunks } from 'common/components/Task/tasks-reducer';
@@ -46,19 +44,19 @@ export const TodoList: FC = () => {
   }
 
   const addTodoList = (title: string) => {
-    dispatch(addTodolistTC(title));
+    dispatch(todolistsThunk.addTodolist({ title }));
   };
 
-  const deleteTodolist = (todoListId: string) => {
-    dispatch(DelteTodolistTC(todoListId));
+  const deleteTodolist = (todolistId: string) => {
+    dispatch(todolistsThunk.deleteTodolist({ todolistId }));
   };
 
   const addNewTask = (todolistID: string, title: string) => {
     dispatch(taskThunks.addTask({ todolistID, title }));
   };
 
-  const changeTodolistTitle = (title: string, todolistID: string) => {
-    dispatch(UpdateTodolistTC(todolistID, title));
+  const changeTodolistTitle = (title: string, todolistId: string) => {
+    dispatch(todolistsThunk.updateTodolist({ title, todolistId }));
   };
 
   const changeFilter = (changeValue: KeyTypeTodolist, todolistId: string) => {

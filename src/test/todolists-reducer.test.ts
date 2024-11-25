@@ -2,6 +2,7 @@ import {
   TodolistDomainType,
   todolistsActions,
   todolistsReducer,
+  todolistsThunk,
 } from '../common/pages/Todolist/todolists-reducer';
 import { v1 } from 'uuid';
 
@@ -20,10 +21,16 @@ beforeEach(() => {
 });
 
 test('correct todolist should be removed', () => {
-  const endState = todolistsReducer(
-    startState,
-    todolistsActions.removeTodoList({ id: todolistId1 })
+  const action = todolistsThunk.deleteTodolist.fulfilled(
+    {
+      id: todolistId1,
+    },
+    'requestId',
+    {
+      todolistId: todolistId1,
+    }
   );
+  const endState = todolistsReducer(startState, action);
 
   expect(endState.length).toBe(1);
   expect(endState[0].id).toBe(todolistId2);
@@ -31,27 +38,40 @@ test('correct todolist should be removed', () => {
 
 test('correct todolist should be added', () => {
   const newTodolistTitle = 'New Todolist';
-
-  const endState = todolistsReducer(
-    startState,
-    todolistsActions.addTodolist({ todolist: { title: 'New Todolist', id: v1() } })
+  const action = todolistsThunk.addTodolist.fulfilled(
+    {
+      todolist: {
+        title: newTodolistTitle,
+        id: v1(),
+      },
+    },
+    'requestId',
+    { title: newTodolistTitle }
   );
+  const endState = todolistsReducer(startState, action);
 
   expect(endState.length).toBe(3);
   expect(endState[0].title).toBe(newTodolistTitle);
 });
 
 test('correct todolist should be change title', () => {
-  const newTodolistTitle = 'New Todolist';
-
-  const endState = todolistsReducer(
-    startState,
-    todolistsActions.updateTodoListTitle({ title: newTodolistTitle, id: todolistId1 })
+  const action = todolistsThunk.updateTodolist.fulfilled(
+    {
+      title: 'New Todolist',
+      id: todolistId1,
+    },
+    'requestId',
+    {
+      title: 'New Todolist',
+      todolistId: todolistId1,
+    }
   );
 
+  const endState = todolistsReducer(startState, action);
+
   expect(endState.length).toBe(2);
-  expect(endState[0].title).toBe(newTodolistTitle);
-  expect(endState[1].title).not.toBe(newTodolistTitle);
+  expect(endState[0].title).toBe('New Todolist');
+  expect(endState[1].title).not.toBe('New Todolist');
 });
 
 test('correct todolist should be change filter', () => {

@@ -2,14 +2,23 @@ import { v1 } from 'uuid';
 import { tasksReducer, TasksStateType } from '../common/components/Task/tasks-reducer';
 import {
   TodolistDomainType,
-  todolistsActions,
   todolistsReducer,
+  todolistsThunk,
 } from '../common/pages/Todolist/todolists-reducer';
 
 test.skip('ids should be equals', () => {
   const startTasksState: TasksStateType = {};
   const startTodolistsState: Array<TodolistDomainType> = [];
-  const action = todolistsActions.addTodolist({ todolist: { title: 'new todolist', id: v1() } });
+  const action = todolistsThunk.addTodolist.fulfilled(
+    {
+      todolist: {
+        title: 'new todolist',
+        id: v1(),
+      },
+    },
+    'requestId',
+    { title: 'new todolist' }
+  );
 
   const endTasksState = tasksReducer(startTasksState, action);
   const endTodolistsState = todolistsReducer(startTodolistsState, action);
