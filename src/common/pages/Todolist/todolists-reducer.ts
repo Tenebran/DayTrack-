@@ -83,7 +83,7 @@ export const SetTodolistsTC = (): AppThunk => (dispatch) => {
       })
     )
     .catch((error) => {
-      handleServerNetworkError(error, dispatch);
+      handleServerNetworkError(error, dispatch as AppDispatchType);
       dispatch(appActions.setAppStatus({ status: 'failed' }));
     });
 };
@@ -102,7 +102,7 @@ export const deleteTodolist = createAsyncThunk<{ id: string }, { todolistId: str
       dispatch(appActions.setAppStatus({ status: 'succeeded' }));
       return { id: arg.todolistId };
     } catch (error) {
-      handleServerNetworkError(error, dispatch);
+      handleServerNetworkError(error, dispatch as AppDispatchType);
       dispatch(todolistsActions.setEntityStatus({ todoId: arg.todolistId, entityStatus: 'idle' }));
       dispatch(appActions.setAppStatus({ status: 'failed' }));
       return rejectWithValue(null);
@@ -122,7 +122,7 @@ export const updateTodolist = createAsyncThunk<
     dispatch(appActions.setAppStatus({ status: 'succeeded' }));
     return { title: arg.title, id: arg.todolistId };
   } catch (error) {
-    handleServerNetworkError(error, dispatch);
+    handleServerNetworkError(error, dispatch as AppDispatchType);
     dispatch(todolistsActions.setEntityStatus({ todoId: arg.todolistId, entityStatus: 'idle' }));
     dispatch(appActions.setAppStatus({ status: 'failed' }));
     return rejectWithValue(null);
@@ -150,7 +150,7 @@ export const addTodolist = createAsyncThunk<{ todolist: TodoListsApiType }, { ti
         }
       }
     } catch (error) {
-      handleServerNetworkError(error, dispatch);
+      handleServerNetworkError(error, dispatch as AppDispatchType);
       dispatch(appActions.setAppStatus({ status: 'failed' }));
       return rejectWithValue(null);
     }

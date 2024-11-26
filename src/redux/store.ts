@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { Action, configureStore, ThunkDispatch } from '@reduxjs/toolkit';
 import { tasksReducer } from '../common/components/Task/tasks-reducer';
 import { todolistsReducer } from '../common/pages/Todolist/todolists-reducer';
 import { appReducer } from 'app/app-reducer';
@@ -9,6 +9,7 @@ export const store = configureStore({
 });
 
 export type AppRootStateType = ReturnType<typeof store.getState>;
+export type AppDispatchType = typeof store.dispatch;
 
 // @ts-expect-error   is necessary.
 window.store = store;

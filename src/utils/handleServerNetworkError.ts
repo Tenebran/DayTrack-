@@ -1,4 +1,4 @@
-import { AppDispatchType } from 'common/hooks/useAppDispatch';
+import { AppDispatchType } from 'redux/store';
 import { appActions } from '../app/app-reducer';
 import axios from 'axios';
 

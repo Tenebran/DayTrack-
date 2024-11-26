@@ -1,6 +1,6 @@
 import { todoListApi } from 'api/todolist-api';
 import { TaskListApiType, TaskListModelType } from 'api/type';
-import { AppRootStateType } from '../../../redux/store';
+import { AppDispatchType, AppRootStateType } from '../../../redux/store';
 import { handlerServerAppError } from '../../../utils/handlerServerAppError';
 import { handleServerNetworkError } from '../../../utils/handleServerNetworkError';
 import { appActions } from '../../../app/app-reducer';
@@ -81,7 +81,7 @@ const getTasks = createAsyncThunk<{ tasks: TaskListApiType[]; todolistID: string
       return { tasks: res.data.items, todolistID };
     } catch (error) {
       dispatch(appActions.setAppStatus({ status: 'failed' }));
-      handleServerNetworkError(error, dispatch);
+      handleServerNetworkError(error, dispatch as AppDispatchType);
       return rejectWithValue(null);
     }
   }
@@ -99,7 +99,7 @@ const removeTask = createAsyncThunk<
     dispatch(appActions.setAppStatus({ status: 'succeeded' }));
     return { id: arg.taskID, todolistId: arg.todolistID };
   } catch (error) {
-    handleServerNetworkError(error, dispatch);
+    handleServerNetworkError(error, dispatch as AppDispatchType);
     dispatch(appActions.setAppStatus({ status: 'failed' }));
     return rejectWithValue(null);
   }
@@ -116,11 +116,11 @@ const addTask = createAsyncThunk<{ task: TaskListApiType }, { todolistID: string
         dispatch(appActions.setAppStatus({ status: 'succeeded' }));
         return { task: res.data.data.item };
       } else {
-        handlerServerAppError<{ item: TaskListApiType }>(dispatch, res.data);
+        handlerServerAppError<{ item: TaskListApiType }>(dispatch as AppDispatchType, res.data);
         return rejectWithValue(null);
       }
     } catch (error) {
-      handleServerNetworkError(error, dispatch);
+      handleServerNetworkError(error, dispatch as AppDispatchType);
       return rejectWithValue(null);
     }
   }
@@ -160,7 +160,7 @@ const updateTask = createAsyncThunk<
       return rejectWithValue(null);
     }
   } catch (error) {
-    handleServerNetworkError(error, dispatch);
+    handleServerNetworkError(error, dispatch as AppDispatchType);
     dispatch(appActions.setAppStatus({ status: 'failed' }));
     return rejectWithValue(null);
   }

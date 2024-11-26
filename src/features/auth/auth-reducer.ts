@@ -5,6 +5,7 @@ import { appActions } from 'app/app-reducer';
 import { clearAllData } from '../../redux/commonActions';
 import { handleServerNetworkError } from '../../utils/handleServerNetworkError';
 import { authAPI } from 'api/authApi';
+import { AppDispatchType } from 'redux/store';
 
 const slice = createSlice({
   name: 'auth',
@@ -44,12 +45,12 @@ const login = createAsyncThunk<{ isLoggedIn: boolean }, LoginData>(
         dispatch(appActions.setAppStatus({ status: 'succeeded' }));
         return { isLoggedIn: true };
       } else {
-        handlerServerAppError(dispatch, res.data);
+        handlerServerAppError(dispatch as AppDispatchType, res.data);
         dispatch(appActions.setAppStatus({ status: 'failed' }));
         return rejectWithValue(null);
       }
     } catch (error) {
-      handleServerNetworkError(error as { message: string }, dispatch);
+      handleServerNetworkError(error as { message: string }, dispatch as AppDispatchType);
       dispatch(appActions.setAppStatus({ status: 'failed' }));
       return rejectWithValue(null);
     }
@@ -72,7 +73,7 @@ export const initialized = createAsyncThunk<{ isLoggedIn: boolean }, undefined>(
         return rejectWithValue(null);
       }
     } catch (error) {
-      handleServerNetworkError(error as { message: string }, dispatch);
+      handleServerNetworkError(error as { message: string }, dispatch as AppDispatchType);
       dispatch(appActions.setAppStatus({ status: 'failed' }));
       return rejectWithValue(null);
     } finally {
@@ -94,12 +95,12 @@ export const logOut = createAsyncThunk<{ isLoggedIn: boolean }, undefined>(
         dispatch(clearAllData());
         return { isLoggedIn: false };
       } else {
-        handlerServerAppError(dispatch, res.data);
+        handlerServerAppError(dispatch as AppDispatchType, res.data);
         dispatch(appActions.setAppStatus({ status: 'failed' }));
         return rejectWithValue(null);
       }
     } catch (error) {
-      handleServerNetworkError(error as { message: string }, dispatch);
+      handleServerNetworkError(error as { message: string }, dispatch as AppDispatchType);
       dispatch(appActions.setAppStatus({ status: 'failed' }));
       return rejectWithValue(null);
     }
