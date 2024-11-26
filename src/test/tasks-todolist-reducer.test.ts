@@ -6,7 +6,7 @@ import {
   todolistsThunk,
 } from '../common/pages/Todolist/todolists-reducer';
 
-test.skip('ids should be equals', () => {
+test('ids should be equals', () => {
   const startTasksState: TasksStateType = {};
   const startTodolistsState: Array<TodolistDomainType> = [];
   const action = todolistsThunk.addTodolist.fulfilled(
