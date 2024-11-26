@@ -2,7 +2,7 @@ import { Action, configureStore, ThunkDispatch } from '@reduxjs/toolkit';
 import { tasksReducer } from '../common/components/Task/tasks-reducer';
 import { todolistsReducer } from '../common/pages/Todolist/todolists-reducer';
 import { appReducer } from 'app/app-reducer';
-import { authReducer } from 'features/auth/auth-reducer';
+import { authReducer } from 'common/features/auth/auth-reducer';
 
 export const store = configureStore({
   reducer: { tasks: tasksReducer, todolists: todolistsReducer, app: appReducer, auth: authReducer },

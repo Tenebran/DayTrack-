@@ -4,7 +4,7 @@ import './index.scss';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { App } from './app/App';
 import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import { store } from './app/store';
 import { BrowserRouter } from 'react-router-dom';
 
 export const darkTheme = createTheme({

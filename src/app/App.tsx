@@ -14,9 +14,9 @@ import {
 import { Menu } from '@mui/icons-material';
 
 import { ErrorSnackbar } from 'common/components/ErrorSnackbar';
-import { Login } from '../features/auth/Login';
+import { Login } from '../common/features/auth/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { authThunks } from 'features/auth/auth-reducer';
+import { authThunks } from 'common/features/auth/auth-reducer';
 import { useAppSelector } from 'common/hooks/useAppSelector';
 import { useAppDispatch } from 'common/hooks/useAppDispatch';
 

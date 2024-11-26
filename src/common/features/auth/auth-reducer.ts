@@ -2,10 +2,10 @@ import { handlerServerAppError } from '../../utils/handlerServerAppError';
 import { LoginData } from './Login';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { appActions } from 'app/app-reducer';
-import { clearAllData } from '../../redux/commonActions';
+import { clearAllData } from '../../../redux/commonActions';
 import { handleServerNetworkError } from '../../utils/handleServerNetworkError';
 import { authAPI } from 'api/authApi';
-import { AppDispatchType } from 'redux/store';
+import { AppDispatchType } from 'app/store';
 
 const slice = createSlice({
   name: 'auth',

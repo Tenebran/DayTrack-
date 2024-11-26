@@ -4,9 +4,9 @@ import { appActions, RequestStatusType } from '../../../app/app-reducer';
 import { RESULT_CODE, tasksActions, taskThunks } from '../../components/Task/tasks-reducer';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { clearAllData } from '../../../redux/commonActions';
-import { handleServerNetworkError } from '../../../utils/handleServerNetworkError';
+import { handleServerNetworkError } from '../../utils/handleServerNetworkError';
 import { AppThunk } from 'common/hooks/useAppDispatch';
-import { AppDispatchType } from 'redux/store';
+import { AppDispatchType } from 'app/store';
 
 const slice = createSlice({
   name: 'todolistss',

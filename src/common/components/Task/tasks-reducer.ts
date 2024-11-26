@@ -1,8 +1,8 @@
 import { todoListApi } from 'api/todolist-api';
 import { TaskListApiType, TaskListModelType } from 'api/type';
-import { AppDispatchType, AppRootStateType } from '../../../redux/store';
-import { handlerServerAppError } from '../../../utils/handlerServerAppError';
-import { handleServerNetworkError } from '../../../utils/handleServerNetworkError';
+import { AppDispatchType, AppRootStateType } from '../../../app/store';
+import { handlerServerAppError } from '../../utils/handlerServerAppError';
+import { handleServerNetworkError } from '../../utils/handleServerNetworkError';
 import { appActions } from '../../../app/app-reducer';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { clearAllData } from '../../../redux/commonActions';
@@ -59,9 +59,7 @@ const slice = createSlice({
   },
 });
 
-export type TasksStateType = {
-  [todoListId: string]: TaskListApiType[];
-};
+export type TasksStateType = Record<string, TaskListApiType[]>;
 
 export enum RESULT_CODE {
   SUCCEEDED = 0,

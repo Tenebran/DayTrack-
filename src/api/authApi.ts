@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { LoginData } from '../features/auth/Login';
+import { LoginData } from '../common/features/auth/Login';
 import { ResponseType } from './type';
 import { instance } from './todolist-api';
 

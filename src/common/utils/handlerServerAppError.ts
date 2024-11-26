@@ -1,6 +1,6 @@
 import { ResponseType } from 'api/type';
-import { appActions } from '../app/app-reducer';
-import { AppDispatchType } from 'redux/store';
+import { appActions } from '../../app/app-reducer';
+import { AppDispatchType } from 'app/store';
 
 /**
  * Handles server-side application errors by updating the application state.

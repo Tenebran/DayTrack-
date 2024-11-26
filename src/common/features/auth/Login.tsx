@@ -7,53 +7,20 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Grid2 } from '@mui/material';
-import { useFormik } from 'formik';
 import { Navigate } from 'react-router-dom';
-import { useAppDispatch } from 'common/hooks/useAppDispatch';
 import { useAppSelector } from 'common/hooks/useAppSelector';
-import { authThunks } from './auth-reducer';
-
-type FormikErrorType = {
-  email?: string;
-  password?: string;
-};
+import { useLogin } from '../lib/useLogin';
 
 export type LoginData = {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
   rememberMe: boolean;
 };
 
 export const Login = () => {
-  const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      rememberMe: false,
-    },
-    validate: (values) => {
-      const errors: FormikErrorType = {};
-      if (!values.email) {
-        errors.email = 'Required';
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
-      }
 
-      if (!values.password) {
-        errors.password = 'Required';
-      } else if (values.password.length < 3) {
-        errors.password = 'Must be more five symbols';
-      }
-      return errors;
-    },
-
-    onSubmit: (values: LoginData) => {
-      dispatch(authThunks.login(values));
-      formik.resetForm();
-    },
-  });
+  const formik = useLogin();
 
   if (isLoggedIn) {
     return <Navigate to="/" />;

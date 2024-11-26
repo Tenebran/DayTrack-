@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Provider } from 'react-redux';
-import { store } from '../redux/store';
+import { store } from '../app/store';
 import { Task, TaskProps } from '../common/components/Task/Task';
 import { action } from '@storybook/addon-actions';
 import { useState } from 'react';
