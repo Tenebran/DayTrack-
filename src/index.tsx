@@ -13,9 +13,11 @@ export const darkTheme = createTheme({
   },
 });
 
+const basename = process.env.NODE_ENV === 'production' ? '/DayTrack-/' : '/';
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename={basename}>
     <Provider store={store}>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />

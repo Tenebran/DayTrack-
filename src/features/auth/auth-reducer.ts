@@ -1,14 +1,6 @@
 import { handlerServerAppError } from '../../common/utils/handlerServerAppError';
 import { LoginData } from '../../common/pages/Login';
-import {
-  Action,
-  AnyAction,
-  createAsyncThunk,
-  createSlice,
-  isAnyOf,
-  PayloadAction,
-  UnknownAction,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
 import { appActions } from 'app/app-reducer';
 import { clearAllData } from '../../redux/commonActions';
 import { handleServerNetworkError } from '../../common/utils/handleServerNetworkError';

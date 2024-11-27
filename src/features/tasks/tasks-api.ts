@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { ResponseType, TaskListApiType } from './type';
-import { instance } from './commin.api';
+import { instance } from 'api/commin.api';
+import { TaskListApiType, ResponseType } from 'api/type';
 
 export const taskApi = {
   updateTitleTask(todoListID: string, tasksID: string, title: string) {
