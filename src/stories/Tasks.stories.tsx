@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
-import { Task, TaskProps } from '../common/components/Task/Task';
+import { Task, TaskPropsType } from '../common/components/Task/Task';
 import { action } from '@storybook/addon-actions';
 import { useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
@@ -15,17 +15,13 @@ const meta: Meta<typeof Task> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  argTypes: {
-    changeStatusHandler: { action: 'status changed' },
-    changeTaskTitleHandler: { action: 'title changed' },
-    removeTaskHandler: { action: 'task removed' },
-  },
+  argTypes: {},
   args: {},
 };
 
 export default meta;
 
-type Story = StoryObj<TaskProps>;
+type Story = StoryObj<TaskPropsType>;
 
 export const TaskStorie = () => {
   const [task, setTask] = useState({
@@ -43,18 +39,11 @@ export const TaskStorie = () => {
     setTask({ ...task, status: task.status === 2 ? 0 : 2 });
   };
 
-  return (
-    <Task
-      task={task}
-      changeStatusHandler={changeTaskStatusHandler}
-      changeTaskTitleHandler={changeTaskTitleHandler}
-      removeTaskHandler={action('Remove Task')}
-    />
-  );
+  return <Task task={task} todolistID="todoListId" />;
 };
 
 export const TasksIsNotDoneStorie: Story = {
-  render: (args: TaskProps) => (
+  render: (args: TaskPropsType) => (
     <Provider store={store}>
       <Task {...args} />
     </Provider>
@@ -74,7 +63,7 @@ export const TasksIsNotDoneDarkThemeStorie: Story = {
   parameters: {
     backgrounds: { default: 'dark' },
   },
-  render: (args: TaskProps) => (
+  render: (args: TaskPropsType) => (
     <ThemeProvider theme={darkTheme}>
       <Provider store={store}>
         <CssBaseline />
@@ -88,7 +77,7 @@ export const TasksIsNotDoneDarkThemeStorie: Story = {
 };
 
 export const TasksIsDoneStorie: Story = {
-  render: (args: TaskProps) => (
+  render: (args: TaskPropsType) => (
     <Provider store={store}>
       <Task {...args} />
     </Provider>
@@ -103,7 +92,7 @@ export const TasksIsDoneDarkThemeStorie: Story = {
     backgrounds: { default: 'dark' },
   },
 
-  render: (args: TaskProps) => (
+  render: (args: TaskPropsType) => (
     <ThemeProvider theme={darkTheme}>
       <Provider store={store}>
         <CssBaseline />

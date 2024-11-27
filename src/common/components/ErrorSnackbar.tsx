@@ -5,7 +5,7 @@ import { appActions } from 'app/app-reducer';
 import { useAppDispatch } from 'common/hooks/useAppDispatch';
 import { useAppSelector } from 'common/hooks/useAppSelector';
 
-export const ErrorSnackbar = () => {
+export const ErrorSnackbar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const error = useAppSelector<null | string>((state) => state.app.error);
 

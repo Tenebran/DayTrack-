@@ -1,12 +1,14 @@
 import { useFormik } from 'formik';
 import { useAppDispatch } from 'common/hooks/useAppDispatch';
-import { LoginData } from '../auth/Login';
-import { authThunks } from '../auth/auth-reducer';
+import { LoginData } from '../pages/Login';
+import { authThunks } from '../features/auth/auth-reducer';
+import { useAppSelector } from 'common/hooks/useAppSelector';
 
 type FormikErrorType = Partial<Omit<LoginData, 'rememberMe'>>;
 
 export const useLogin = () => {
   const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   const formik = useFormik({
     initialValues: {
@@ -34,5 +36,5 @@ export const useLogin = () => {
       dispatch(authThunks.login(values));
     },
   });
-  return formik;
+  return { formik, isLoggedIn };
 };

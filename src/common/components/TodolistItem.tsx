@@ -1,14 +1,20 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { AddItemForm } from './AddItemForm';
 import { EditebleSpan } from './EditebleSpan';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import { ButtonGroup, IconButton, List } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
-
-import { KeyTypeTodolist, TodolistDomainType } from '../pages/Todolist/todolists-reducer';
+import {
+  KeyTypeTodolist,
+  TodolistDomainType,
+  todolistsActions,
+  todolistsThunk,
+} from '../pages/Todolist/todolists-reducer';
 import { Task } from './Task/Task';
-import { TaskListApiType } from 'api/type';
+import { useAppSelector } from 'common/hooks/useAppSelector';
+import { taskThunks } from './Task/tasks-reducer';
+import { useAppDispatch } from 'common/hooks/useAppDispatch';
 
 const StyledButton = styled(Button)({
   margin: '0 2px',
@@ -19,32 +25,13 @@ const ButtonGroupWrapper = styled('div')({
 });
 type TodoListItemProps = {
   todoList: TodolistDomainType;
-  tasks: TaskListApiType[];
   isLoggedIn: boolean;
-  deleteTodolist: (todoListId: string) => void;
-  addNewTask: (title: string, todoListID: string) => void;
-  changeTodolistTitle: (title: string, todolistID: string) => void;
-  changeFilter: (changeValue: KeyTypeTodolist, todolistId: string) => void;
-  changeTaskStatus: (
-    todoListID: string,
-    taskID: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => void;
-  changeTasksTitle: (todolistID: string, taskID: string, title: string) => void;
-  removeTask: (todolistID: string, taskID: string) => void;
 };
 
-export const TodoListItem: FC<TodoListItemProps> = ({
-  todoList,
-  tasks,
-  deleteTodolist,
-  addNewTask,
-  changeTodolistTitle,
-  changeFilter,
-  changeTaskStatus,
-  changeTasksTitle,
-  removeTask,
-}) => {
+export const TodoListItem = ({ todoList }: TodoListItemProps): JSX.Element => {
+  const tasks = useAppSelector((state) => state.tasks[todoList.id]);
+  const filterButtonGroup: KeyTypeTodolist[] = ['all', 'active', 'completed'];
+  const dispatch = useAppDispatch();
   let filteredTask = tasks;
 
   if (todoList.filter === 'active') {
@@ -52,6 +39,22 @@ export const TodoListItem: FC<TodoListItemProps> = ({
   } else if (todoList.filter === 'completed') {
     filteredTask = tasks.filter((list) => list.status === 2);
   }
+
+  const addNewTask = (todolistID: string, title: string) => {
+    dispatch(taskThunks.addTask({ todolistID, title }));
+  };
+
+  const deleteTodolist = (todolistId: string) => {
+    dispatch(todolistsThunk.deleteTodolist({ todolistId }));
+  };
+
+  const changeTodolistTitle = (title: string, todolistId: string) => {
+    dispatch(todolistsThunk.updateTodolist({ title, todolistId }));
+  };
+
+  const changeFilter = (changeValue: KeyTypeTodolist, todolistId: string) => {
+    dispatch(todolistsActions.changeTodoListFilter({ filter: changeValue, id: todolistId }));
+  };
 
   return (
     <div>
@@ -76,7 +79,7 @@ export const TodoListItem: FC<TodoListItemProps> = ({
       />
       <ButtonGroupWrapper>
         <ButtonGroup fullWidth>
-          {['all', 'active', 'completed'].map((filter) => (
+          {filterButtonGroup.map((filter) => (
             <StyledButton
               key={filter}
               size="small"
@@ -90,15 +93,7 @@ export const TodoListItem: FC<TodoListItemProps> = ({
 
       <List>
         {filteredTask?.length ? (
-          filteredTask.map((task) => (
-            <Task
-              key={task.id}
-              task={task}
-              changeStatusHandler={(e) => changeTaskStatus(todoList.id, task.id, e)}
-              changeTaskTitleHandler={(title) => changeTasksTitle(todoList.id, task.id, title)}
-              removeTaskHandler={() => removeTask(todoList.id, task.id)}
-            />
-          ))
+          filteredTask.map((task) => <Task key={task.id} task={task} todolistID={todoList.id} />)
         ) : (
           <span>Your task list is empty</span>
         )}

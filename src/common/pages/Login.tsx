@@ -8,8 +8,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Grid2 } from '@mui/material';
 import { Navigate } from 'react-router-dom';
-import { useAppSelector } from 'common/hooks/useAppSelector';
-import { useLogin } from '../lib/useLogin';
+import { useLogin } from '../hooks/useLogin';
 
 export type LoginData = {
   email: string;
@@ -18,9 +17,7 @@ export type LoginData = {
 };
 
 export const Login = () => {
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-
-  const formik = useLogin();
+  const { formik, isLoggedIn } = useLogin();
 
   if (isLoggedIn) {
     return <Navigate to="/" />;

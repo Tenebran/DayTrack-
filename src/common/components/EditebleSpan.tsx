@@ -7,7 +7,11 @@ type EditebleSpanType = {
   changeTitleHandler: (title: string) => void;
 };
 
-export const EditebleSpan: FC<EditebleSpanType> = ({ title, spanClasses, changeTitleHandler }) => {
+export const EditebleSpan = ({
+  title,
+  spanClasses,
+  changeTitleHandler,
+}: EditebleSpanType): JSX.Element => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [localTitle, setLocalTitle] = useState<string>(title);
 

@@ -7,6 +7,8 @@ import { appActions } from '../../../app/app-reducer';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { clearAllData } from '../../../redux/commonActions';
 import { todolistsActions, todolistsThunk } from '../../pages/Todolist/todolists-reducer';
+import { taskApi } from 'api/tasks-api';
+import { useActionData } from 'react-router-dom';
 
 const slice = createSlice({
   name: 'tasks',
@@ -74,7 +76,7 @@ const getTasks = createAsyncThunk<{ tasks: TaskListApiType[]; todolistID: string
     dispatch(appActions.setAppStatus({ status: 'loading' }));
 
     try {
-      const res = await todoListApi.getTasks(todolistID);
+      const res = await taskApi.getTasks(todolistID);
       dispatch(appActions.setAppStatus({ status: 'succeeded' }));
       return { tasks: res.data.items, todolistID };
     } catch (error) {
@@ -93,7 +95,7 @@ const removeTask = createAsyncThunk<
   dispatch(appActions.setAppStatus({ status: 'loading' }));
 
   try {
-    await todoListApi.deleteTask(arg.todolistID, arg.taskID);
+    await taskApi.deleteTask(arg.todolistID, arg.taskID);
     dispatch(appActions.setAppStatus({ status: 'succeeded' }));
     return { id: arg.taskID, todolistId: arg.todolistID };
   } catch (error) {
@@ -109,7 +111,7 @@ const addTask = createAsyncThunk<{ task: TaskListApiType }, { todolistID: string
     const { dispatch, rejectWithValue } = thunkApi;
     try {
       dispatch(appActions.setAppStatus({ status: 'loading' }));
-      const res = await todoListApi.createTasks(arg.todolistID, arg.title);
+      const res = await taskApi.createTasks(arg.todolistID, arg.title);
       if (res.data.resultCode === RESULT_CODE.SUCCEEDED) {
         dispatch(appActions.setAppStatus({ status: 'succeeded' }));
         return { task: res.data.data.item };
@@ -147,7 +149,7 @@ const updateTask = createAsyncThunk<
         todoListId: task.todoListId,
       };
 
-      const res = await todoListApi.updateStatusTask(model);
+      const res = await taskApi.updateStatusTask(model);
       res.data;
       dispatch(appActions.setAppStatus({ status: 'succeeded' }));
       return {

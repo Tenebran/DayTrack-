@@ -14,13 +14,13 @@ const StyledButtonn = styled(Button)({
   maxHeight: '39.99px',
 });
 
-export const AddItemForm: FC<AddItemFormType> = ({
+export const AddItemForm = ({
   addItem,
   maxLengthUserMeaasge,
   taskID,
   disabled,
   todoListsID,
-}) => {
+}: AddItemFormType): JSX.Element => {
   const [title, setTitle] = useState<string>('');
   const [inputError, setInputError] = useState<boolean>(false);
 

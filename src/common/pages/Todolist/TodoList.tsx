@@ -1,16 +1,10 @@
-import React, { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Grid2, Paper } from '@mui/material';
 import { TodoListItem } from 'common/components/TodolistItem';
 import { Navigate } from 'react-router-dom';
-import {
-  KeyTypeTodolist,
-  SetTodolistsTC,
-  todolistsActions,
-  todolistsThunk,
-} from 'common/pages/Todolist/todolists-reducer';
+import { SetTodolistsTC, todolistsThunk } from 'common/pages/Todolist/todolists-reducer';
 import { AddItemForm } from 'common/components/AddItemForm';
-import { taskThunks } from 'common/components/Task/tasks-reducer';
 import { useAppSelector } from 'common/hooks/useAppSelector';
 import { useAppDispatch } from 'common/hooks/useAppDispatch';
 
@@ -27,9 +21,8 @@ export type TodolistFilterType = {
   filter: TodolistFilterValue;
 };
 
-export const TodoList: FC = () => {
+export const TodoList = (): JSX.Element => {
   const todoLists = useAppSelector((state) => state.todolists);
-  const tasks = useAppSelector((state) => state.tasks);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   const dispatch = useAppDispatch();
@@ -47,44 +40,6 @@ export const TodoList: FC = () => {
     dispatch(todolistsThunk.addTodolist({ title }));
   };
 
-  const deleteTodolist = (todolistId: string) => {
-    dispatch(todolistsThunk.deleteTodolist({ todolistId }));
-  };
-
-  const addNewTask = (todolistID: string, title: string) => {
-    dispatch(taskThunks.addTask({ todolistID, title }));
-  };
-
-  const changeTodolistTitle = (title: string, todolistId: string) => {
-    dispatch(todolistsThunk.updateTodolist({ title, todolistId }));
-  };
-
-  const changeFilter = (changeValue: KeyTypeTodolist, todolistId: string) => {
-    dispatch(todolistsActions.changeTodoListFilter({ filter: changeValue, id: todolistId }));
-  };
-
-  const changeTaskStatus = (
-    todoListId: string,
-    id: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    dispatch(
-      taskThunks.updateTask({
-        id,
-        todoListId,
-        status: event.target.checked ? 2 : 0,
-      })
-    );
-  };
-
-  const changeTasksTitle = (todoListId: string, id: string, title: string) => {
-    dispatch(taskThunks.updateTask({ todoListId, id, title }));
-  };
-
-  const removeTask = (todolistID: string, taskID: string) => {
-    dispatch(taskThunks.removeTask({ todolistID, taskID }));
-  };
-
   return (
     <>
       <StyledGridInput container>
@@ -94,18 +49,7 @@ export const TodoList: FC = () => {
         {todoLists.map((todoList) => {
           return (
             <StyledPaper elevation={3} key={todoList.id}>
-              <TodoListItem
-                todoList={todoList}
-                tasks={tasks[todoList.id]}
-                isLoggedIn={isLoggedIn}
-                deleteTodolist={deleteTodolist}
-                addNewTask={addNewTask}
-                changeTodolistTitle={changeTodolistTitle}
-                changeFilter={changeFilter}
-                changeTaskStatus={changeTaskStatus}
-                changeTasksTitle={changeTasksTitle}
-                removeTask={removeTask}
-              />
+              <TodoListItem todoList={todoList} isLoggedIn={isLoggedIn} />
             </StyledPaper>
           );
         })}

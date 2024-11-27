@@ -1,6 +1,14 @@
 import { handlerServerAppError } from '../../utils/handlerServerAppError';
-import { LoginData } from './Login';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LoginData } from '../../pages/Login';
+import {
+  Action,
+  AnyAction,
+  createAsyncThunk,
+  createSlice,
+  isAnyOf,
+  PayloadAction,
+  UnknownAction,
+} from '@reduxjs/toolkit';
 import { appActions } from 'app/app-reducer';
 import { clearAllData } from '../../../redux/commonActions';
 import { handleServerNetworkError } from '../../utils/handleServerNetworkError';
@@ -19,16 +27,17 @@ const slice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder
-      .addCase(login.fulfilled, (state, action) => {
+    builder.addMatcher(
+      isAnyOf(
+        authThunks.initialized.fulfilled,
+        authThunks.logOut.fulfilled,
+        authThunks.login.fulfilled
+      ),
+
+      (state, action) => {
         state.isLoggedIn = action.payload.isLoggedIn;
-      })
-      .addCase(logOut.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn;
-      })
-      .addCase(initialized.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn;
-      });
+      }
+    );
   },
 });
 

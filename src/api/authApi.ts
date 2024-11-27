@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
-import { LoginData } from '../common/features/auth/Login';
+import { LoginData } from '../common/pages/Login';
 import { ResponseType } from './type';
-import { instance } from './todolist-api';
+import { instance } from './commin.api';
 
 type UserType = {
   id: number;
