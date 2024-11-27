@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/DayTrack/static/css/main.172fda9e.css",
-    "main.js": "/DayTrack/static/js/main.e38f27e9.js",
-    "index.html": "/DayTrack/index.html",
-    "main.172fda9e.css.map": "/DayTrack/static/css/main.172fda9e.css.map",
-    "main.e38f27e9.js.map": "/DayTrack/static/js/main.e38f27e9.js.map"
+    "main.css": "/DayTrack-/static/css/main.172fda9e.css",
+    "main.js": "/DayTrack-/static/js/main.32a806f1.js",
+    "index.html": "/DayTrack-/index.html",
+    "main.172fda9e.css.map": "/DayTrack-/static/css/main.172fda9e.css.map",
+    "main.32a806f1.js.map": "/DayTrack-/static/js/main.32a806f1.js.map"
   },
   "entrypoints": [
     "static/css/main.172fda9e.css",
-    "static/js/main.e38f27e9.js"
+    "static/js/main.32a806f1.js"
   ]
 }
