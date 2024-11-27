@@ -3,7 +3,7 @@ import {
   todolistsActions,
   todolistsReducer,
   todolistsThunk,
-} from '../common/pages/Todolist/todolists-reducer';
+} from '../features/todolists/todolists-reducer';
 import { v1 } from 'uuid';
 
 let todolistId1: string;

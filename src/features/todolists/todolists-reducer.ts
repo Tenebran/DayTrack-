@@ -1,10 +1,10 @@
 import { todoListApi } from 'api/todolist-api';
 import { TodoListsApiType } from 'api/type';
-import { appActions, RequestStatusType } from '../../../app/app-reducer';
-import { RESULT_CODE, tasksActions, taskThunks } from '../../components/Task/tasks-reducer';
+import { appActions, RequestStatusType } from '../../app/app-reducer';
+import { RESULT_CODE, tasksActions, taskThunks } from '../tasks/tasks-reducer';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { clearAllData } from '../../../redux/commonActions';
-import { handleServerNetworkError } from '../../utils/handleServerNetworkError';
+import { clearAllData } from '../../redux/commonActions';
+import { handleServerNetworkError } from '../../common/utils/handleServerNetworkError';
 import { AppThunk } from 'common/hooks/useAppDispatch';
 import { AppDispatchType } from 'app/store';
 

@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import { Grid2, Paper } from '@mui/material';
 import { TodoListItem } from 'common/components/TodolistItem';
 import { Navigate } from 'react-router-dom';
-import { SetTodolistsTC, todolistsThunk } from 'common/pages/Todolist/todolists-reducer';
+import { SetTodolistsTC, todolistsThunk } from 'features/todolists/todolists-reducer';
 import { AddItemForm } from 'common/components/AddItemForm';
 import { useAppSelector } from 'common/hooks/useAppSelector';
 import { useAppDispatch } from 'common/hooks/useAppDispatch';

@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
-import { LoginData } from '../common/pages/Login';
-import { ResponseType } from './type';
-import { instance } from './commin.api';
+import { LoginData } from '../../common/pages/Login';
+import { ResponseType } from '../../api/type';
+import { instance } from '../../api/commin.api';
 
 type UserType = {
   id: number;

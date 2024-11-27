@@ -1,5 +1,5 @@
-import { handlerServerAppError } from '../../utils/handlerServerAppError';
-import { LoginData } from '../../pages/Login';
+import { handlerServerAppError } from '../../common/utils/handlerServerAppError';
+import { LoginData } from '../../common/pages/Login';
 import {
   Action,
   AnyAction,
@@ -10,9 +10,9 @@ import {
   UnknownAction,
 } from '@reduxjs/toolkit';
 import { appActions } from 'app/app-reducer';
-import { clearAllData } from '../../../redux/commonActions';
-import { handleServerNetworkError } from '../../utils/handleServerNetworkError';
-import { authAPI } from 'api/authApi';
+import { clearAllData } from '../../redux/commonActions';
+import { handleServerNetworkError } from '../../common/utils/handleServerNetworkError';
+import { authAPI } from 'features/auth/authApi';
 import { AppDispatchType } from 'app/store';
 
 const slice = createSlice({

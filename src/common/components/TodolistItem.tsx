@@ -10,10 +10,10 @@ import {
   TodolistDomainType,
   todolistsActions,
   todolistsThunk,
-} from '../pages/Todolist/todolists-reducer';
+} from '../../features/todolists/todolists-reducer';
 import { Task } from './Task/Task';
 import { useAppSelector } from 'common/hooks/useAppSelector';
-import { taskThunks } from './Task/tasks-reducer';
+import { taskThunks } from '../../features/tasks/tasks-reducer';
 import { useAppDispatch } from 'common/hooks/useAppDispatch';
 
 const StyledButton = styled(Button)({

@@ -1,14 +1,12 @@
-import { todoListApi } from 'api/todolist-api';
 import { TaskListApiType, TaskListModelType } from 'api/type';
-import { AppDispatchType, AppRootStateType } from '../../../app/store';
-import { handlerServerAppError } from '../../utils/handlerServerAppError';
-import { handleServerNetworkError } from '../../utils/handleServerNetworkError';
-import { appActions } from '../../../app/app-reducer';
+import { AppDispatchType, AppRootStateType } from '../../app/store';
+import { handlerServerAppError } from '../../common/utils/handlerServerAppError';
+import { handleServerNetworkError } from '../../common/utils/handleServerNetworkError';
+import { appActions } from '../../app/app-reducer';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { clearAllData } from '../../../redux/commonActions';
-import { todolistsActions, todolistsThunk } from '../../pages/Todolist/todolists-reducer';
-import { taskApi } from 'api/tasks-api';
-import { useActionData } from 'react-router-dom';
+import { clearAllData } from '../../redux/commonActions';
+import { todolistsActions, todolistsThunk } from '../todolists/todolists-reducer';
+import { taskApi } from './tasks-api';
 
 const slice = createSlice({
   name: 'tasks',

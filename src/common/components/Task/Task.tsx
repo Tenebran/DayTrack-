@@ -3,7 +3,7 @@ import { EditebleSpan } from '../EditebleSpan';
 import { Checkbox, IconButton, ListItem } from '@mui/material';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import { TaskListApiType } from 'api/type';
-import { taskThunks } from './tasks-reducer';
+import { taskThunks } from '../../../features/tasks/tasks-reducer';
 import { useAppDispatch } from 'common/hooks/useAppDispatch';
 
 export type TaskPropsType = {

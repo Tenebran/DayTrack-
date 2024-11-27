@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { useAppDispatch } from 'common/hooks/useAppDispatch';
 import { LoginData } from '../pages/Login';
-import { authThunks } from '../features/auth/auth-reducer';
+import { authThunks } from '../../features/auth/auth-reducer';
 import { useAppSelector } from 'common/hooks/useAppSelector';
 
 type FormikErrorType = Partial<Omit<LoginData, 'rememberMe'>>;
