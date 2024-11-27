@@ -1,11 +1,12 @@
 {
   "files": {
     "main.css": "/DayTrack-/static/css/main.0c5164cd.css",
-    "main.js": "/DayTrack-/static/js/main.099a794b.js",
+    "main.js": "/DayTrack-/static/js/main.8c3775af.js",
+    "static/media/logo.svg": "/DayTrack-/static/media/logo.7e841fdf10edcb240076fc20b791073e.svg",
     "index.html": "/DayTrack-/index.html"
   },
   "entrypoints": [
     "static/css/main.0c5164cd.css",
-    "static/js/main.099a794b.js"
+    "static/js/main.8c3775af.js"
   ]
 }
