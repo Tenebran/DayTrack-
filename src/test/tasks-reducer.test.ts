@@ -98,14 +98,10 @@ test('correct task should be added to correct array', () => {
     todoListId: todolistId2,
     title: 'juce',
     status: 0,
-    addedDate: undefined,
-    deadline: undefined,
     description: '',
     order: 0,
     priority: 0,
-    startDate: undefined,
     id: 'id exists',
-    date: undefined,
   };
   const action = taskThunks.addTask.fulfilled(
     {

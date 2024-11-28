@@ -1,4 +1,4 @@
-import { Action, configureStore, ThunkDispatch } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { tasksReducer } from '../features/tasks/tasks-reducer';
 import { todolistsReducer } from '../features/todolists/todolists-reducer';
 import { appReducer } from './app-reducer';

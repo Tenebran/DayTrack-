@@ -13,4 +13,12 @@ module.exports = {
   },
   transformIgnorePatterns: ['node_modules/(?!axios)'],
   testPathIgnorePatterns: ['<rootDir>/integration'],
+  globals: {
+    'ts-jest': {
+      tsconfig: {
+        target: 'esnext',
+        module: 'esnext',
+      },
+    },
+  },
 };
