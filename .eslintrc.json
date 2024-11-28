@@ -2,10 +2,12 @@
   "env": {
     "browser": true,
     "node": true,
-    "jest": true
+    "jest": true,
+    "es2021": true
   },
   "globals": {
-    "page": "readonly"
+    "page": "readonly",
+    "import.meta": "readonly"
   },
   "parser": "@typescript-eslint/parser",
   "extends": [
@@ -28,6 +30,7 @@
   },
   "plugins": ["@typescript-eslint", "import"],
   "rules": {
+    // Ваши остальные правила
     "no-unused-vars": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
@@ -54,14 +57,5 @@
       }
     ],
     "import/no-duplicates": "warn"
-  },
-  "overrides": [
-    {
-      "files": ["src/stories/**/*.tsx"],
-      "rules": {
-        "no-unused-vars": "off",
-        "no-undef": "off"
-      }
-    }
-  ]
+  }
 }

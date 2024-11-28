@@ -12,9 +12,9 @@ import {
   todolistsThunk,
 } from '../../features/todolists/todolists-reducer';
 import { Task } from './Task/Task';
-import { useAppSelector } from 'common/hooks/useAppSelector';
 import { taskThunks } from '../../features/tasks/tasks-reducer';
-import { useAppDispatch } from 'common/hooks/useAppDispatch';
+import { useAppDispatch } from '../../common/hooks/useAppDispatch';
+import { useAppSelector } from '../../common/hooks/useAppSelector';
 
 const StyledButton = styled(Button)({
   margin: '0 2px',

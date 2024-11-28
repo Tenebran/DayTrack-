@@ -3,21 +3,20 @@ import AppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
-import { useThemeContext } from 'common/context/ThemeContext';
-import { useAppSelector } from 'common/hooks/useAppSelector';
-import { authThunks } from 'features/auth/auth-reducer';
+import { useThemeContext } from '../../common/context/ThemeContext';
+import { useAppSelector } from '../../common/hooks/useAppSelector';
+import { authThunks } from '../../features/auth/auth-reducer';
 import { Button, Toolbar as MuiToolbar } from '@mui/material';
-import { ReactComponent as Logo } from '../img/logo.svg';
-import { useAppDispatch } from 'common/hooks/useAppDispatch';
+import logo from '../img/logo.svg';
+import { useAppDispatch } from '../../common/hooks/useAppDispatch';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-const StyledLogo = styled(Logo)({
+const StyledLogo = styled('img')({
   height: '58px',
   width: '60px',
   display: 'block',
   overflow: 'hidden',
-  transform: 'scale(1.2)',
   transformOrigin: 'center',
 });
 
@@ -93,7 +92,7 @@ export const Toolbar = () => {
       <MuiToolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <Link to="/" style={{ display: 'inline-block' }}>
-            <StyledLogo />
+            <StyledLogo src={logo} />
           </Link>
         </Typography>
         <MaterialUISwitch

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Grid2, Paper } from '@mui/material';
-import { TodoListItem } from 'common/components/TodolistItem';
+import { TodoListItem } from '../../../common/components/TodolistItem';
 import { Navigate } from 'react-router-dom';
-import { SetTodolistsTC, todolistsThunk } from 'features/todolists/todolists-reducer';
-import { AddItemForm } from 'common/components/AddItemForm';
-import { useAppSelector } from 'common/hooks/useAppSelector';
-import { useAppDispatch } from 'common/hooks/useAppDispatch';
+import { SetTodolistsTC, todolistsThunk } from '../../../features/todolists/todolists-reducer';
+import { AddItemForm } from '../../../common/components/AddItemForm';
+import { useAppSelector } from '../../../common/hooks/useAppSelector';
+import { useAppDispatch } from '../../../common/hooks/useAppDispatch';
 
 const StyledPaper = styled(Paper)({ padding: '16px', marginBottom: '16px', maxWidth: '312px' });
 

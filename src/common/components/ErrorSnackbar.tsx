@@ -1,9 +1,9 @@
 import React from 'react';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { appActions } from 'app/app-reducer';
-import { useAppDispatch } from 'common/hooks/useAppDispatch';
-import { useAppSelector } from 'common/hooks/useAppSelector';
+import { appActions } from '../../app/app-reducer';
+import { useAppDispatch } from '../../common/hooks/useAppDispatch';
+import { useAppSelector } from '../../common/hooks/useAppSelector';
 
 export const ErrorSnackbar = (): JSX.Element => {
   const dispatch = useAppDispatch();

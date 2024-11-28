@@ -1,11 +1,11 @@
 import { handlerServerAppError } from '../../common/utils/handlerServerAppError';
 import { LoginData } from '../../common/pages/Login';
 import { createAsyncThunk, createSlice, isAnyOf, PayloadAction } from '@reduxjs/toolkit';
-import { appActions } from 'app/app-reducer';
+import { appActions } from '../../app/app-reducer';
 import { clearAllData } from '../../redux/commonActions';
 import { handleServerNetworkError } from '../../common/utils/handleServerNetworkError';
-import { authAPI } from 'features/auth/authApi';
-import { AppDispatchType } from 'app/store';
+import { authAPI } from '../../features/auth/authApi';
+import { AppDispatchType } from '../../app/store';
 
 const slice = createSlice({
   name: 'auth',

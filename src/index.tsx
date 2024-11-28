@@ -6,12 +6,12 @@ import { App } from './app/App';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import { BrowserRouter } from 'react-router-dom';
-import { CustomThemeProvider } from 'common/context/ThemeContext';
 import './translations/i18n';
+import { CustomThemeProvider } from './common/context/ThemeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <BrowserRouter basename={process.env.REACT_APP_BASENAME}>
+  <BrowserRouter basename={'/'}>
     <Provider store={store}>
       <CustomThemeProvider>
         <CssBaseline />

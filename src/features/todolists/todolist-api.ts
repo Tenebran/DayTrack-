@@ -1,5 +1,5 @@
-import { instance } from 'api/commin.api';
-import { TodoListsApiType, ResponseType } from 'api/type';
+import { instance } from '../../api/commin.api';
+import { TodoListsApiType, ResponseType } from '../../api/type';
 import { AxiosResponse } from 'axios';
 
 export const todoListApi = {
