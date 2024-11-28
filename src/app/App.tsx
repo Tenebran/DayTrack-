@@ -1,18 +1,8 @@
 import React, { useEffect } from 'react';
 import './App.scss';
 import { TodoList } from '../common/pages/Todolist/TodoList';
-import {
-  AppBar,
-  Button,
-  CircularProgress,
-  Container,
-  IconButton,
-  LinearProgress,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import { Menu } from '@mui/icons-material';
-
+import { CircularProgress, Container, LinearProgress } from '@mui/material';
+import { Toolbar } from 'common/components/Toolbar';
 import { ErrorSnackbar } from 'common/components/ErrorSnackbar';
 import { Login } from '../common/pages/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -23,10 +13,6 @@ import { useAppDispatch } from 'common/hooks/useAppDispatch';
 export function App() {
   const status = useAppSelector((state) => state.app.status);
   const isInitialized = useAppSelector((state) => state.app.isInitialized);
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-  const logOut = () => {
-    dispatch(authThunks.logOut());
-  };
 
   const dispatch = useAppDispatch();
 
@@ -43,22 +29,8 @@ export function App() {
   }
   return (
     <>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <Menu />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Todolists
-          </Typography>
-          {isLoggedIn && (
-            <Button color="inherit" onClick={logOut}>
-              Log out
-            </Button>
-          )}
-        </Toolbar>
-      </AppBar>
       {status === 'loading' && <LinearProgress />}
+      <Toolbar />
       <ErrorSnackbar />
       <Container>
         <Routes>

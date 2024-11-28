@@ -8,7 +8,7 @@ import { AddItemForm } from 'common/components/AddItemForm';
 import { useAppSelector } from 'common/hooks/useAppSelector';
 import { useAppDispatch } from 'common/hooks/useAppDispatch';
 
-const StyledPaper = styled(Paper)({ padding: '16px', marginBottom: '16px' });
+const StyledPaper = styled(Paper)({ padding: '16px', marginBottom: '16px', maxWidth: '312px' });
 
 const StyledGridInput = styled(Grid2)({
   margin: '10px 0',
@@ -45,7 +45,7 @@ export const TodoList = (): JSX.Element => {
       <StyledGridInput container>
         <AddItemForm maxLengthUserMeaasge={15} addItem={addTodoList} />
       </StyledGridInput>
-      <Grid2 container spacing={4} alignItems="stretch">
+      <Grid2 container spacing={4} alignItems="stretch" justifyContent="center">
         {todoLists.map((todoList) => {
           return (
             <StyledPaper elevation={3} key={todoList.id}>
