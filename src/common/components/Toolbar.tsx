@@ -93,7 +93,7 @@ export const Toolbar = () => {
       <MuiToolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <Link to="/" style={{ display: 'inline-block' }}>
-            <StyledLogo /> {t('welcome')}
+            <StyledLogo />
           </Link>
         </Typography>
         <MaterialUISwitch
@@ -102,10 +102,10 @@ export const Toolbar = () => {
           checked={isDarkMode}
           onChange={toggleTheme}
         />
-
         {isLoggedIn && (
           <Button color="inherit" onClick={logOut}>
             Log out
+            {t('welcome')}
           </Button>
         )}
       </MuiToolbar>

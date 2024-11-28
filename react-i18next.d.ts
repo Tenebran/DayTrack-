@@ -4,8 +4,8 @@ declare module 'react-i18next' {
   interface CustomTypeOptions {
     defaultNS: 'translation';
     resources: {
-      en: typeof import('./en/en.json');
-      ru: typeof import('./ru/ru.json');
+      en: typeof import('./src/translations/en/en.json');
+      ru: typeof import('./src/translations/ru/ru.json');
     };
   }
 }
