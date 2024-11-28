@@ -1,7 +1,5 @@
 import React from 'react';
-import { Menu } from '@mui/icons-material';
 import AppBar from '@mui/material/AppBar';
-import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
@@ -12,6 +10,7 @@ import { Button, Toolbar as MuiToolbar } from '@mui/material';
 import { ReactComponent as Logo } from '../img/logo.svg';
 import { useAppDispatch } from 'common/hooks/useAppDispatch';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const StyledLogo = styled(Logo)({
   height: '58px',
@@ -81,6 +80,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 export const Toolbar = () => {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const logOut = () => {
     dispatch(authThunks.logOut());
@@ -93,7 +93,7 @@ export const Toolbar = () => {
       <MuiToolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <Link to="/" style={{ display: 'inline-block' }}>
-            <StyledLogo />
+            <StyledLogo /> {t('welcome')}
           </Link>
         </Typography>
         <MaterialUISwitch
