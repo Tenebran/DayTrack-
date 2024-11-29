@@ -22,7 +22,10 @@
     "passwordInput": "Ange ditt lösenord",
     "error": {
       "email": "Vänligen ange en giltig e-postadress.",
-      "password": "Lösenord krävs."
-    }
+      "password": "Lösenord krävs.",
+      "emailReq": "Ange din e-postadress.",
+      "passwordReq": "Ange ditt lösenord."
+    },
+    "logout": "LOGGA UT"
   }
 }

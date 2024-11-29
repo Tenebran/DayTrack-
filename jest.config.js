@@ -1,23 +1,23 @@
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/src/test/setupTests.ts'],
+  preset: "ts-jest",
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/src/test/setupTests.ts"],
   transform: {
-    '^.+\\.(ts|tsx|js|jsx)$': 'ts-jest',
+    "^.+\\.(ts|tsx|js|jsx)$": "ts-jest",
   },
   moduleNameMapper: {
-    '\\.(css|scss)$': 'identity-obj-proxy',
-    '^axios$': require.resolve('axios'),
-    '^api/(.*)$': '<rootDir>/src/api/$1',
-    '^src/(.*)$': '<rootDir>/src/$1',
+    "\\.(css|scss)$": "identity-obj-proxy",
+    "^axios$": require.resolve("axios"),
+    "^api/(.*)$": "<rootDir>/src/api/$1",
+    "^src/(.*)$": "<rootDir>/src/$1",
   },
-  transformIgnorePatterns: ['node_modules/(?!axios)'],
-  testPathIgnorePatterns: ['<rootDir>/integration'],
+  transformIgnorePatterns: ["node_modules/(?!axios)"],
+  testPathIgnorePatterns: ["<rootDir>/integration"],
   globals: {
-    'ts-jest': {
+    "ts-jest": {
       tsconfig: {
-        target: 'esnext',
-        module: 'esnext',
+        target: "esnext",
+        module: "esnext",
       },
     },
   },

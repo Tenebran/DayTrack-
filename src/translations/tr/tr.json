@@ -22,7 +22,10 @@
     "passwordInput": "Şifrenizi girin",
     "error": {
       "email": "Lütfen geçerli bir e-posta adresi girin.",
-      "password": "Şifre gereklidir."
-    }
+      "password": "Şifre gereklidir.",
+      "emailReq": "Lütfen e-posta adresinizi girin.",
+      "passwordReq": "Lütfen şifrenizi girin."
+    },
+    "logout": "ÇIKIŞ YAP"
   }
 }

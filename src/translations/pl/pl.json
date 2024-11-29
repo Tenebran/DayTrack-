@@ -1,29 +1,31 @@
 {
-    "todolist": {
-      "placeholder": "Wprowadź tytuł listy rzeczy do zrobienia...",
-      "error": {
-        "placeholderEmpty": "Tytuł nie może być pusty.",
-        "placeholderTitleTooLong": "Tytuł jest zbyt długi. Utrzymaj go poniżej 100 znaków."
-      }
-    },
-    "task": {
-      "placeholder": "Wprowadź zadanie...",
-      "error": {
-        "placeholderEmpty": "Zadanie nie może być puste.",
-        "placeholderTitleTooLong": "Opis zadania jest zbyt długi. Proszę go skrócić."
-      }
-    },
-    "login": {
-      "rememberME": "Zapamiętaj mnie",
-      "loginButton": "ZALOGUJ SIĘ",
-      "email": "E-mail",
-      "password": "Hasło",
-      "emailInput": "Wprowadź swój adres e-mail",
-      "passwordInput": "Wprowadź swoje hasło",
-      "error": {
-        "email": "Proszę podać poprawny adres e-mail.",
-        "password": "Hasło jest wymagane."
-      }
+  "todolist": {
+    "placeholder": "Wprowadź tytuł listy rzeczy do zrobienia...",
+    "error": {
+      "placeholderEmpty": "Tytuł nie może być pusty.",
+      "placeholderTitleTooLong": "Tytuł jest zbyt długi. Utrzymaj go poniżej 100 znaków."
     }
+  },
+  "task": {
+    "placeholder": "Wprowadź zadanie...",
+    "error": {
+      "placeholderEmpty": "Zadanie nie może być puste.",
+      "placeholderTitleTooLong": "Opis zadania jest zbyt długi. Proszę go skrócić."
+    }
+  },
+  "login": {
+    "rememberME": "Zapamiętaj mnie",
+    "loginButton": "ZALOGUJ SIĘ",
+    "email": "E-mail",
+    "password": "Hasło",
+    "emailInput": "Wprowadź swój adres e-mail",
+    "passwordInput": "Wprowadź swoje hasło",
+    "error": {
+      "email": "Proszę podać poprawny adres e-mail.",
+      "password": "Hasło jest wymagane.",
+      "emailReq": "Wprowadź swój adres e-mail.",
+      "passwordReq": "Wprowadź swoje hasło."
+    },
+    "logout": "WYLOGUJ SIĘ"
   }
-  
+}

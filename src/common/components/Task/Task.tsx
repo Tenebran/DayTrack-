@@ -1,10 +1,10 @@
-import React from 'react';
-import { EditebleSpan } from '../EditebleSpan';
-import { Checkbox, IconButton, ListItem } from '@mui/material';
-import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
-import { TaskListApiType } from '../../../api/type';
-import { taskThunks } from '../../../features/tasks/tasks-reducer';
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch';
+import React from "react";
+import { EditebleSpan } from "../EditebleSpan";
+import { Checkbox, IconButton, ListItem } from "@mui/material";
+import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
+import { TaskListApiType } from "../../../api/type";
+import { taskThunks } from "../../../features/tasks/tasks-reducer";
+import { useAppDispatch } from "../../../common/hooks/useAppDispatch";
 
 export type TaskPropsType = {
   task: TaskListApiType;
@@ -21,14 +21,14 @@ export const Task = ({ task, todolistID }: TaskPropsType) => {
   const changeTaskStatus = (
     todoListId: string,
     id: string,
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     dispatch(
       taskThunks.updateTask({
         id,
         todoListId,
         status: event.target.checked ? 2 : 0,
-      })
+      }),
     );
   };
 
@@ -46,9 +46,15 @@ export const Task = ({ task, todolistID }: TaskPropsType) => {
         />
         <EditebleSpan
           title={task.title}
-          changeTitleHandler={(title) => changeTasksTitle(todolistID, task.id, title)}
+          changeTitleHandler={(title) =>
+            changeTasksTitle(todolistID, task.id, title)
+          }
         />
-        <IconButton size={'small'} color="primary" onClick={() => removeTask(todolistID, task.id)}>
+        <IconButton
+          size={"small"}
+          color="primary"
+          onClick={() => removeTask(todolistID, task.id)}
+        >
           <CancelPresentationIcon />
         </IconButton>
       </ListItem>

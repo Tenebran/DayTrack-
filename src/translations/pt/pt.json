@@ -22,7 +22,10 @@
     "passwordInput": "Insira sua senha",
     "error": {
       "email": "Por favor, insira um endereço de e-mail válido.",
-      "password": "A senha é obrigatória."
-    }
+      "password": "A senha é obrigatória.",
+      "emailReq": "Insira o seu e-mail.",
+      "passwordReq": "Insira a sua senha."
+    },
+    "logout": "SAIR"
   }
 }

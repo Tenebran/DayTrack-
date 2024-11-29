@@ -1,6 +1,6 @@
-import { ResponseType } from 'api/type';
-import { appActions } from '../../app/app-reducer';
-import { AppDispatchType } from 'app/store';
+import { ResponseType } from "api/type";
+import { appActions } from "../../app/app-reducer";
+import { AppDispatchType } from "app/store";
 
 /**
  * Handles server-side application errors by updating the application state.
@@ -18,12 +18,14 @@ import { AppDispatchType } from 'app/store';
 export const handlerServerAppError = <D>(
   dispatch: AppDispatchType,
   data: ResponseType<D>,
-  showError: boolean = true
+  showError: boolean = true,
 ) => {
   if (showError) {
     dispatch(
-      appActions.setAppError({ error: data.messages.length ? data.messages[0] : 'Some Error' })
+      appActions.setAppError({
+        error: data.messages.length ? data.messages[0] : "Some Error",
+      }),
     );
   }
-  dispatch(appActions.setAppStatus({ status: 'failed' }));
+  dispatch(appActions.setAppStatus({ status: "failed" }));
 };

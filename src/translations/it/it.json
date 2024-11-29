@@ -22,7 +22,10 @@
     "passwordInput": "Inserisci la tua password",
     "error": {
       "email": "Inserisci un indirizzo email valido.",
-      "password": "La password è richiesta."
-    }
+      "password": "La password è richiesta.",
+      "emailReq": "Inserisci il tuo indirizzo email.",
+      "passwordReq": "Inserisci la tua password."
+    },
+    "logout": "DISCONNETTERSI"
   }
 }

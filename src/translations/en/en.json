@@ -16,13 +16,16 @@
   "login": {
     "rememberME": "Remember me",
     "loginButton": "LOGIN",
+    "logout": "LOGOUT",
     "email": "Email",
     "password": "Password",
     "emailInput": "Enter your email address",
     "passwordInput": "Enter your password",
     "error": {
       "email": "Please enter a valid email address.",
-      "password": "Password is required."
+      "emailReq": "Please enter your email.",
+      "password": "Password is required.",
+      "passwordReq": " Please enter your password."
     }
   }
 }

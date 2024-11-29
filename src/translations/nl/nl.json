@@ -22,7 +22,10 @@
     "passwordInput": "Voer je wachtwoord in",
     "error": {
       "email": "Voer een geldig e-mailadres in.",
-      "password": "Wachtwoord is verplicht."
-    }
+      "password": "Wachtwoord is verplicht.",
+      "emailReq": "Voer uw e-mailadres in.",
+      "passwordReq": "Voer uw wachtwoord in."
+    },
+    "logout": "UITLOGGEN"
   }
 }

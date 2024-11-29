@@ -22,7 +22,10 @@
     "passwordInput": "Entrez votre mot de passe",
     "error": {
       "email": "Veuillez entrer une adresse e-mail valide.",
-      "password": "Mot de passe requis."
-    }
+      "password": "Mot de passe requis.",
+      "emailReq": "Veuillez entrer votre adresse e-mail.",
+      "passwordReq": "Veuillez entrer votre mot de passe."
+    },
+    "logout": "SE DÉCONNECTER"
   }
 }

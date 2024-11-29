@@ -29,7 +29,9 @@ Your app is ready to be deployed!
 ### `npm run deploy`
 
 Deploys the app to GitHub Pages. Ensure that the `base` option in your `vite.config.ts` file is configured properly for GitHub Pages. For example:
+
 ```typescript
 base: '/Tenebran/DayTrack-/',
 
 
+```

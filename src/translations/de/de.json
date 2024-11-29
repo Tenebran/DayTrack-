@@ -22,7 +22,10 @@
     "passwordInput": "Geben Sie Ihr Passwort ein",
     "error": {
       "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-      "password": "Passwort wird benötigt."
-    }
+      "password": "Passwort wird benötigt.",
+      "emailReq": "Bitte geben Sie Ihre E-Mail-Adresse ein.",
+      "passwordReq": "Bitte geben Sie Ihr Passwort ein."
+    },
+    "logout": "ABMELDEN"
   }
 }

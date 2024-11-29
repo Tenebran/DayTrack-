@@ -1,27 +1,27 @@
-import React from 'react';
-import { AddItemForm } from './AddItemForm';
-import { EditebleSpan } from './EditebleSpan';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import { ButtonGroup, IconButton, List } from '@mui/material';
-import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
+import React from "react";
+import { AddItemForm } from "./AddItemForm";
+import { EditebleSpan } from "./EditebleSpan";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import { ButtonGroup, IconButton, List } from "@mui/material";
+import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import {
   KeyTypeTodolist,
   TodolistDomainType,
   todolistsActions,
   todolistsThunk,
-} from '../../features/todolists/todolists-reducer';
-import { Task } from './Task/Task';
-import { taskThunks } from '../../features/tasks/tasks-reducer';
-import { useAppDispatch } from '../../common/hooks/useAppDispatch';
-import { useAppSelector } from '../../common/hooks/useAppSelector';
+} from "../../features/todolists/todolists-reducer";
+import { Task } from "./Task/Task";
+import { taskThunks } from "../../features/tasks/tasks-reducer";
+import { useAppDispatch } from "../../common/hooks/useAppDispatch";
+import { useAppSelector } from "../../common/hooks/useAppSelector";
 
 const StyledButton = styled(Button)({
-  margin: '0 2px',
+  margin: "0 2px",
 });
 
-const ButtonGroupWrapper = styled('div')({
-  maxWidth: '100%',
+const ButtonGroupWrapper = styled("div")({
+  maxWidth: "100%",
 });
 type TodoListItemProps = {
   todoList: TodolistDomainType;
@@ -30,13 +30,13 @@ type TodoListItemProps = {
 
 export const TodoListItem = ({ todoList }: TodoListItemProps): JSX.Element => {
   const tasks = useAppSelector((state) => state.tasks[todoList.id]);
-  const filterButtonGroup: KeyTypeTodolist[] = ['all', 'active', 'completed'];
+  const filterButtonGroup: KeyTypeTodolist[] = ["all", "active", "completed"];
   const dispatch = useAppDispatch();
   let filteredTask = tasks;
 
-  if (todoList.filter === 'active') {
+  if (todoList.filter === "active") {
     filteredTask = tasks.filter((list) => list.status === 0);
-  } else if (todoList.filter === 'completed') {
+  } else if (todoList.filter === "completed") {
     filteredTask = tasks.filter((list) => list.status === 2);
   }
 
@@ -53,7 +53,12 @@ export const TodoListItem = ({ todoList }: TodoListItemProps): JSX.Element => {
   };
 
   const changeFilter = (changeValue: KeyTypeTodolist, todolistId: string) => {
-    dispatch(todolistsActions.changeTodoListFilter({ filter: changeValue, id: todolistId }));
+    dispatch(
+      todolistsActions.changeTodoListFilter({
+        filter: changeValue,
+        id: todolistId,
+      }),
+    );
   };
 
   return (
@@ -61,21 +66,24 @@ export const TodoListItem = ({ todoList }: TodoListItemProps): JSX.Element => {
       <h3>
         <EditebleSpan
           title={todoList.title}
-          changeTitleHandler={(title) => changeTodolistTitle(title, todoList.id)}
+          changeTitleHandler={(title) =>
+            changeTodolistTitle(title, todoList.id)
+          }
         />
         <IconButton
           size="small"
           color="primary"
           onClick={() => deleteTodolist(todoList.id)}
-          disabled={todoList.entityStatus === 'loading'}>
+          disabled={todoList.entityStatus === "loading"}
+        >
           <CancelPresentationIcon />
         </IconButton>
       </h3>
       <AddItemForm
         todoListsID={todoList.id}
         addItem={(title) => addNewTask(todoList.id, title)}
-        maxLengthUserMeaasge={15}
-        disabled={todoList.entityStatus === 'loading'}
+        maxLengthUserMeaasge={100}
+        disabled={todoList.entityStatus === "loading"}
       />
       <ButtonGroupWrapper>
         <ButtonGroup fullWidth>
@@ -83,8 +91,11 @@ export const TodoListItem = ({ todoList }: TodoListItemProps): JSX.Element => {
             <StyledButton
               key={filter}
               size="small"
-              variant={todoList.filter === filter ? 'contained' : 'outlined'}
-              onClick={() => changeFilter(filter as KeyTypeTodolist, todoList.id)}>
+              variant={todoList.filter === filter ? "contained" : "outlined"}
+              onClick={() =>
+                changeFilter(filter as KeyTypeTodolist, todoList.id)
+              }
+            >
               {filter.charAt(0).toUpperCase() + filter.slice(1)}
             </StyledButton>
           ))}
@@ -93,7 +104,9 @@ export const TodoListItem = ({ todoList }: TodoListItemProps): JSX.Element => {
 
       <List>
         {filteredTask?.length ? (
-          filteredTask.map((task) => <Task key={task.id} task={task} todolistID={todoList.id} />)
+          filteredTask.map((task) => (
+            <Task key={task.id} task={task} todolistID={todoList.id} />
+          ))
         ) : (
           <span>Your task list is empty</span>
         )}

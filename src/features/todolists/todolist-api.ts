@@ -1,6 +1,6 @@
-import { instance } from '../../api/commin.api';
-import { TodoListsApiType, ResponseType } from '../../api/type';
-import { AxiosResponse } from 'axios';
+import { instance } from "../../api/commin.api";
+import { TodoListsApiType, ResponseType } from "../../api/type";
+import { AxiosResponse } from "axios";
 
 export const todoListApi = {
   updateTodoList(todoListID: string, title: string) {
@@ -12,7 +12,7 @@ export const todoListApi = {
   },
 
   getTodoLists() {
-    return instance.get<TodoListsApiType[]>('/todo-lists');
+    return instance.get<TodoListsApiType[]>("/todo-lists");
   },
 
   deleteTodolist(todoListID: string) {
@@ -24,6 +24,6 @@ export const todoListApi = {
       ResponseType<{ item: TodoListsApiType }>,
       AxiosResponse<ResponseType<{ item: TodoListsApiType }>>,
       { title: string }
-    >('/todo-lists', { title });
+    >("/todo-lists", { title });
   },
 };

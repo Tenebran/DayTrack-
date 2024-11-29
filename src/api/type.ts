@@ -34,9 +34,9 @@ export type TaskListModelType = {
 export type ResponseType<T = object> = {
   items(
     todolistID: string,
-    items: any
+    items: any,
   ): {
-    readonly type: 'SET-TASKS';
+    readonly type: "SET-TASKS";
     readonly tasks: TaskListApiType[];
     readonly todoID: string;
   };

@@ -1,20 +1,27 @@
-import React, { useEffect } from 'react';
-import { styled } from '@mui/material/styles';
-import { Grid2, Paper } from '@mui/material';
-import { TodoListItem } from '../../../common/components/TodolistItem';
-import { Navigate } from 'react-router-dom';
-import { SetTodolistsTC, todolistsThunk } from '../../../features/todolists/todolists-reducer';
-import { AddItemForm } from '../../../common/components/AddItemForm';
-import { useAppSelector } from '../../../common/hooks/useAppSelector';
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch';
+import React, { useEffect } from "react";
+import { styled } from "@mui/material/styles";
+import { Grid2, Paper } from "@mui/material";
+import { TodoListItem } from "../../../common/components/TodolistItem";
+import { Navigate } from "react-router-dom";
+import {
+  SetTodolistsTC,
+  todolistsThunk,
+} from "../../../features/todolists/todolists-reducer";
+import { AddItemForm } from "../../../common/components/AddItemForm";
+import { useAppSelector } from "../../../common/hooks/useAppSelector";
+import { useAppDispatch } from "../../../common/hooks/useAppDispatch";
 
-const StyledPaper = styled(Paper)({ padding: '16px', marginBottom: '16px', maxWidth: '312px' });
-
-const StyledGridInput = styled(Grid2)({
-  margin: '10px 0',
+const StyledPaper = styled(Paper)({
+  padding: "16px",
+  marginBottom: "16px",
+  maxWidth: "312px",
 });
 
-export type TodolistFilterValue = 'all' | 'active' | 'completed';
+const StyledGridInput = styled(Grid2)({
+  margin: "10px 0",
+});
+
+export type TodolistFilterValue = "all" | "active" | "completed";
 
 export type TodolistFilterType = {
   id: string;
@@ -43,7 +50,7 @@ export const TodoList = (): JSX.Element => {
   return (
     <>
       <StyledGridInput container>
-        <AddItemForm maxLengthUserMeaasge={15} addItem={addTodoList} />
+        <AddItemForm maxLengthUserMeaasge={100} addItem={addTodoList} />
       </StyledGridInput>
       <Grid2 container spacing={4} alignItems="stretch" justifyContent="center">
         {todoLists.map((todoList) => {

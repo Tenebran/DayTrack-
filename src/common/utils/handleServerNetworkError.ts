@@ -1,6 +1,6 @@
-import { AppDispatchType } from 'app/store';
-import { appActions } from '../../app/app-reducer';
-import axios from 'axios';
+import { AppDispatchType } from "app/store";
+import { appActions } from "../../app/app-reducer";
+import axios from "axios";
 
 /**
  * Handles network errors by dispatching error messages and updating application status.
@@ -13,11 +13,15 @@ import axios from 'axios';
  * @returns {void} - This function does not return a value.
  */
 
-export const handleServerNetworkError = (error: unknown, dispatch: AppDispatchType) => {
-  let errorMessage = 'Some error occurred';
+export const handleServerNetworkError = (
+  error: unknown,
+  dispatch: AppDispatchType,
+) => {
+  let errorMessage = "Some error occurred";
 
   if (axios.isAxiosError(error)) {
-    errorMessage = error.response?.data?.message || error?.message || errorMessage;
+    errorMessage =
+      error.response?.data?.message || error?.message || errorMessage;
   } else if (error instanceof Error) {
     errorMessage = `Native error: ${error.message}`;
   } else {
@@ -25,5 +29,5 @@ export const handleServerNetworkError = (error: unknown, dispatch: AppDispatchTy
   }
 
   dispatch(appActions.setAppError({ error: errorMessage }));
-  dispatch(appActions.setAppStatus({ status: 'failed' }));
+  dispatch(appActions.setAppStatus({ status: "failed" }));
 };

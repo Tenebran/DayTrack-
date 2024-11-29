@@ -22,7 +22,10 @@
     "passwordInput": "输入你的密码",
     "error": {
       "email": "请输入有效的邮箱地址。",
-      "password": "密码是必需的。"
-    }
+      "password": "密码是必需的。",
+      "emailReq": " 请输入您的电子邮件地址。",
+      "passwordReq": " 请输入您的密码。"
+    },
+    "logout": "登出"
   }
 }

@@ -1,6 +1,7 @@
-import React, { ChangeEvent, FC, useState } from 'react';
-import SendIcon from '@mui/icons-material/Send';
-import { Button, ButtonGroup, styled, TextField } from '@mui/material';
+import React, { ChangeEvent, FC, useState } from "react";
+import SendIcon from "@mui/icons-material/Send";
+import { Button, ButtonGroup, styled, TextField } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 type AddItemFormType = {
   todoListsID?: string;
@@ -11,7 +12,7 @@ type AddItemFormType = {
 };
 
 const StyledButtonn = styled(Button)({
-  maxHeight: '39.99px',
+  maxHeight: "39.99px",
 });
 
 export const AddItemForm = ({
@@ -21,21 +22,27 @@ export const AddItemForm = ({
   disabled,
   todoListsID,
 }: AddItemFormType): JSX.Element => {
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>("");
   const [inputError, setInputError] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   const userMessage = inputError
-    ? 'Your tottle is too empty'
+    ? todoListsID
+      ? t("task.error.placeholderEmpty")
+      : t("todolist.error.placeholderEmpty")
     : title.length < maxLengthUserMeaasge
       ? null
-      : 'Your title is to long';
+      : todoListsID
+        ? t("task.error.placeholderTitleTooLong")
+        : t("todolist.error.placeholderTitleTooLong");
 
   const handlerInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     inputError && setInputError(false);
     const trimTaskTitle = event.target.value.trim();
 
     if (trimTaskTitle || event.target.value.length === 0) {
-      trimTaskTitle.length <= maxLengthUserMeaasge && setTitle(event.target.value);
+      trimTaskTitle.length <= maxLengthUserMeaasge &&
+        setTitle(event.target.value);
     } else {
       setInputError(true);
     }
@@ -44,7 +51,7 @@ export const AddItemForm = ({
   const handlerAddItem = () => {
     title.length && addItem(title);
 
-    setTitle('');
+    setTitle("");
   };
 
   return (
@@ -52,12 +59,12 @@ export const AddItemForm = ({
       <TextField
         variant="outlined"
         size="small"
-        label="Please, enter title"
+        label={todoListsID ? t("task.placeholder") : t("todolist.placeholder")}
         autoFocus={!!taskID}
         value={title}
         onChange={handlerInputChange}
         onKeyDown={(event) => {
-          event.key === 'Enter' && handlerAddItem();
+          event.key === "Enter" && handlerAddItem();
         }}
         error={!!userMessage}
         helperText={userMessage}
@@ -65,12 +72,15 @@ export const AddItemForm = ({
       />
 
       <StyledButtonn
-        size={'small'}
+        size={"small"}
         variant="contained"
         color="primary"
         onClick={() => handlerAddItem()}
-        disabled={!title.length || title.length >= maxLengthUserMeaasge || disabled}
-        endIcon={<SendIcon />}>
+        disabled={
+          !title.length || title.length >= maxLengthUserMeaasge || disabled
+        }
+        endIcon={<SendIcon />}
+      >
         ADD
       </StyledButtonn>
     </ButtonGroup>

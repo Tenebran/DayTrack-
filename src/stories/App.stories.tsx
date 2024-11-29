@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { App } from '../app/App';
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { darkTheme, whiteTheme } from './storiesTheme';
-import { ReduxStoreProviderDecorator } from '../state/ReduxStoreProviderDecorator';
+import type { Meta, StoryObj } from "@storybook/react";
+import { App } from "../app/App";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { darkTheme, whiteTheme } from "./storiesTheme";
+import { ReduxStoreProviderDecorator } from "../state/ReduxStoreProviderDecorator";
 
 const meta: Meta<typeof App> = {
-  title: 'TodoLists/App',
+  title: "TodoLists/App",
   component: App,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 
   decorators: [ReduxStoreProviderDecorator],
 };
@@ -29,7 +29,7 @@ export const AppStorie: Story = {
 };
 export const AppDarkThemeStorie: Story = {
   parameters: {
-    backgrounds: { default: 'dark' },
+    backgrounds: { default: "dark" },
   },
   render: () => (
     <>

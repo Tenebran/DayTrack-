@@ -22,7 +22,10 @@
     "passwordInput": "Ingresa tu contraseña",
     "error": {
       "email": "Por favor, ingresa una dirección de correo válida.",
-      "password": "Se requiere contraseña."
-    }
+      "password": "Se requiere contraseña.",
+      "emailReq": "Por favor, introduce tu correo electrónico.",
+      "passwordReq": "Por favor, introduce tu contraseña."
+    },
+    "logout": "CERRAR SESIÓN"
   }
 }
