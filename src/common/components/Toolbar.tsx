@@ -95,12 +95,7 @@ export const Toolbar = () => {
             <StyledLogo src={logo} />
           </Link>
         </Typography>
-        <MaterialUISwitch
-          sx={{ m: 1 }}
-          defaultChecked
-          checked={isDarkMode}
-          onChange={toggleTheme}
-        />
+        <MaterialUISwitch sx={{ m: 1 }} checked={isDarkMode} onChange={toggleTheme} />
         {isLoggedIn && (
           <Button color="inherit" onClick={logOut}>
             Log out
