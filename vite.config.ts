@@ -5,7 +5,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import path from 'path';
 import viteEnvCompatible from 'vite-plugin-env-compatible';
 
-export default defineConfig({
+export default defineConfig(({mode}) => ({
   plugins: [
     react(),
     svgr(),
@@ -15,6 +15,7 @@ export default defineConfig({
       symbolId: 'icon-[name]',
     }),
   ],
+  base:  mode === 'production' ? '/DayTrack-/' : '/',
   define: {
     'process.env': process.env,
   },
@@ -27,4 +28,4 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
-});
+}));

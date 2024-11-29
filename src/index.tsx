@@ -11,7 +11,7 @@ import { CustomThemeProvider } from './common/context/ThemeContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <BrowserRouter basename={'/'}>
+  <BrowserRouter basename={process.env.NODE_ENV === 'production' ? '/DayTrack-/' : '/'}>
     <Provider store={store}>
       <CustomThemeProvider>
         <CssBaseline />

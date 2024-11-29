@@ -67,7 +67,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
     "test": "jest --watchAll=false",
     "storybook": "storybook dev -p 9009",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "generate:translations": "node generateTranslations.js"
   },
   "eslintConfig": {
     "extends": [

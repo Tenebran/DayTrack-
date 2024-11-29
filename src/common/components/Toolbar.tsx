@@ -99,7 +99,6 @@ export const Toolbar = () => {
         {isLoggedIn && (
           <Button color="inherit" onClick={logOut}>
             Log out
-            {t('welcome')}
           </Button>
         )}
       </MuiToolbar>
