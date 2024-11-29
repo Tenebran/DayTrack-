@@ -1,4 +1,28 @@
 {
-  "welcome": "",
-  "description": ""
+  "todolist": {
+    "placeholder": "Voer een titel in voor je takenlijst...",
+    "error": {
+      "placeholderEmpty": "De titel mag niet leeg zijn.",
+      "placeholderTitleTooLong": "De titel is te lang. Houd het onder de 100 tekens."
+    }
+  },
+  "task": {
+    "placeholder": "Voer een taak in...",
+    "error": {
+      "placeholderEmpty": "De taak mag niet leeg zijn.",
+      "placeholderTitleTooLong": "De taakbeschrijving is te lang. Houd het kort."
+    }
+  },
+  "login": {
+    "rememberME": "Onthoud mij",
+    "loginButton": "INLOGGEN",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "emailInput": "Voer je e-mailadres in",
+    "passwordInput": "Voer je wachtwoord in",
+    "error": {
+      "email": "Voer een geldig e-mailadres in.",
+      "password": "Wachtwoord is verplicht."
+    }
+  }
 }

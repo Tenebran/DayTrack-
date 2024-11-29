@@ -1,4 +1,28 @@
 {
-  "welcome": "Добро пожаловать в приложение!",
-  "description": "Это пример интеграции i18next."
+  "todolist": {
+    "placeholder": "输入你的待办事项清单标题...",
+    "error": {
+      "placeholderEmpty": "标题不能为空。",
+      "placeholderTitleTooLong": "标题太长了。请将其保持在100个字符以内。"
+    }
+  },
+  "task": {
+    "placeholder": "输入一个任务...",
+    "error": {
+      "placeholderEmpty": "任务不能为空。",
+      "placeholderTitleTooLong": "任务描述太长了。请保持简洁。"
+    }
+  },
+  "login": {
+    "rememberME": "记住我",
+    "loginButton": "登录",
+    "email": "邮箱",
+    "password": "密码",
+    "emailInput": "输入你的邮箱地址",
+    "passwordInput": "输入你的密码",
+    "error": {
+      "email": "请输入有效的邮箱地址。",
+      "password": "密码是必需的。"
+    }
+  }
 }

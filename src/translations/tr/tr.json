@@ -1,4 +1,28 @@
 {
-  "welcome": "",
-  "description": ""
+  "todolist": {
+    "placeholder": "Yapılacaklar listeniz için bir başlık girin...",
+    "error": {
+      "placeholderEmpty": "Başlık boş bırakılamaz.",
+      "placeholderTitleTooLong": "Başlık çok uzun. Lütfen 100 karakterin altında tutun."
+    }
+  },
+  "task": {
+    "placeholder": "Bir görev girin...",
+    "error": {
+      "placeholderEmpty": "Görev boş bırakılamaz.",
+      "placeholderTitleTooLong": "Görev açıklaması çok uzun. Lütfen kısa tutun."
+    }
+  },
+  "login": {
+    "rememberME": "Beni hatırla",
+    "loginButton": "GİRİŞ YAP",
+    "email": "E-posta",
+    "password": "Şifre",
+    "emailInput": "E-posta adresinizi girin",
+    "passwordInput": "Şifrenizi girin",
+    "error": {
+      "email": "Lütfen geçerli bir e-posta adresi girin.",
+      "password": "Şifre gereklidir."
+    }
+  }
 }

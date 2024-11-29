@@ -1,4 +1,28 @@
 {
-  "welcome": "",
-  "description": ""
+  "todolist": {
+    "placeholder": "To-Doリストのタイトルを入力してください...",
+    "error": {
+      "placeholderEmpty": "タイトルを空白にすることはできません。",
+      "placeholderTitleTooLong": "タイトルが長すぎます。100文字未満にしてください。"
+    }
+  },
+  "task": {
+    "placeholder": "タスクを入力してください...",
+    "error": {
+      "placeholderEmpty": "タスクを空白にすることはできません。",
+      "placeholderTitleTooLong": "タスクの説明が長すぎます。簡潔にしてください。"
+    }
+  },
+  "login": {
+    "rememberME": "ログイン情報を記憶する",
+    "loginButton": "ログイン",
+    "email": "メール",
+    "password": "パスワード",
+    "emailInput": "メールアドレスを入力してください",
+    "passwordInput": "パスワードを入力してください",
+    "error": {
+      "email": "有効なメールアドレスを入力してください。",
+      "password": "パスワードは必須です。"
+    }
+  }
 }

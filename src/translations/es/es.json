@@ -1,0 +1,28 @@
+{
+  "todolist": {
+    "placeholder": "Ingresa un título para tu lista de tareas...",
+    "error": {
+      "placeholderEmpty": "El título no puede estar vacío.",
+      "placeholderTitleTooLong": "El título es demasiado largo. Por favor, mantenlo bajo 100 caracteres."
+    }
+  },
+  "task": {
+    "placeholder": "Ingresa una tarea...",
+    "error": {
+      "placeholderEmpty": "La tarea no puede estar vacía.",
+      "placeholderTitleTooLong": "La descripción de la tarea es demasiado larga. Por favor, sé breve."
+    }
+  },
+  "login": {
+    "rememberME": "Recuérdame",
+    "loginButton": "INICIAR SESIÓN",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "emailInput": "Ingresa tu dirección de correo electrónico",
+    "passwordInput": "Ingresa tu contraseña",
+    "error": {
+      "email": "Por favor, ingresa una dirección de correo válida.",
+      "password": "Se requiere contraseña."
+    }
+  }
+}

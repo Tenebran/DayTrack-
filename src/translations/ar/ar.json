@@ -1,4 +1,28 @@
 {
-  "welcome": "",
-  "description": ""
+  "todolist": {
+    "placeholder": "أدخل عنوانًا لقائمة المهام الخاصة بك...",
+    "error": {
+      "placeholderEmpty": "لا يمكن أن يكون العنوان فارغًا.",
+      "placeholderTitleTooLong": "العنوان طويل جدًا. يرجى إبقائه أقل من 100 حرف."
+    }
+  },
+  "task": {
+    "placeholder": "أدخل مهمة..",
+    "error": {
+      "placeholderEmpty": "لا يمكن أن تكون المهمة فارغة.",
+      "placeholderTitleTooLong": "وصف المهمة طويل جدًا. يرجى التلخيص."
+    }
+  },
+  "login": {
+    "rememberME": "تذكرني",
+    "loginButton": "تسجيل الدخول",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "emailInput": "أدخل عنوان بريدك الإلكتروني",
+    "passwordInput": "أدخل كلمة المرور الخاصة بك",
+    "error": {
+      "email": "يرجى إدخال عنوان بريد إلكتروني صالح.",
+      "password": "كلمة المرور مطلوبة."
+    }
+  }
 }

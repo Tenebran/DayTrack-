@@ -1,4 +1,28 @@
 {
-  "welcome": "",
-  "description": ""
+  "todolist": {
+    "placeholder": "Ange en titel för din att-göra-lista...",
+    "error": {
+      "placeholderEmpty": "Titeln får inte vara tom.",
+      "placeholderTitleTooLong": "Titeln är för lång. Håll den under 100 tecken."
+    }
+  },
+  "task": {
+    "placeholder": "Ange en uppgift...",
+    "error": {
+      "placeholderEmpty": "Uppgiften får inte vara tom.",
+      "placeholderTitleTooLong": "Uppgiftsbeskrivningen är för lång. Håll det kort."
+    }
+  },
+  "login": {
+    "rememberME": "Kom ihåg mig",
+    "loginButton": "LOGGA IN",
+    "email": "E-post",
+    "password": "Lösenord",
+    "emailInput": "Ange din e-postadress",
+    "passwordInput": "Ange ditt lösenord",
+    "error": {
+      "email": "Vänligen ange en giltig e-postadress.",
+      "password": "Lösenord krävs."
+    }
+  }
 }

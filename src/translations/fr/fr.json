@@ -1,4 +1,28 @@
 {
-  "welcome": "",
-  "description": ""
+  "todolist": {
+    "placeholder": "Entrez un titre pour votre liste de tâches...",
+    "error": {
+      "placeholderEmpty": "Le titre ne peut pas être vide.",
+      "placeholderTitleTooLong": "Le titre est trop long. Veuillez le limiter à 100 caractères."
+    }
+  },
+  "task": {
+    "placeholder": "Entrez une tâche...",
+    "error": {
+      "placeholderEmpty": "La tâche ne peut pas être vide.",
+      "placeholderTitleTooLong": "La description de la tâche est trop longue. Veuillez être concis."
+    }
+  },
+  "login": {
+    "rememberME": "Se souvenir de moi",
+    "loginButton": "CONNEXION",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "emailInput": "Entrez votre adresse e-mail",
+    "passwordInput": "Entrez votre mot de passe",
+    "error": {
+      "email": "Veuillez entrer une adresse e-mail valide.",
+      "password": "Mot de passe requis."
+    }
+  }
 }

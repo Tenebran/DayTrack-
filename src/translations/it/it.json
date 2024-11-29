@@ -1,4 +1,28 @@
 {
-  "welcome": "",
-  "description": ""
+  "todolist": {
+    "placeholder": "Inserisci un titolo per la tua lista di cose da fare...",
+    "error": {
+      "placeholderEmpty": "Il titolo non può essere vuoto.",
+      "placeholderTitleTooLong": "Il titolo è troppo lungo. Mantienilo sotto i 100 caratteri."
+    }
+  },
+  "task": {
+    "placeholder": "Inserisci un'attività...",
+    "error": {
+      "placeholderEmpty": "L'attività non può essere vuota.",
+      "placeholderTitleTooLong": "La descrizione dell'attività è troppo lunga. Mantienila concisa."
+    }
+  },
+  "login": {
+    "rememberME": "Ricordami",
+    "loginButton": "ACCEDI",
+    "email": "Email",
+    "password": "Password",
+    "emailInput": "Inserisci il tuo indirizzo email",
+    "passwordInput": "Inserisci la tua password",
+    "error": {
+      "email": "Inserisci un indirizzo email valido.",
+      "password": "La password è richiesta."
+    }
+  }
 }

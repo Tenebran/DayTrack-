@@ -1,4 +1,28 @@
 {
-  "welcome": "",
-  "description": ""
+  "todolist": {
+    "placeholder": "할 일 목록의 제목을 입력하세요...",
+    "error": {
+      "placeholderEmpty": "제목은 비워 둘 수 없습니다.",
+      "placeholderTitleTooLong": "제목이 너무 깁니다. 100자 이내로 유지하세요."
+    }
+  },
+  "task": {
+    "placeholder": "작업을 입력하세요...",
+    "error": {
+      "placeholderEmpty": "작업을 비워 둘 수 없습니다.",
+      "placeholderTitleTooLong": "작업 설명이 너무 깁니다. 간결하게 유지하세요."
+    }
+  },
+  "login": {
+    "rememberME": "로그인 유지",
+    "loginButton": "로그인",
+    "email": "이메일",
+    "password": "비밀번호",
+    "emailInput": "이메일 주소를 입력하세요",
+    "passwordInput": "비밀번호를 입력하세요",
+    "error": {
+      "email": "유효한 이메일 주소를 입력하세요.",
+      "password": "비밀번호는 필수입니다."
+    }
+  }
 }

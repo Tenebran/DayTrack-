@@ -1,4 +1,28 @@
 {
-  "welcome": "Welcome to the app!",
-  "description": "This is an example of i18next integration."
+  "todolist": {
+    "placeholder": "Enter a title for your to-do list...",
+    "error": {
+      "placeholderEmpty": "Title cannot be empty.",
+      "placeholderTitleTooLong": "Title is too long. Please keep it under 100 characters."
+    }
+  },
+  "task": {
+    "placeholder": "Enter a task...",
+    "error": {
+      "placeholderEmpty": "Task cannot be empty.",
+      "placeholderTitleTooLong": "Task description is too long. Please keep it concise."
+    }
+  },
+  "login": {
+    "rememberME": "Remember me",
+    "loginButton": "LOGIN",
+    "email": "Email",
+    "password": "Password",
+    "emailInput": "Enter your email address",
+    "passwordInput": "Enter your password",
+    "error": {
+      "email": "Please enter a valid email address.",
+      "password": "Password is required."
+    }
+  }
 }

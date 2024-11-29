@@ -1,4 +1,28 @@
 {
-  "welcome": "",
-  "description": ""
+  "todolist": {
+    "placeholder": "Geben Sie einen Titel für Ihre To-Do-Liste ein...",
+    "error": {
+      "placeholderEmpty": "Der Titel darf nicht leer sein.",
+      "placeholderTitleTooLong": "Der Titel ist zu lang. Bitte halten Sie ihn unter 100 Zeichen."
+    }
+  },
+  "task": {
+    "placeholder": "Geben Sie eine Aufgabe ein...",
+    "error": {
+      "placeholderEmpty": "Die Aufgabe darf nicht leer sein.",
+      "placeholderTitleTooLong": "Die Aufgabenbeschreibung ist zu lang. Bitte fassen Sie sich kurz."
+    }
+  },
+  "login": {
+    "rememberME": "Merken Sie sich mich",
+    "loginButton": "ANMELDEN",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "emailInput": "Geben Sie Ihre E-Mail-Adresse ein",
+    "passwordInput": "Geben Sie Ihr Passwort ein",
+    "error": {
+      "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "password": "Passwort wird benötigt."
+    }
+  }
 }
