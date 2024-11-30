@@ -6,7 +6,14 @@ import Typography from "@mui/material/Typography";
 import { useThemeContext } from "../../common/context/ThemeContext";
 import { useAppSelector } from "../../common/hooks/useAppSelector";
 import { authThunks } from "../../features/auth/auth-reducer";
-import { Box, Button, IconButton, MenuItem, Toolbar as MuiToolbar, Select } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  MenuItem,
+  Toolbar as MuiToolbar,
+  Select,
+} from "@mui/material";
 import logo from "../img/logo.svg";
 import { useAppDispatch } from "../../common/hooks/useAppDispatch";
 import { Link } from "react-router-dom";
@@ -82,9 +89,8 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 export const Toolbar = () => {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const dispatch = useAppDispatch();
-  const { t, i18n  } = useTranslation();
+  const { t, i18n } = useTranslation();
 
- 
   const logOut = () => {
     dispatch(authThunks.logOut());
   };
@@ -92,7 +98,7 @@ export const Toolbar = () => {
   const isDarkMode = theme.palette.mode === "dark";
 
   return (
-    <AppBar position="fixed" >
+    <AppBar position="fixed">
       <MuiToolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <Link to="/" style={{ display: "inline-block" }}>

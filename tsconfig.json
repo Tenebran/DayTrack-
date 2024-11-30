@@ -17,7 +17,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "./src",
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+    "types": ["node", "jest"]
   },
   "typeRoots": ["node_modules/@types", "src"],
   "include": [
@@ -26,6 +27,7 @@
     "src/test/tasks-todolist-reducer.test.ts",
     "test/setupTests.ts",
     "env.d.ts",
-    "react-i18next.d.ts"
+    "react-i18next.d.ts",
+    "jest.config.ts"
   ]
 }

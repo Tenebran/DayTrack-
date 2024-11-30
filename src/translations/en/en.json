@@ -5,7 +5,7 @@
       "placeholderEmpty": "Title cannot be empty.",
       "placeholderTitleTooLong": "Title is too long. Please keep it under 100 characters."
     },
-    "filter":{
+    "filter": {
       "all": "All",
       "active": "Active",
       "completed": "Completed"
@@ -50,5 +50,4 @@
     "chinese": "🇨🇳 中文",
     "arabic": "🇦🇪 العربية"
   }
-
 }

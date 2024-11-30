@@ -36,6 +36,7 @@
     "@storybook/test": "^8.4.5",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -67,7 +68,9 @@
     "test": "jest --watchAll=false",
     "storybook": "storybook dev -p 9009",
     "build-storybook": "storybook build",
-    "generate:translations": "node generateTranslations.js"
+    "generate:translations": "node generateTranslations.js",
+    "format": "prettier --write .",
+    "format-check": "prettier --check ."
   },
   "eslintConfig": {
     "extends": [

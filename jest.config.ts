@@ -1,9 +1,11 @@
-module.exports = {
+import { Config } from "jest";
+
+const config: Config = {
   preset: "ts-jest",
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/src/test/setupTests.ts"],
   transform: {
-    "^.+\\.(ts|tsx|js|jsx)$": "ts-jest",
+    "^.+\\.(ts|tsx|js|jsx)$": ["ts-jest", { tsconfig: "tsconfig.json" }],
   },
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
@@ -13,12 +15,6 @@ module.exports = {
   },
   transformIgnorePatterns: ["node_modules/(?!axios)"],
   testPathIgnorePatterns: ["<rootDir>/integration"],
-  globals: {
-    "ts-jest": {
-      tsconfig: {
-        target: "esnext",
-        module: "esnext",
-      },
-    },
-  },
 };
+
+export default config;

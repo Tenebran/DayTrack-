@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 const StyledButton = styled(Button)({
   margin: "0 2px",
   fontSize: "10px",
-  height: "30px"
+  height: "30px",
 });
 
 const ButtonGroupWrapper = styled("div")({
@@ -100,7 +100,7 @@ export const TodoListItem = ({ todoList }: TodoListItemProps): JSX.Element => {
                 changeFilter(filter as KeyTypeTodolist, todoList.id)
               }
             >
-              { t(`todolist.filter.${filter.charAt(0) +  filter.slice(1)}`)}
+              {t(`todolist.filter.${filter.charAt(0) + filter.slice(1)}`)}
             </StyledButton>
           ))}
         </ButtonGroup>
