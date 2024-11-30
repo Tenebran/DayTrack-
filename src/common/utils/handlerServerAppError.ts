@@ -18,7 +18,7 @@ import { AppDispatchType } from "app/store";
 export const handlerServerAppError = <D>(
   dispatch: AppDispatchType,
   data: ResponseType<D>,
-  showError: boolean = true,
+  showError = true,
 ) => {
   if (showError) {
     dispatch(

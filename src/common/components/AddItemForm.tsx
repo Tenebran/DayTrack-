@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import { Button, ButtonGroup, styled, TextField } from "@mui/material";
 import { useTranslation } from "react-i18next";

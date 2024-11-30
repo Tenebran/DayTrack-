@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import { styled } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
@@ -6,14 +6,7 @@ import Typography from "@mui/material/Typography";
 import { useThemeContext } from "../../common/context/ThemeContext";
 import { useAppSelector } from "../../common/hooks/useAppSelector";
 import { authThunks } from "../../features/auth/auth-reducer";
-import {
-  Box,
-  Button,
-  IconButton,
-  MenuItem,
-  Toolbar as MuiToolbar,
-  Select,
-} from "@mui/material";
+import { Button, Toolbar as MuiToolbar } from "@mui/material";
 import logo from "../img/logo.svg";
 import { useAppDispatch } from "../../common/hooks/useAppDispatch";
 import { Link } from "react-router-dom";
@@ -89,7 +82,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 export const Toolbar = () => {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const dispatch = useAppDispatch();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const logOut = () => {
     dispatch(authThunks.logOut());

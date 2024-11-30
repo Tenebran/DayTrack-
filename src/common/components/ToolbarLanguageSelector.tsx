@@ -120,16 +120,6 @@ export const ToolbarLanguageSelector = () => {
     },
   ];
 
-  const handleChange = (event: React.ChangeEvent<{ value: string }>) => {
-    setLanguage(event.target.value);
-  };
-
-  // useEffect(() => {
-  //   i18n.changeLanguage(language);
-  // }, [language])
-
-  console.log(language);
-
   const changeLanguage = (lang: string) => {
     localStorage.setItem("lang", lang);
     setLanguage(lang);
