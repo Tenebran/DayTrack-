@@ -53,6 +53,7 @@
     "prettier": "^3.4.1",
     "storybook": "^8.4.5",
     "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
     "vite": "^5.4.11",
     "vite-plugin-env-compatible": "^2.0.1",
