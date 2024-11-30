@@ -4,6 +4,11 @@
     "error": {
       "placeholderEmpty": "タイトルを空白にすることはできません。",
       "placeholderTitleTooLong": "タイトルが長すぎます。100文字未満にしてください。"
+    },
+    "filter": {
+      "all": "すべて",
+      "active": "アクティブ",
+      "completed": "完了"
     }
   },
   "task": {

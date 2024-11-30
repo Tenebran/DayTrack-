@@ -4,6 +4,11 @@
     "error": {
       "placeholderEmpty": "De titel mag niet leeg zijn.",
       "placeholderTitleTooLong": "De titel is te lang. Houd het onder de 100 tekens."
+    },
+    "filter": {
+      "all": "Alle",
+      "active": "Actief",
+      "completed": "Voltooid"
     }
   },
   "task": {

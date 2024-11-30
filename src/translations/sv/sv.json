@@ -4,6 +4,11 @@
     "error": {
       "placeholderEmpty": "Titeln får inte vara tom.",
       "placeholderTitleTooLong": "Titeln är för lång. Håll den under 100 tecken."
+    },
+    "filter": {
+      "all": "Alla",
+      "active": "Aktiva",
+      "completed": "Avslutade"
     }
   },
   "task": {

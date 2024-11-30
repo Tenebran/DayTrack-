@@ -4,6 +4,11 @@
     "error": {
       "placeholderEmpty": "Başlık boş bırakılamaz.",
       "placeholderTitleTooLong": "Başlık çok uzun. Lütfen 100 karakterin altında tutun."
+    },
+    "filter": {
+      "all": "Tümü",
+      "active": "Aktif",
+      "completed": "Tamamlanan"
     }
   },
   "task": {

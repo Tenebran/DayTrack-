@@ -4,6 +4,11 @@
     "error": {
       "placeholderEmpty": "Title cannot be empty.",
       "placeholderTitleTooLong": "Title is too long. Please keep it under 100 characters."
+    },
+    "filter":{
+      "all": "All",
+      "active": "Active",
+      "completed": "Completed"
     }
   },
   "task": {
@@ -30,7 +35,7 @@
   },
   "languageSelector": {
     "english": "🇬🇧 English",
-    "russian": "🇷🇺 Русский",
+    "russian": "🇷🇺 Russian",
     "german": "🇩🇪 Deutsch",
     "spanish": "🇪🇸 Español",
     "french": "🇫🇷 Français",
@@ -45,4 +50,5 @@
     "chinese": "🇨🇳 中文",
     "arabic": "🇦🇪 العربية"
   }
+
 }

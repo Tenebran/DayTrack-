@@ -4,6 +4,11 @@
     "error": {
       "placeholderEmpty": "لا يمكن أن يكون العنوان فارغًا.",
       "placeholderTitleTooLong": "العنوان طويل جدًا. يرجى إبقائه أقل من 100 حرف."
+    },
+    "filter": {
+      "all": "الكل",
+      "active": "نشط",
+      "completed": "مكتمل"
     }
   },
   "task": {

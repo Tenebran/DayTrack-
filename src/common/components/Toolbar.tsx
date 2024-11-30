@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import { styled } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
@@ -6,20 +6,13 @@ import Typography from "@mui/material/Typography";
 import { useThemeContext } from "../../common/context/ThemeContext";
 import { useAppSelector } from "../../common/hooks/useAppSelector";
 import { authThunks } from "../../features/auth/auth-reducer";
-import {
-  Box,
-  Button,
-  IconButton,
-  MenuItem,
-  Toolbar as MuiToolbar,
-  Select,
-} from "@mui/material";
+import { Box, Button, IconButton, MenuItem, Toolbar as MuiToolbar, Select } from "@mui/material";
 import logo from "../img/logo.svg";
 import { useAppDispatch } from "../../common/hooks/useAppDispatch";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import RuFlag from "../img/flag-ru.svg?react";
-import EnFlag from "../img/flag-de.svg?react";
+import { ToolbarLanguageSelector } from "./ToolbarLanguageSelector";
+
 // import  EnFlag  from "../img/flag-de.svg?component";
 // import { ReactComponent as RuFlag } from "../img/flag-ru.svg?component";
 const StyledLogo = styled("img")({
@@ -89,18 +82,9 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 export const Toolbar = () => {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const dispatch = useAppDispatch();
-  const { t, i18n } = useTranslation();
+  const { t, i18n  } = useTranslation();
 
-  const [language, setLanguage] = useState("en");
-
-  const handleChange = (event: React.ChangeEvent<{ value: string }>) => {
-    setLanguage(event.target.value);
-  };
-
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang);
-  };
-
+ 
   const logOut = () => {
     dispatch(authThunks.logOut());
   };
@@ -108,7 +92,7 @@ export const Toolbar = () => {
   const isDarkMode = theme.palette.mode === "dark";
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" >
       <MuiToolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           <Link to="/" style={{ display: "inline-block" }}>
@@ -125,31 +109,7 @@ export const Toolbar = () => {
             {t("login.logout")}
           </Button>
         )}
-        <Select
-          value={language}
-          onChange={handleChange}
-          displayEmpty
-          renderValue={(selected) => (
-            <Box display="flex" alignItems="center" gap={1}>
-              {selected === "en" && <EnFlag width={20} height={20} />}
-              {selected === "ru" && <RuFlag width={20} height={20} />}
-              <span>{selected.toUpperCase()}</span>
-            </Box>
-          )}
-        >
-          <MenuItem value="en">
-            <Box display="flex" alignItems="center" gap={1}>
-              <EnFlag width={20} height={20} />
-              English
-            </Box>
-          </MenuItem>
-          <MenuItem value="ru">
-            <Box display="flex" alignItems="center" gap={1}>
-              <RuFlag width={20} height={20} />
-              Русский
-            </Box>
-          </MenuItem>
-        </Select>
+        <ToolbarLanguageSelector />
       </MuiToolbar>
     </AppBar>
   );

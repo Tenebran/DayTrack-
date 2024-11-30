@@ -15,9 +15,12 @@ import { Task } from "./Task/Task";
 import { taskThunks } from "../../features/tasks/tasks-reducer";
 import { useAppDispatch } from "../../common/hooks/useAppDispatch";
 import { useAppSelector } from "../../common/hooks/useAppSelector";
+import { useTranslation } from "react-i18next";
 
 const StyledButton = styled(Button)({
   margin: "0 2px",
+  fontSize: "10px",
+  height: "30px"
 });
 
 const ButtonGroupWrapper = styled("div")({
@@ -31,6 +34,7 @@ type TodoListItemProps = {
 export const TodoListItem = ({ todoList }: TodoListItemProps): JSX.Element => {
   const tasks = useAppSelector((state) => state.tasks[todoList.id]);
   const filterButtonGroup: KeyTypeTodolist[] = ["all", "active", "completed"];
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   let filteredTask = tasks;
 
@@ -96,7 +100,7 @@ export const TodoListItem = ({ todoList }: TodoListItemProps): JSX.Element => {
                 changeFilter(filter as KeyTypeTodolist, todoList.id)
               }
             >
-              {filter.charAt(0).toUpperCase() + filter.slice(1)}
+              { t(`todolist.filter.${filter.charAt(0) +  filter.slice(1)}`)}
             </StyledButton>
           ))}
         </ButtonGroup>

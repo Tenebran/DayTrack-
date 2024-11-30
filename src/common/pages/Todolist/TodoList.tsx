@@ -14,7 +14,7 @@ import { useAppDispatch } from "../../../common/hooks/useAppDispatch";
 const StyledPaper = styled(Paper)({
   padding: "16px",
   marginBottom: "16px",
-  maxWidth: "312px",
+  width: "312px",
 });
 
 const StyledGridInput = styled(Grid2)({

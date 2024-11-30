@@ -4,6 +4,11 @@
     "error": {
       "placeholderEmpty": "제목은 비워 둘 수 없습니다.",
       "placeholderTitleTooLong": "제목이 너무 깁니다. 100자 이내로 유지하세요."
+    },
+    "filter": {
+      "all": "모두",
+      "active": "활성",
+      "completed": "완료됨"
     }
   },
   "task": {

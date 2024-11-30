@@ -4,6 +4,11 @@
     "error": {
       "placeholderEmpty": "Tytuł nie może być pusty.",
       "placeholderTitleTooLong": "Tytuł jest zbyt długi. Utrzymaj go poniżej 100 znaków."
+    },
+    "filter": {
+      "all": "Wszystkie",
+      "active": "Aktywne",
+      "completed": "Zakończone"
     }
   },
   "task": {

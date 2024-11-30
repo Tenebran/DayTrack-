@@ -4,6 +4,11 @@
     "error": {
       "placeholderEmpty": "标题不能为空。",
       "placeholderTitleTooLong": "标题太长了。请将其保持在100个字符以内。"
+    },
+    "filter": {
+      "all": "全部",
+      "active": "活跃",
+      "completed": "已完成"
     }
   },
   "task": {

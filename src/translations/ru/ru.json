@@ -4,6 +4,11 @@
     "error": {
       "placeholderEmpty": "Название не может быть пустым.",
       "placeholderTitleTooLong": "Название слишком длинное. Сократите до 100 символов."
+    },
+    "filter": {
+      "all": "Все",
+      "active": "Активные",
+      "completed": "Завершенные"
     }
   },
   "task": {
