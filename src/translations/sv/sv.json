@@ -27,5 +27,22 @@
       "passwordReq": "Ange ditt lösenord."
     },
     "logout": "LOGGA UT"
+  },
+  "languageSelector": {
+    "english": "🇬🇧 Engelska",
+    "russian": "🇷🇺 Ryska",
+    "german": "🇩🇪 Tyska",
+    "spanish": "🇪🇸 Spanska",
+    "french": "🇫🇷 Franska",
+    "italian": "🇮🇹 Italienska",
+    "japanese": "🇯🇵 Japanska",
+    "korean": "🇰🇷 Koreanska",
+    "dutch": "🇳🇱 Holländska",
+    "polish": "🇵🇱 Polska",
+    "portuguese": "🇵🇹 Portugisiska",
+    "swedish": "🇸🇪 Svenska",
+    "turkish": "🇹🇷 Turkiska",
+    "chinese": "🇨🇳 Kinesiska",
+    "arabic": "🇦🇪 Arabiska"
   }
 }

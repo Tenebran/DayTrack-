@@ -27,5 +27,22 @@
       "passwordReq": "Lütfen şifrenizi girin."
     },
     "logout": "ÇIKIŞ YAP"
+  },
+  "languageSelector": {
+    "english": "🇬🇧 İngilizce",
+    "russian": "🇷🇺 Rusça",
+    "german": "🇩🇪 Almanca",
+    "spanish": "🇪🇸 İspanyolca",
+    "french": "🇫🇷 Fransızca",
+    "italian": "🇮🇹 İtalyanca",
+    "japanese": "🇯🇵 Japonca",
+    "korean": "🇰🇷 Korece",
+    "dutch": "🇳🇱 Hollandaca",
+    "polish": "🇵🇱 Lehçe",
+    "portuguese": "🇵🇹 Portekizce",
+    "swedish": "🇸🇪 İsveççe",
+    "turkish": "🇹🇷 Türkçe",
+    "chinese": "🇨🇳 Çince",
+    "arabic": "🇦🇪 Arapça"
   }
 }

@@ -27,5 +27,22 @@
       "passwordReq": "Por favor, introduce tu contraseña."
     },
     "logout": "CERRAR SESIÓN"
+  },
+  "languageSelector": {
+    "english": "🇬🇧 Inglés",
+    "russian": "🇷🇺 Ruso",
+    "german": "🇩🇪 Alemán",
+    "spanish": "🇪🇸 Español",
+    "french": "🇫🇷 Francés",
+    "italian": "🇮🇹 Italiano",
+    "japanese": "🇯🇵 Japonés",
+    "korean": "🇰🇷 Coreano",
+    "dutch": "🇳🇱 Neerlandés",
+    "polish": "🇵🇱 Polaco",
+    "portuguese": "🇵🇹 Portugués",
+    "swedish": "🇸🇪 Sueco",
+    "turkish": "🇹🇷 Turco",
+    "chinese": "🇨🇳 Chino",
+    "arabic": "🇦🇪 Árabe"
   }
 }

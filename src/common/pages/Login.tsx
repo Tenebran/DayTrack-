@@ -63,7 +63,7 @@ export const Login = () => {
                 }
               />
               <Button type={"submit"} variant={"contained"} color={"primary"}>
-              {t("login.loginButton")}
+                {t("login.loginButton")}
               </Button>
             </FormGroup>
           </form>

@@ -27,5 +27,22 @@
       "passwordReq": "Voer uw wachtwoord in."
     },
     "logout": "UITLOGGEN"
+  },
+  "languageSelector": {
+    "english": "🇬🇧 Engels",
+    "russian": "🇷🇺 Russisch",
+    "german": "🇩🇪 Duits",
+    "spanish": "🇪🇸 Spaans",
+    "french": "🇫🇷 Frans",
+    "italian": "🇮🇹 Italiaans",
+    "japanese": "🇯🇵 Japans",
+    "korean": "🇰🇷 Koreaans",
+    "dutch": "🇳🇱 Nederlands",
+    "polish": "🇵🇱 Pools",
+    "portuguese": "🇵🇹 Portugees",
+    "swedish": "🇸🇪 Zweeds",
+    "turkish": "🇹🇷 Turks",
+    "chinese": "🇨🇳 Chinees",
+    "arabic": "🇦🇪 Arabisch"
   }
 }

@@ -27,5 +27,22 @@
       "password": "Password is required.",
       "passwordReq": " Please enter your password."
     }
+  },
+  "languageSelector": {
+    "english": "🇬🇧 English",
+    "russian": "🇷🇺 Русский",
+    "german": "🇩🇪 Deutsch",
+    "spanish": "🇪🇸 Español",
+    "french": "🇫🇷 Français",
+    "italian": "🇮🇹 Italiano",
+    "japanese": "🇯🇵 日本語",
+    "korean": "🇰🇷 한국어",
+    "dutch": "🇳🇱 Nederlands",
+    "polish": "🇵🇱 Polski",
+    "portuguese": "🇵🇹 Português",
+    "swedish": "🇸🇪 Svenska",
+    "turkish": "🇹🇷 Türkçe",
+    "chinese": "🇨🇳 中文",
+    "arabic": "🇦🇪 العربية"
   }
 }

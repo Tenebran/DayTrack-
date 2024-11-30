@@ -10,7 +10,7 @@ type FormikErrorType = Partial<Omit<LoginData, "rememberMe">>;
 export const useLogin = () => {
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {

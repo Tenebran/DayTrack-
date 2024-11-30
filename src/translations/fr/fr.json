@@ -27,5 +27,22 @@
       "passwordReq": "Veuillez entrer votre mot de passe."
     },
     "logout": "SE DÉCONNECTER"
+  },
+  "languageSelector": {
+    "english": "🇬🇧 Anglais",
+    "russian": "🇷🇺 Russe",
+    "german": "🇩🇪 Allemand",
+    "spanish": "🇪🇸 Espagnol",
+    "french": "🇫🇷 Français",
+    "italian": "🇮🇹 Italien",
+    "japanese": "🇯🇵 Japonais",
+    "korean": "🇰🇷 Coréen",
+    "dutch": "🇳🇱 Néerlandais",
+    "polish": "🇵🇱 Polonais",
+    "portuguese": "🇵🇹 Portugais",
+    "swedish": "🇸🇪 Suédois",
+    "turkish": "🇹🇷 Turc",
+    "chinese": "🇨🇳 Chinois",
+    "arabic": "🇦🇪 Arabe"
   }
 }
