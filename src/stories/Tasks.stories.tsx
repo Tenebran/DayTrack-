@@ -1,20 +1,19 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Provider } from "react-redux";
-import { store } from "../app/store";
-import { Task, TaskPropsType } from "../common/components/Task/Task";
-import { action } from "@storybook/addon-actions";
-import { useState } from "react";
-import { ThemeProvider } from "@emotion/react";
-import { darkTheme } from "./storiesTheme";
-import { CssBaseline } from "@mui/material";
+import type { Meta, StoryObj } from '@storybook/react';
+import { Provider } from 'react-redux';
+import { store } from '../app/store';
+import { Task, TaskPropsType } from '../common/components/Task/Task';
+import { useState } from 'react';
+import { ThemeProvider } from '@emotion/react';
+import { darkTheme } from './storiesTheme';
+import { CssBaseline } from '@mui/material';
 
 const meta: Meta<typeof Task> = {
-  title: "TodoLists/Task",
+  title: 'TodoLists/Task',
   component: Task,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {},
   args: {},
 };
@@ -25,10 +24,10 @@ type Story = StoryObj<TaskPropsType>;
 
 export const TaskStorie = () => {
   const [task, setTask] = useState({
-    id: "6",
+    id: '6',
     status: 0,
-    title: "REACT TEST TASK",
-    todoListId: "todoListId",
+    title: 'REACT TEST TASK',
+    todoListId: 'todoListId',
   });
 
   const changeTaskTitleHandler = (title: string) => {
@@ -39,7 +38,11 @@ export const TaskStorie = () => {
     setTask({ ...task, status: task.status === 2 ? 0 : 2 });
   };
 
-  return <Task task={task} todolistID="todoListId" />;
+  return (
+    <Provider store={store}>
+      <Task task={task} todolistID="todoListId" />
+    </Provider>
+  );
 };
 
 export const TasksIsNotDoneStorie: Story = {
@@ -50,18 +53,18 @@ export const TasksIsNotDoneStorie: Story = {
   ),
   args: {
     task: {
-      id: "6",
+      id: '6',
       status: 0,
-      title: "REACT IS NOT DONE",
+      title: 'REACT IS NOT DONE',
       deadline: null,
-      todoListId: "todoListId2",
+      todoListId: 'todoListId2',
     },
   },
 };
 
 export const TasksIsNotDoneDarkThemeStorie: Story = {
   parameters: {
-    backgrounds: { default: "dark" },
+    backgrounds: { default: 'dark' },
   },
   render: (args: TaskPropsType) => (
     <ThemeProvider theme={darkTheme}>
@@ -73,10 +76,10 @@ export const TasksIsNotDoneDarkThemeStorie: Story = {
   ),
   args: {
     task: {
-      id: "6",
+      id: '6',
       status: 0,
-      title: "REACT IS NOT DONE",
-      todoListId: "todoListId3",
+      title: 'REACT IS NOT DONE',
+      todoListId: 'todoListId3',
     },
   },
 };
@@ -89,17 +92,17 @@ export const TasksIsDoneStorie: Story = {
   ),
   args: {
     task: {
-      id: "5",
+      id: '5',
       status: 2,
-      title: "REACT IS DONE",
-      todoListId: "todoListId",
+      title: 'REACT IS DONE',
+      todoListId: 'todoListId',
     },
   },
 };
 
 export const TasksIsDoneDarkThemeStorie: Story = {
   parameters: {
-    backgrounds: { default: "dark" },
+    backgrounds: { default: 'dark' },
   },
 
   render: (args: TaskPropsType) => (
@@ -112,10 +115,10 @@ export const TasksIsDoneDarkThemeStorie: Story = {
   ),
   args: {
     task: {
-      id: "5",
+      id: '5',
       status: 0,
-      title: "REACT IS DONE",
-      todoListId: "todoListId",
+      title: 'REACT IS DONE',
+      todoListId: 'todoListId',
     },
   },
 };

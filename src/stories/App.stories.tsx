@@ -1,16 +1,21 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { App } from "../app/App";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { darkTheme, whiteTheme } from "./storiesTheme";
-import { ReduxStoreProviderDecorator } from "../state/ReduxStoreProviderDecorator";
+import type { Meta, StoryObj } from '@storybook/react';
+import { App } from '../app/App';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { darkTheme } from './storiesTheme';
+import { ReduxStoreProviderDecorator } from '../state/ReduxStoreProviderDecorator';
+import { Provider } from 'react-redux';
+import { store } from '../app/store';
+import { BrowserRouter } from 'react-router-dom';
+import { CustomThemeProvider } from '../common/context/ThemeContext';
+import '../translations/i18n';
 
 const meta: Meta<typeof App> = {
-  title: "TodoLists/App",
+  title: 'TodoLists/App',
   component: App,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 
   decorators: [ReduxStoreProviderDecorator],
 };
@@ -21,33 +26,43 @@ type Story = StoryObj<typeof App>;
 
 export const AppStorie: Story = {
   render: () => (
-    <>
-      <CssBaseline />
-      <App />
-    </>
+    <BrowserRouter basename={'/'}>
+      <CustomThemeProvider>
+        <Provider store={store}>
+          <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+            <App />
+          </ThemeProvider>
+        </Provider>
+      </CustomThemeProvider>
+    </BrowserRouter>
   ),
 };
 export const AppDarkThemeStorie: Story = {
   parameters: {
-    backgrounds: { default: "dark" },
+    backgrounds: { default: 'dark' },
   },
   render: () => (
-    <>
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </>
+    <BrowserRouter basename={'/'}>
+      <Provider store={store}>
+        <CustomThemeProvider>
+          <CssBaseline />
+          <App />
+        </CustomThemeProvider>
+      </Provider>
+    </BrowserRouter>
   ),
 };
 
 export const AppWhiteThemeStorie: Story = {
   render: () => (
-    <>
-      <ThemeProvider theme={whiteTheme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </>
+    <BrowserRouter basename={'/'}>
+      <Provider store={store}>
+        <CustomThemeProvider>
+          <CssBaseline />
+          <App />
+        </CustomThemeProvider>
+      </Provider>
+    </BrowserRouter>
   ),
 };
