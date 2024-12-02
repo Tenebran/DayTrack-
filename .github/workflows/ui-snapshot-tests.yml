@@ -3,10 +3,10 @@ name: UI Snapshot Tests
 on:
   push:
     branches:
-      - "**"
+      - '**'
   pull_request:
     branches:
-      - "**"
+      - '**'
 
 jobs:
   ui-snapshot-test:
@@ -19,13 +19,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "22"
+          node-version: '22'
 
       - name: Install dependencies
         run: npm install
-
-      - name: Build Storybook
-        run: npm run build-storybook
 
       - name: Run Storybook and UI Snapshot Tests
         id: run_tests
