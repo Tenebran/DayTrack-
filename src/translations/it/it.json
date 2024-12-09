@@ -4,6 +4,11 @@
     "error": {
       "placeholderEmpty": "Il titolo non può essere vuoto.",
       "placeholderTitleTooLong": "Il titolo è troppo lungo. Mantienilo sotto i 100 caratteri."
+    },
+    "filter": {
+      "all": "Tutti",
+      "active": "Attivi",
+      "completed": "Completati"
     }
   },
   "task": {

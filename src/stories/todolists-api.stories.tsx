@@ -39,7 +39,7 @@ export const DeleteTodolist = () => {
 
 export const UpdateTodolistTitle = () => {
   const [state, setState] = useState<any>(null);
-  useEffect(() => {
+  useEffect(() => {6
     todoListApi
       .updateTodoList("dafff809-dbb3-4582-9cab-4d1390664668", "REACT")
       .then((res) => {
